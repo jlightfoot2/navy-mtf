@@ -1,0 +1,17 @@
+state data:
+user
+-location/zip
+location
+- is favorite
+
+static data
+location (command)
+- address
+- phone #
+- twitter
+- facebook
+- website
+
+hotlines
+- title
+- phone #
