@@ -1,4 +1,5 @@
 import * as React from 'react';
+import CommandHospitalsContainer from '../containers/CommandHospitals';
 
 export interface Props {
 
@@ -14,6 +15,7 @@ export default class Home extends React.Component<Props, State>{
 
     return <div>
       <h2>Welcome</h2>
+      <CommandHospitalsContainer />
     </div>;
   }
 }

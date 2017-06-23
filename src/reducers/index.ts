@@ -1,13 +1,13 @@
-import {normalizedCommands} from '../res/data/commands';
+import {defaultCommands, defaultCommandIds} from '../res/data/commands';
 import {combineReducers} from 'redux';
 //import {arrayPushUnique,arrayRemove} from './_helper';
 
-console.log(normalizedCommands);
-const hospitals = (state = {},action) => {
+
+const hospitals = (state = defaultCommands, action) => {
   return state;
 }
 
-const hospitalIds = (state = [],action) => {
+const hospitalIds = (state = defaultCommandIds, action) => {
   return state;
 }
 

@@ -1,6 +1,13 @@
 import {schema, normalize} from 'normalizr';
-import commandsData from './command-hospitals-data';
-console.log(commandsData);
+import commandsDataRaw from './command-hospitals-data';
+
+const commandsDataWithImages = commandsDataRaw.map(item => { //run images through webpack
+  item.img = require('../images/commands/' + item.img);
+  item.icon = '';//require('../images/commands/icons/' + item.icon);
+  return item;
+});
+
+console.log(commandsDataWithImages);
 console.log('hello world data');
 const commandsSchema = new schema.Entity('commands');
 const commandsArraySchema = new schema.Array(commandsSchema);
@@ -12,12 +19,11 @@ export interface CommandInterface{
   website: string;
   facebook: string;
   address: string;
-  image: string;
+  img: string;
   icon: string;
 }
 
-export const normalizedCommands = normalize(commandsData, commandsArraySchema);
-console.log(normalizedCommands);
+export const normalizedCommands = normalize(commandsDataWithImages, commandsArraySchema);
 export const defaultCommands = normalizedCommands.entities.commands;
 export const defaultCommandIds = normalizedCommands.result;
 
