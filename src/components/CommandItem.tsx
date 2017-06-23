@@ -1,5 +1,8 @@
 import * as React from 'react';
 import {CommandInterface} from '../res/data/commands';
+import Avatar from 'material-ui/Avatar';
+//import {listItemImage} from './commonStyles';
+import {ListItem} from 'material-ui/List';
 
 export interface Props {
   hospital: CommandInterface;
@@ -17,12 +20,8 @@ export default class CommandItem extends React.Component<Props, State>{
   
   render(){
     const {hospital} = this.props;
-    return <div>
-              <h1>{hospital.title}</h1>
 
-              <img src={hospital.img} />
-
-           </div>;
+    return <ListItem leftAvatar={<Avatar src={hospital.icon} />} primaryText={hospital.title} />
   }
 }
 

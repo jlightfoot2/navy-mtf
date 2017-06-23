@@ -3,7 +3,7 @@ import commandsDataRaw from './command-hospitals-data';
 
 const commandsDataWithImages = commandsDataRaw.map(item => { //run images through webpack
   item.img = require('../images/commands/' + item.img);
-  item.icon = '';//require('../images/commands/icons/' + item.icon);
+  item.icon = require('../images/commands/icons/' + item.icon);
   return item;
 });
 
@@ -19,6 +19,8 @@ export interface CommandInterface{
   website: string;
   facebook: string;
   address: string;
+  latitude: number;
+  longitude: number;
   img: string;
   icon: string;
 }
