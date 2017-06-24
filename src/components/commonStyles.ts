@@ -4,5 +4,5 @@ export const listItemImage = {
 }
 
 export const blueBackgroundPage = {
-  backgroundColor: '#1b4583'
+
 }

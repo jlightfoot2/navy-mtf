@@ -32,18 +32,18 @@ export interface Props {
 
 export interface State {
   screen:{width: number, height: number}
+  title: string;
 }
 export default class App extends React.Component<Props, State>{
-  private title: string;
   constructor(props){
     super(props);
     this.state = {
-      screen: this.getScreenDimensions()
+      screen: this.getScreenDimensions(),
+      title: props.title
     }
-    this.title = this.props.title;
   }
   handleTitle = (title: string) => {
-    this.title = title;
+    this.setState({title})
   }
 
   getAppPageObject = ():AppPageInterface => {
@@ -53,9 +53,7 @@ export default class App extends React.Component<Props, State>{
     }
   }
 
-  renderRouteComponent = (Component) => {
-    return () => <Component appPage={this.getAppPageObject()} />;
-  }
+
 
   componentDidMount(){
     console.log('componentDidMount');
@@ -105,14 +103,17 @@ export default class App extends React.Component<Props, State>{
       
     }
   }
-
+  renderRouteComponent = (Component) => {
+    return () => <Component appPage={this.getAppPageObject()} />;
+  }
+  
   render(){
     return <MuiThemeProvider muiTheme={muiTheme}>
     <div>
-      <AppBar title={this.title} leftIcon={<LeftMenuIcon />} /> 
+      
 
       <div style={{padding: '10px'}}>
-        
+        <AppBar title={this.state.title} leftIcon={<LeftMenuIcon />} /> 
         <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
         <Route path="/commands" render={this.renderRouteComponent(CommandsPage)} />
 

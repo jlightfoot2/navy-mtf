@@ -11,7 +11,7 @@ export interface State {
 
 export default class CommandsPage extends React.Component<Props, State>{
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.appPage.setPageTitle("Commands");
   }
 
