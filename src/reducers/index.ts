@@ -1,5 +1,8 @@
 import {defaultCommands, defaultCommandIds} from '../res/data/commands';
-import {WINDOW_RESIZE} from '../actions';
+import {
+  WINDOW_RESIZE,
+  SET_PAGE_TITLE
+} from '../actions';
 import {combineReducers} from 'redux';
 //import {arrayPushUnique,arrayRemove} from './_helper';
 
@@ -16,6 +19,9 @@ const defaultView = {
   screen: {
     width: 500,
     height: 500
+  },
+  page: {
+    title: 'Navy Medicine'
   }
 }
 const view = (state = defaultView, action) => {
@@ -23,8 +29,8 @@ const view = (state = defaultView, action) => {
     case WINDOW_RESIZE:
       state = {...state,screen: {...state.screen, width: action.width, height: action.height}};
       break;
-    default:
-      // code...
+    case SET_PAGE_TITLE:
+      state = {...state,page: {...state.page, title: action.title}};
       break;
   }
   return state;

@@ -2,7 +2,8 @@ import * as React from 'react';
 import CommandHospitalsContainer from '../containers/CommandsList';
 import {AppPageInterface} from './AppTheme'
 export interface Props {
-  appPage: AppPageInterface
+  appPage: AppPageInterface;
+  setPageTitle(title: string): void;
 }
 
 export interface State {
@@ -12,7 +13,7 @@ export interface State {
 export default class CommandsPage extends React.Component<Props, State>{
 
   componentWillMount(){
-    this.props.appPage.setPageTitle("Commands");
+    this.props.setPageTitle("Commands");
   }
 
   render(){

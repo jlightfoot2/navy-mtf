@@ -17,6 +17,5 @@ export default class AppTheme extends React.Component<Props, State>{
   render(){
     const {title,leftIcon} = this.props;
     return <AppBar title={title} iconElementLeft={leftIcon} />;
-
   }
 }

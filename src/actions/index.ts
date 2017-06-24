@@ -5,6 +5,7 @@ export const DELETE_PRODUCT = 'T2.DELETE_PRODUCT';
 export const ADD_PRODUCT_FAVORITES = 'T2.ADD_PRODUCT_FAVORITES';
 export const REMOVE_PRODUCT_FAVORITES = 'T2.REMOVE_PRODUCT_FAVORITES';
 export const WINDOW_RESIZE = 'T2.WINDOW_RESIZE';
+export const SET_PAGE_TITLE = 'T2.SET_PAGE_TITLE';
 
 export const updateProduct = (product:ProductInterface) => {
   return {
@@ -13,6 +14,12 @@ export const updateProduct = (product:ProductInterface) => {
   }
 }
 
+export const setPageTitle = (title:string) => {
+  return {
+    type: SET_PAGE_TITLE,
+    title: title + " test"
+  }
+}
 
 export const saveProduct = (product:ProductInterface) => {
   return (dispatch,getState) => {

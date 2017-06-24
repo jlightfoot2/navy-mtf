@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AppBar from './AppBar';
+import AppBar from '../containers/AppBar';
 //import ProductsEdit from '../containers/ProductsEdit';
 import HomePage from './HomePage';
 import CommandsPage from './CommandsPage';
@@ -7,6 +7,7 @@ import LeftMenuIcon from './LeftMenuIcon';
 import { Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import BasicPage from '../containers/BasicPage';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -23,32 +24,25 @@ const muiTheme = getMuiTheme({
 });
 
 export interface AppPageInterface {
-  setPageTitle(title: string): void;
   screen:{width: number, height: number}
 }
 export interface Props {
-  title: string;
+
 }
 
 export interface State {
   screen:{width: number, height: number}
-  title: string;
 }
 export default class App extends React.Component<Props, State>{
   constructor(props){
     super(props);
     this.state = {
       screen: this.getScreenDimensions(),
-      title: props.title
     }
-  }
-  handleTitle = (title: string) => {
-    this.setState({title})
   }
 
   getAppPageObject = ():AppPageInterface => {
     return {
-      setPageTitle: this.handleTitle,
       screen: this.state.screen
     }
   }
@@ -56,7 +50,6 @@ export default class App extends React.Component<Props, State>{
 
 
   componentDidMount(){
-    console.log('componentDidMount');
     this.handlePageResize();
   }
 
@@ -104,16 +97,21 @@ export default class App extends React.Component<Props, State>{
     }
   }
   renderRouteComponent = (Component) => {
-    return () => <Component appPage={this.getAppPageObject()} />;
+
+    return () => {  
+                    return (<BasicPage>
+                                <Component appPage={this.getAppPageObject()} />
+                         </BasicPage>);
+                  };
   }
   
   render(){
     return <MuiThemeProvider muiTheme={muiTheme}>
     <div>
-      
+      <AppBar leftIcon={<LeftMenuIcon />} />
 
       <div style={{padding: '10px'}}>
-        <AppBar title={this.state.title} leftIcon={<LeftMenuIcon />} /> 
+         
         <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
         <Route path="/commands" render={this.renderRouteComponent(CommandsPage)} />
 
