@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import CommandHospitalsComponent from '../components/CommandHospitals';
+import CommandHospitalsComponent from '../components/CommandsList';
 import {ProductInterface} from '../res/data/products';
 import {addProductFavorites} from '../actions';
 

@@ -8,7 +8,6 @@ const commandsDataWithImages = commandsDataRaw.map(item => { //run images throug
 });
 
 console.log(commandsDataWithImages);
-console.log('hello world data');
 const commandsSchema = new schema.Entity('commands');
 const commandsArraySchema = new schema.Array(commandsSchema);
 

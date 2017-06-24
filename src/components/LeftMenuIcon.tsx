@@ -8,11 +8,13 @@ import { Link } from 'react-router-dom';
 const LeftMenu = () => {
   return (
     <IconMenu
-      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+
+      iconButtonElement={<IconButton><MoreVertIcon color="white" /></IconButton>}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >
       <MenuItem containerElement={<Link to="/" />} primaryText="Home" />
+      <MenuItem containerElement={<Link to="/commands" />} primaryText="Locations" />
     </IconMenu>
     );
 }

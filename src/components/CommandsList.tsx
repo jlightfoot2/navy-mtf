@@ -20,9 +20,7 @@ export default class CommandHospitals extends React.Component<Props, State>{
   
   render(){
     const {hospitals} = this.props;
-     console.log(hospitals);
     return <div>
-              <h1>Hospitals asdf</h1>
               <List>
                 {hospitals.map(hospital => {
                   return <CommandItem key={hospital.id} hospital={hospital} />
