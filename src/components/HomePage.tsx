@@ -17,7 +17,8 @@ let styles = {
   maxWidth: 500
 }
 export interface Props {
-  appPage: AppPageInterface
+  appPage: AppPageInterface;
+  setPageTitle(title: string): void;
 }
 
 export interface State {
@@ -27,7 +28,7 @@ export interface State {
 export default class Home extends React.Component<Props, State>{
 
   componentWillMount(){
-    this.props.appPage.setPageTitle("Home");
+    this.props.setPageTitle("Home");
   }
 
   render(){

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AppBar from './AppBar';
+import AppBar from '../containers/AppBar';
 //import ProductsEdit from '../containers/ProductsEdit';
 import HomePage from './HomePage';
 import CommandsPage from './CommandsPage';
@@ -9,7 +9,7 @@ import { Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {withRouter} from 'react-router-dom';
-import Page from './Page';
+import Page from '../Containers/Page';
 const muiTheme = getMuiTheme({
   palette: {
     
@@ -25,12 +25,11 @@ const muiTheme = getMuiTheme({
 });
 
 export interface AppPageInterface {
-  setPageTitle(title: string): void;
   screen:{width: number, height: number};
   setMainIcon(icon: JSX.Element): void;
 }
 export interface Props {
-  title: string;
+
 }
 
 export interface State {
@@ -47,9 +46,6 @@ class App extends React.Component<Props, State>{
       leftIcon: <LeftMenuIcon />
     }
   }
-  handleTitle = (title: string) => {
-    this.setState({title})
-  }
 
   handleSetMainIcon = (leftIcon: JSX.Element) => {
     this.setState({leftIcon})
@@ -57,7 +53,6 @@ class App extends React.Component<Props, State>{
 
   getAppPageObject = ():AppPageInterface => {
     return {
-      setPageTitle: this.handleTitle,
       screen: this.state.screen,
       setMainIcon: this.handleSetMainIcon
     }
@@ -119,7 +114,7 @@ class App extends React.Component<Props, State>{
   render(){
     return <MuiThemeProvider muiTheme={muiTheme}>
             <div>
-              <AppBar title={this.state.title} leftIcon={this.state.leftIcon} /> 
+              <AppBar leftIcon={this.state.leftIcon} /> 
               <div style={{padding: '10px'}}>
                 
                 <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
