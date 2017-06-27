@@ -17,7 +17,7 @@ export const updateProduct = (product:ProductInterface) => {
 export const setPageTitle = (title:string) => {
   return {
     type: SET_PAGE_TITLE,
-    title: title + " test"
+    title: title
   }
 }
 
