@@ -8,7 +8,7 @@ import * as injectTapEventPlugin from 'react-tap-event-plugin';
 OfflinePluginRuntime.install();
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from './components/AppTheme';
+import App from './containers/AppTheme';
 
 import reducer from './reducers';
 
@@ -37,7 +37,7 @@ const render = (Component: any) => {
 render(App);
 // Hot Module Replacement API. Only used when running the dev server.
 if ((module as any).hot) {
-  (module as any).hot.accept('./components/AppTheme', () => {
+  (module as any).hot.accept('./containers/AppTheme', () => {
     render(App);
   });
 }

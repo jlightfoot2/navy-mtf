@@ -6,7 +6,6 @@ import BackButton from './BackButton';
 export interface Props {
   hospital: CommandInterface;
   appPage: AppPageInterface;
-  setPageTitle: any;
 }
 
 export interface State {
@@ -20,7 +19,7 @@ export default class CommandDetails extends React.Component<Props, State>{
   }
   componentWillMount(){
     const {appPage} = this.props;
-    this.props.setPageTitle("Command Details");
+    this.props.appPage.setPageTitle("Command Details");
     appPage.setMainIcon(<BackButton path={'/commands'} />);
   }
 

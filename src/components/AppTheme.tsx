@@ -27,9 +27,10 @@ const muiTheme = getMuiTheme({
 export interface AppPageInterface {
   screen:{width: number, height: number};
   setMainIcon(icon: JSX.Element): void;
+  setPageTitle(title:string): void;
 }
 export interface Props {
-
+  setPageTitle(title:string): void;
 }
 
 export interface State {
@@ -52,9 +53,11 @@ class App extends React.Component<Props, State>{
   }
 
   getAppPageObject = ():AppPageInterface => {
+    const {setPageTitle} = this.props;
     return {
       screen: this.state.screen,
-      setMainIcon: this.handleSetMainIcon
+      setMainIcon: this.handleSetMainIcon,
+      setPageTitle
     }
   }
 

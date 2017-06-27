@@ -28,7 +28,7 @@ export interface State {
 export default class Home extends React.Component<Props, State>{
 
   componentWillMount(){
-    this.props.setPageTitle("Home");
+    this.props.appPage.setPageTitle("Home");
   }
 
   render(){
