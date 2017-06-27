@@ -7,7 +7,6 @@ const commandsDataWithImages = commandsDataRaw.map(item => { //run images throug
   return item;
 });
 
-console.log(commandsDataWithImages);
 const commandsSchema = new schema.Entity('commands');
 const commandsArraySchema = new schema.Array(commandsSchema);
 

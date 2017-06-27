@@ -3,11 +3,13 @@ import AppBar from './AppBar';
 //import ProductsEdit from '../containers/ProductsEdit';
 import HomePage from './HomePage';
 import CommandsPage from './CommandsPage';
+import CommandDetailsPage from '../containers/CommandDetailsPage';
 import LeftMenuIcon from './LeftMenuIcon';
 import { Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import {withRouter} from 'react-router-dom';
+import Page from './Page';
 const muiTheme = getMuiTheme({
   palette: {
     
@@ -24,7 +26,8 @@ const muiTheme = getMuiTheme({
 
 export interface AppPageInterface {
   setPageTitle(title: string): void;
-  screen:{width: number, height: number}
+  screen:{width: number, height: number};
+  setMainIcon(icon: JSX.Element): void;
 }
 export interface Props {
   title: string;
@@ -33,30 +36,36 @@ export interface Props {
 export interface State {
   screen:{width: number, height: number}
   title: string;
+  leftIcon: JSX.Element;
 }
-export default class App extends React.Component<Props, State>{
+class App extends React.Component<Props, State>{
   constructor(props){
     super(props);
     this.state = {
       screen: this.getScreenDimensions(),
-      title: props.title
+      title: props.title,
+      leftIcon: <LeftMenuIcon />
     }
   }
   handleTitle = (title: string) => {
     this.setState({title})
   }
 
+  handleSetMainIcon = (leftIcon: JSX.Element) => {
+    this.setState({leftIcon})
+  }
+
   getAppPageObject = ():AppPageInterface => {
     return {
       setPageTitle: this.handleTitle,
-      screen: this.state.screen
+      screen: this.state.screen,
+      setMainIcon: this.handleSetMainIcon
     }
   }
 
 
 
   componentDidMount(){
-    console.log('componentDidMount');
     this.handlePageResize();
   }
 
@@ -104,22 +113,24 @@ export default class App extends React.Component<Props, State>{
     }
   }
   renderRouteComponent = (Component) => {
-    return () => <Component appPage={this.getAppPageObject()} />;
+    return () => <Page appPage={this.getAppPageObject()}><Component  /></Page>;
   }
   
   render(){
     return <MuiThemeProvider muiTheme={muiTheme}>
-    <div>
-      
+            <div>
+              <AppBar title={this.state.title} leftIcon={this.state.leftIcon} /> 
+              <div style={{padding: '10px'}}>
+                
+                <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
+                <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage)} />
+                <Route exact path="/commands/:id" render={this.renderRouteComponent(CommandDetailsPage)} />
 
-      <div style={{padding: '10px'}}>
-        <AppBar title={this.state.title} leftIcon={<LeftMenuIcon />} /> 
-        <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
-        <Route path="/commands" render={this.renderRouteComponent(CommandsPage)} />
-
-      </div>
-    </div>
-    </MuiThemeProvider>;
+              </div>
+            </div>
+          </MuiThemeProvider>;
  
   }
 }
+
+export default withRouter(App);

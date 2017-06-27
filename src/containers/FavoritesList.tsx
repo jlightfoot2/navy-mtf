@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import FavoritesListComponent from '../components/FavoritesList';
 import {ProductInterface} from '../res/data/products';
 import {removeProductFavorites} from '../actions';
-
+import {withRouter} from 'react-router-dom';
 
 const stateToProps = (state,ownProps) => {
   return {
@@ -19,4 +19,4 @@ const dispatchToProps = (dispatch,ownProps) => {
 }
 
 
-export default connect(stateToProps,dispatchToProps)(FavoritesListComponent);
+export default withRouter(connect(stateToProps,dispatchToProps)(FavoritesListComponent));

@@ -16,7 +16,7 @@ export default class CommandsPage extends React.Component<Props, State>{
   }
 
   render(){
-    console.log(this.props.appPage.screen);
+
     return <div style={{backgroundColor: 'white'}}>
               <CommandHospitalsContainer />
     </div>;

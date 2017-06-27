@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import EditProductComponent from '../components/EditProduct'
 import {makeProduct, ProductInterface} from '../res/data/products';
 import {saveProduct} from '../actions';
-
+import {withRouter} from 'react-router-dom';
 const resolveProduct = (state,ownProps) => {
    return typeof ownProps['product'] !== 'undefined' ? ownProps['product'] : makeProduct(0,'',0);
 }
@@ -23,4 +23,4 @@ const dispatchToProps = (dispatch,ownProps) => {
   }
 }
 
-export default connect(stateToProps,dispatchToProps)(EditProductComponent);
+export default withRouter(connect(stateToProps,dispatchToProps)(EditProductComponent));
