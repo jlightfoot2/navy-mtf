@@ -1,9 +1,14 @@
+
 import * as React from 'react';
 import AppBar from '../containers/AppBar';
 //import ProductsEdit from '../containers/ProductsEdit';
+import BackButton from './BackButton';
 import HomePage from './HomePage';
 import CommandsPage from './CommandsPage';
+import HotlinesPage from './HotlinesPage';
 import CommandDetailsPage from '../containers/CommandDetailsPage';
+import LeadershipPage from './LeadersPage';
+import LeadershipDetailsPage from '../containers/LeadershipDetailsPage';
 import LeftMenuIcon from './LeftMenuIcon';
 import { Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -28,9 +33,12 @@ export interface AppPageInterface {
   screen:{width: number, height: number};
   setMainIcon(icon: JSX.Element): void;
   setPageTitle(title:string): void;
+  history: any;
 }
+
 export interface Props {
   setPageTitle(title:string): void;
+  history: any;
 }
 
 export interface State {
@@ -52,16 +60,16 @@ class App extends React.Component<Props, State>{
     this.setState({leftIcon})
   }
 
+
   getAppPageObject = ():AppPageInterface => {
-    const {setPageTitle} = this.props;
+    const {setPageTitle,history} = this.props;
     return {
       screen: this.state.screen,
       setMainIcon: this.handleSetMainIcon,
-      setPageTitle
+      setPageTitle,
+      history
     }
   }
-
-
 
   componentDidMount(){
     this.handlePageResize();
@@ -110,20 +118,30 @@ class App extends React.Component<Props, State>{
       
     }
   }
-  renderRouteComponent = (Component) => {
-    return () => <Page appPage={this.getAppPageObject()}><Component  /></Page>;
+
+  renderRouteComponent = (Component,extraProps:any = {}) => {
+    return (routeProps) => {
+      const defaultExtra = {
+        leftIcon: <LeftMenuIcon />,
+        appPage: this.getAppPageObject()
+      };
+      extraProps = {...defaultExtra,...extraProps};
+      return <Page leftIcon={extraProps.leftIcon} appPage={extraProps.appPage}><Component {...routeProps} {...extraProps} /></Page>;
+    }
   }
-  
+
   render(){
     return <MuiThemeProvider muiTheme={muiTheme}>
             <div>
               <AppBar leftIcon={this.state.leftIcon} /> 
-              <div style={{padding: '10px'}}>
+              <div>
                 
                 <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
-                <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage)} />
-                <Route exact path="/commands/:id" render={this.renderRouteComponent(CommandDetailsPage)} />
-
+                <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/hotlines" render={this.renderRouteComponent(HotlinesPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/commands/:id" render={this.renderRouteComponent(CommandDetailsPage,{leftIcon: <BackButton path="/commands" />})} />
+                <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{leftIcon: <BackButton path="/leadership" />})} />
               </div>
             </div>
           </MuiThemeProvider>;
