@@ -16,6 +16,7 @@ const LeftMenu = () => {
       <MenuItem containerElement={<Link to="/" />} primaryText="Home" />
       <MenuItem containerElement={<Link to="/commands" />} primaryText="Locations" />
       <MenuItem containerElement={<Link to="/hotlines" />} primaryText="Hotlines" />
+      <MenuItem containerElement={<Link to="/resources" />} primaryText="Resources" />
     </IconMenu>
     );
 }

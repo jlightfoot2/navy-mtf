@@ -74,7 +74,7 @@ export default class Home extends React.Component<Props, State>{
                 </span>
               </div>
               <div style={buttonRowSpacing}>
-                <Link to={match.url + '/resources'}>
+                <Link to={match.url + 'resources'}>
                   <img style={halfButtonStyles} src={resourcesImage} />
                 </Link>
                 <Link to={match.url + 'leadership'}>

@@ -9,7 +9,7 @@ import {getDistanceFromLatLonInMiles} from './_helper';
 const calcDistance = (hospital: CommandInterface,refLatitue,refLongitude) => {
   const dist = getDistanceFromLatLonInMiles(hospital.latitude,hospital.longitude,refLatitue,refLongitude);
  
-  hospital.distance = Math.round(dist);
+  hospital.distance = Math.round(dist*100)/100;
   return hospital;
 }
 

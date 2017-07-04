@@ -6,6 +6,7 @@ import BackButton from './BackButton';
 import HomePage from './HomePage';
 import CommandsPage from './CommandsPage';
 import HotlinesPage from './HotlinesPage';
+import ResourcesPage from './ResourcesPage';
 import CommandDetailsPage from '../containers/CommandDetailsPage';
 import LeadershipPage from './LeadersPage';
 import LeadershipDetailsPage from '../containers/LeadershipDetailsPage';
@@ -139,6 +140,8 @@ class App extends React.Component<Props, State>{
                 <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
                 <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/hotlines" render={this.renderRouteComponent(HotlinesPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/resources" render={this.renderRouteComponent(ResourcesPage,{leftIcon: <BackButton path="/" />})} />
+                
                 <Route exact path="/commands/:id" render={this.renderRouteComponent(CommandDetailsPage,{leftIcon: <BackButton path="/commands" />})} />
                 <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{leftIcon: <BackButton path="/leadership" />})} />
