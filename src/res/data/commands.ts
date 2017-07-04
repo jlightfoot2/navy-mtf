@@ -4,6 +4,7 @@ import commandsDataRaw from './command-hospitals-data';
 const commandsDataWithImages = commandsDataRaw.map(item => { //run images through webpack
   item.img = require('../images/commands/' + item.img);
   item.icon = require('../images/commands/icons/' + item.icon);
+  item['distance'] = -1;
   return item;
 });
 
@@ -21,6 +22,7 @@ export interface CommandInterface{
   longitude: number;
   img: string;
   icon: string;
+  distance: number;
 }
 
 export const normalizedCommands = normalize(commandsDataWithImages, commandsArraySchema);

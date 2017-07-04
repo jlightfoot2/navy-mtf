@@ -6,11 +6,29 @@ export const ADD_PRODUCT_FAVORITES = 'T2.ADD_PRODUCT_FAVORITES';
 export const REMOVE_PRODUCT_FAVORITES = 'T2.REMOVE_PRODUCT_FAVORITES';
 export const WINDOW_RESIZE = 'T2.WINDOW_RESIZE';
 export const SET_PAGE_TITLE = 'T2.SET_PAGE_TITLE';
+export const SORT_HOSPITALS = 'T2.SORT_HOSPITALS';
+export const SET_USER_LOCATION = 'T2.SET_USER_LOCATION';
 
 export const updateProduct = (product:ProductInterface) => {
   return {
     type: UPDATE_PRODUCT,
     product
+  }
+}
+
+export const sortHospitals = (sortBy: string, sortDir = 'asc') => {
+  return {
+    type: SORT_HOSPITALS,
+    sortBy,
+    sortDir
+  }
+}
+
+export const setUserLocation = (latitude: number, longitude: number) => {
+  return {
+    type: SET_USER_LOCATION,
+    latitude,
+    longitude
   }
 }
 

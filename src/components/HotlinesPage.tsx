@@ -1,23 +1,28 @@
 import * as React from 'react';
-import HotlineItem from './HotlineItem';
-export interface Props {
+import {AppPageInterface} from './AppTheme';
+import Hotlines from '../containers/Hotlines';
 
+export interface Props {
+  appPage: AppPageInterface;
+  match:{url: string};
 }
 
 export interface State {
- 
+
 }
 
 export default class HotlinesPage extends React.Component<Props, State>{
 
-  constructor(props){
-    super(props);
+
+
+  componentWillMount(){
+    this.props.appPage.setPageTitle("DoD Hotlines");
   }
-  
+
   render(){
-    return <div>
-              <h1>Hotlines</h1>
-              <HotlineItem hotline={{title:'test hotline',number: '434 1234'}} />
+    return <div style={{backgroundColor: 'white'}}>
+             
+              <Hotlines />
 
            </div>;
   }

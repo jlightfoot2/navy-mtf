@@ -19,7 +19,6 @@ let styles = {
 }
 export interface Props {
   appPage: AppPageInterface;
-  setPageTitle(title: string): void;
   match:{url: string};
 }
 
@@ -57,7 +56,7 @@ export default class Home extends React.Component<Props, State>{
                 </Link>
               </div>
               <div style={buttonRowSpacing}>
-                <Link to={match.url + '/resources'}>
+                <Link to={match.url + 'hotlines'}>
                   <img style={halfButtonStyles} src={hotlinesImage} />
                 </Link>  
                 <Link to={match.url + '/resources'}>

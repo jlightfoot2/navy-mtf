@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import App from './containers/AppTheme';
 
 import reducer from './reducers';
+import {setUserLocation} from './actions';
 
 injectTapEventPlugin();
 require('./index.html'); //load and emit index.html
@@ -19,6 +20,10 @@ const store = createStore(reducer,applyMiddleware(thunk));
 
 store.subscribe(() => {
     console.log(store.getState()); // list entire state of app
+});
+
+window.navigator.geolocation.getCurrentPosition((position) => {
+  store.dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
 });
 
 const render = (Component: any) => {

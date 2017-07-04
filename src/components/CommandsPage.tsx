@@ -6,10 +6,14 @@ export interface Props {
 }
 
 export interface State {
-  
+
 }
 
+
 export default class CommandsPage extends React.Component<Props, State>{
+  constructor(props){
+    super(props);
+  }
 
   componentWillMount(){
     this.props.appPage.setPageTitle("Commands");
