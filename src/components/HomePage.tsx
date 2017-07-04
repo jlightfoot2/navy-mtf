@@ -1,6 +1,16 @@
 import * as React from 'react';
 import {AppPageInterface} from './AppTheme';
 import { Link } from 'react-router-dom';
+import {externalLink} from '../containers/_helper';
+
+declare module 'react' { //See https://github.com/zilverline/react-tap-event-plugin/issues/58
+    interface HTMLProps<T> {
+        onTouchTap?: React.EventHandler<React.TouchEvent<T>>;
+    }
+}
+
+
+
 const locationsImage = require("../res/images/ui/trimmed/button-locations.png");
 const hotlinesImage = require("../res/images/ui/trimmed/button-dod-hotline-big.png");
 const resourcesImage = require("../res/images/ui/trimmed/button-resources.png");
@@ -59,9 +69,9 @@ export default class Home extends React.Component<Props, State>{
                 <Link to={match.url + 'hotlines'}>
                   <img style={halfButtonStyles} src={hotlinesImage} />
                 </Link>  
-                <Link to={match.url + '/resources'}>
+                <span onTouchTap={externalLink("https://app.mil.relayhealth.com/")}>
                   <img style={halfButtonStyles} src={relayHealthImage} />
-                </Link>
+                </span>
               </div>
               <div style={buttonRowSpacing}>
                 <Link to={match.url + '/resources'}>

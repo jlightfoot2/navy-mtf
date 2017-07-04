@@ -16,3 +16,19 @@ export const getDistanceFromLatLonInMiles = (lat1,lon1,lat2,lon2) => {
 function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
+
+
+/**
+ * you must install cordova-plugin-inappbrowser for this to work in cordova apps
+ * 
+ * @return ref
+ */
+export  const externalLink = (absolutePath:string,target: string = '_system') => {
+    return () => {
+      if(typeof (window as any).cordova === 'undefined' || typeof (window as any).cordova.InAppBrowser === 'undefined'){
+        return window.open(absolutePath,target)
+      }
+      return (window as any).cordova.InAppBrowser.open(absolutePath, target, 'location=no');
+    }
+
+}
