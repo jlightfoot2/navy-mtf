@@ -5,10 +5,12 @@ import {
   WINDOW_RESIZE,
   SET_PAGE_TITLE,
   SORT_HOSPITALS,
-  SET_USER_LOCATION
+  SET_USER_LOCATION,
+  ADD_HOSPITAL_FAVORITES,
+  REMOVE_HOSPITAL_FAVORITES
 } from '../actions';
 import {combineReducers} from 'redux';
-//import {arrayPushUnique,arrayRemove} from './_helper';
+import {arrayPushUnique,arrayRemove} from './_helper';
 
 const defaultFilters = {
   hospitals: {
@@ -21,7 +23,15 @@ const defaultUser = {
   latitude: 0,
   longitude: 0
 }
-
+const defaultView = {
+  screen: {
+    width: 500,
+    height: 500
+  },
+  page: {
+    title: 'Navy Medicine'
+  }
+}
 const filters = (state = defaultFilters, action) => {
   switch (action.type) {
     case SORT_HOSPITALS:
@@ -63,15 +73,7 @@ const hotlineIds = (state = defaultHotlineIds, action) => {
   return state;
 }
 
-const defaultView = {
-  screen: {
-    width: 500,
-    height: 500
-  },
-  page: {
-    title: 'Navy Medicine'
-  }
-}
+
 const view = (state = defaultView, action) => {
   switch (action.type) {
     case WINDOW_RESIZE:
@@ -79,6 +81,18 @@ const view = (state = defaultView, action) => {
       break;
     case SET_PAGE_TITLE:
       state = {...state,page: {...state.page, title: action.title}};
+      break;
+  }
+  return state;
+}
+
+const favoriteHospitalIds = (state = [], action) => {
+  switch (action.type) {
+    case ADD_HOSPITAL_FAVORITES:
+      state = arrayPushUnique(action.id,state);
+      break;
+    case REMOVE_HOSPITAL_FAVORITES:
+      state = arrayRemove(action.id,state);
       break;
   }
   return state;
@@ -92,6 +106,7 @@ const reducer = combineReducers({
   hotlines,
   hotlineIds,
   filters,
+  favoriteHospitalIds,
   user,
   view
 });

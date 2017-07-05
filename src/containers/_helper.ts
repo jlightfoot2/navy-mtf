@@ -32,3 +32,10 @@ export  const externalLink = (absolutePath:string,target: string = '_system') =>
     }
 
 }
+
+export const isHospitalFavorite = (hospital:{id: number},ids:number[]) =>  {
+   return ids.indexOf(hospital.id) > -1;
+}
+
+
+

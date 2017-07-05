@@ -37,13 +37,13 @@ export interface State {
 }
 
 export default class Home extends React.Component<Props, State>{
-  static maxWidth:number = 640;
+  static MAX_WIDTH:number = 640;
   getMainButtonWidth = () => {
     return this.getContentWidth();
   }
   getContentWidth = () => {
     const {appPage} = this.props;
-    const maxWidth = Home.maxWidth;
+    const maxWidth = Home.MAX_WIDTH;
     return  (appPage.screen.width > maxWidth ? maxWidth : appPage.screen.width) * 0.90;
   }
 

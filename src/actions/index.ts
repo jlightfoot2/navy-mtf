@@ -2,8 +2,8 @@ import {ProductInterface} from '../res/data/products';
 import {nextId} from './_helper';
 export const UPDATE_PRODUCT = 'T2.UPDATE_PRODUCT';
 export const DELETE_PRODUCT = 'T2.DELETE_PRODUCT';
-export const ADD_PRODUCT_FAVORITES = 'T2.ADD_PRODUCT_FAVORITES';
-export const REMOVE_PRODUCT_FAVORITES = 'T2.REMOVE_PRODUCT_FAVORITES';
+export const ADD_HOSPITAL_FAVORITES = 'T2.ADD_HOSPITAL_FAVORITES';
+export const REMOVE_HOSPITAL_FAVORITES = 'T2.REMOVE_HOSPITAL_FAVORITES';
 export const WINDOW_RESIZE = 'T2.WINDOW_RESIZE';
 export const SET_PAGE_TITLE = 'T2.SET_PAGE_TITLE';
 export const SORT_HOSPITALS = 'T2.SORT_HOSPITALS';
@@ -55,17 +55,17 @@ export const deleteProduct = (id:number) => {
   }
 }
 
-export const addProductFavorites = (id:number) => {
+export const addHospitalToFavorites = (hospitalId:number) => {
   return {
-    type: ADD_PRODUCT_FAVORITES,
-    id
+    type: ADD_HOSPITAL_FAVORITES,
+    id: hospitalId
   }
 }
 
-export const removeProductFavorites = (id:number) => {
+export const removeHospitalFromFavorites = (hospitalId:number) => {
   return {
-    type: REMOVE_PRODUCT_FAVORITES,
-    id
+    type: REMOVE_HOSPITAL_FAVORITES,
+    id: hospitalId
   }
 }
 
