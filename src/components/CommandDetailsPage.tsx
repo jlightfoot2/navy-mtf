@@ -6,18 +6,9 @@ import {List, ListItem} from 'material-ui/List';
 import NavigationIcon from 'material-ui/svg-icons/maps/navigation';
 import PhoneCallIcon from 'material-ui/svg-icons/communication/call';
 import FavoriteCheckbox from './FavoriteCheckBox';
+import {titleStyles1,contentContainer1,PrimaryColor,greyContainer,whiteContainer} from './commonStyles';
 
-let styles = {
-  margin: '0px auto 0px auto',
-  width: 500
-}
-const PrimaryColor = "#1b4583";
-let titleStyles = {
-  color: PrimaryColor,
-  fontWeight: 900,
-  padding: 15,
-  fontSize: 18
-}
+
 export interface Props {
   hospital: CommandInterface;
   appPage: AppPageInterface;
@@ -52,15 +43,15 @@ export default class CommandDetails extends React.Component<Props, State>{
 
   render(){
     const {hospital,isFavorite} = this.props;
-    styles = {...styles,width: this.getContentWidth()};
-    titleStyles = {...titleStyles,width: this.getContentWidth()};
-    return <div style={{backgroundColor: 'white'}}>
+    const styles = {...contentContainer1,width: this.getContentWidth()};
+    const titleStyles = {...titleStyles1,width: this.getContentWidth()};
+    return <div style={whiteContainer}>
               <div style={styles}>
                 <div style={{width: '90%',margin: '0px auto 0px auto'}}>
                   <img style={{width: '100%'}} src={hospital.img} />
                 </div>
               </div>
-              <div style={{backgroundColor: 'grey'}}>
+              <div style={{greyContainer}}>
                 <div style={titleStyles as any}>{hospital.title}</div>
                 <FavoriteCheckbox toggleFavorite={this.handleSetToggle()} checked={isFavorite} />
                 <List>
