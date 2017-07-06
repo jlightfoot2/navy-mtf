@@ -17,6 +17,7 @@ export interface CommandInterface{
   phone: string;
   website: string;
   facebook: string;
+  twitter: string;
   address: string;
   latitude: number;
   longitude: number;

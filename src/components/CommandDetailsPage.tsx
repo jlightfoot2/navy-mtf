@@ -5,8 +5,15 @@ import {List, ListItem} from 'material-ui/List';
 import NavigationIcon from 'material-ui/svg-icons/maps/navigation';
 import PhoneCallIcon from 'material-ui/svg-icons/communication/call';
 import FavoriteCheckbox from './FavoriteCheckBox';
+import { Link } from 'react-router-dom';
+import {socialIcons} from './commonStyles';
+import ExternalLink from './ExternalLink';
+
 import {titleStyles1,contentContainer1,PrimaryColor,greyContainer,whiteContainer} from './commonStyles';
 
+const facebookImage = require('../res/images/ui/mtf-hospital-facebook.png');
+const twitterImage = require('../res/images/ui/mtf-hospital-twitter.png');
+const websiteImage = require('../res/images/ui/mtf-hospital-website.png');
 
 export interface Props {
   hospital: CommandInterface;
@@ -43,6 +50,9 @@ export default class CommandDetails extends React.Component<Props, State>{
     const {hospital,isFavorite} = this.props;
     const styles = {...contentContainer1,width: this.getContentWidth()};
     const titleStyles = {...titleStyles1,width: this.getContentWidth()};
+    const hasTwitter = hospital.twitter.length > 0;
+    const hasFacebook = hospital.facebook.length > 0;
+    const hasWebsite = hospital.website.length > 0;
     return <div style={whiteContainer}>
               <div style={styles}>
                 <div style={{width: '90%',margin: '0px auto 0px auto'}}>
@@ -56,7 +66,22 @@ export default class CommandDetails extends React.Component<Props, State>{
                   <ListItem leftIcon={<NavigationIcon color={PrimaryColor} />} primaryText={hospital.address} />
                   <ListItem leftIcon={<PhoneCallIcon color={PrimaryColor} />} primaryText={hospital.phone} />
                 </List>
-             
+                <div>
+
+                  {hasTwitter && <Link to={'/commands/'+ hospital.id + '/twitter'}>
+                    <img style={socialIcons} src={twitterImage} />
+                  </Link>}
+
+
+                  {hasFacebook && <ExternalLink absolutePath={hospital.facebook}>
+                    <img style={socialIcons} src={facebookImage} />
+                  </ExternalLink>}
+
+
+                  {hasWebsite && <ExternalLink absolutePath={hospital.website}>
+                    <img style={socialIcons} src={websiteImage} />
+                  </ExternalLink>}
+                </div>
               </div>
     </div>
   }

@@ -35,3 +35,8 @@ export let contentContainer1 = {
   margin: '0px auto 0px auto',
   width: 500
 }
+
+export let socialIcons = {
+  width: 50,
+  marginRight: 10
+}

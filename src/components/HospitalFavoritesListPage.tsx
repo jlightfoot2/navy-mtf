@@ -28,8 +28,10 @@ export default class ProductsCatalog extends React.Component<Props, State>{
   }
   render(){
     const {hospitals} = this.props;
+    const hasFavorites = hospitals.length > 0;
     return <div style={whiteContainer}>
               <List>
+                {!hasFavorites && <h3>Your Favorites List is empty</h3>}
                 {hospitals.map(hospital => {
                   return <CommandListItem key={hospital.id} itemClick={this.handleItemClick} hospital={hospital} />
                 })}

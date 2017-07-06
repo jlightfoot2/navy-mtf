@@ -21,7 +21,7 @@ const facebookImage = require("../res/images/ui/mtf-home-facebook-centered.png")
 const twitterImage = require("../res/images/ui/mtf-home-twitter-centered.png");
 const youTubeImage = require("../res/images/ui/mtf-home-youtube-centered.png");
 const favoriteImage = require("../res/images/ui/mtf-home-favorite-centered.png")
-const footerImage = require("../res/images/ui/mtf-home-footer.png");
+
 
 const buttonRowSpacing = {
   margin: '20px auto 20px auto'
@@ -78,21 +78,20 @@ export default class Home extends React.Component<Props, State>{
   }
 
   render(){
-    const {match,appPage} = this.props;
+    const {match} = this.props;
     const contentWidth = this.getContentWidth();
     const limitedWidth = this.getLimitedContentWidth();
     styles = {...styles, width: this.getContentWidth()};
     const halfButtonStyles = {
       width: contentWidth / 2
     }
-    const width_dev_4 = contentWidth/ 4;
+    const width_dev_4 = contentWidth / 4;
     const socialContainer = {...socialImageContainerStyles,width: width_dev_4};
     const socialImage = {width: width_dev_4 * 0.8};
     imageLast ={...imageLast,width: width_dev_4 * 0.8};
     const imageMiddle = {...socialImage, margin: '0px auto 0px auto'};
     footerStyles = {...footerStyles,width: limitedWidth};
-    return <div style={{height: appPage.screen.height}}> 
-               <div style={styles}>
+    return <div style={styles}>
                     <div>
                       <Link to={match.url + 'commands'}>
                         <img style={{width: this.getMainButtonWidth()}} src={locationsImage} />
@@ -144,9 +143,5 @@ export default class Home extends React.Component<Props, State>{
                     </div>
 
           </div>;
-          <div style={footerStyles}>
-            <img style={{width: '100%'}} onTouchTap={externalLink('http://www.med.navy.mil')} src={footerImage} />
-          </div>
-    </div>
   }
 }

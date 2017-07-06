@@ -10,8 +10,10 @@ import TwitterPage from './TwitterPage';
 import FacebookPage from './FacebookPage';
 import CommandDetailsPage from '../containers/CommandDetailsPage';
 import LeadershipPage from './LeadersPage';
+import HomeFooter from './HomeFooter';
 import LeadershipDetailsPage from '../containers/LeadershipDetailsPage';
 import HospitalFavoritesListPage from '../containers/HospitalFavoritesListPage';
+import HospitalTwitterPage from '../containers/HospitalTwitterPage';
 
 import LeftMenuIcon from './LeftMenuIcon';
 import { Route } from 'react-router-dom';
@@ -53,6 +55,7 @@ export interface State {
 class App extends React.Component<Props, State>{
   constructor(props){
     super(props);
+    console.log(props);
     this.state = {
       screen: this.getScreenDimensions(),
       title: props.title,
@@ -137,8 +140,7 @@ class App extends React.Component<Props, State>{
   render(){
     return <MuiThemeProvider muiTheme={muiTheme}>
             <div>
-              <AppBar leftIcon={this.state.leftIcon} /> 
-              <div>
+                <AppBar leftIcon={this.state.leftIcon} /> 
                 
                 <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
                 <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage,{leftIcon: <BackButton path="/" />})} />
@@ -152,9 +154,12 @@ class App extends React.Component<Props, State>{
                 
                 <Route exact path="/commands/:id" render={this.renderRouteComponent(CommandDetailsPage,{leftIcon: <BackButton path="/commands" />})} />
 
+                <Route exact path="/commands/:id/twitter" render={this.renderRouteComponent(HospitalTwitterPage)} />
+
                 <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{leftIcon: <BackButton path="/leadership" />})} />
-              </div>
+            
+                <Route exact path="/" render={(routeProps) => <HomeFooter appPage={this.getAppPageObject()} />} />
             </div>
           </MuiThemeProvider>;
  
