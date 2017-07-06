@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {CommandInterface} from '../res/data/commands';
 import {AppPageInterface} from './AppTheme';
-import BackButton from './BackButton';
 import {List, ListItem} from 'material-ui/List';
 import NavigationIcon from 'material-ui/svg-icons/maps/navigation';
 import PhoneCallIcon from 'material-ui/svg-icons/communication/call';
@@ -25,8 +24,7 @@ export default class CommandDetails extends React.Component<Props, State>{
 
   componentWillMount(){
     const {appPage} = this.props;
-    this.props.appPage.setPageTitle("Command Details");
-    appPage.setMainIcon(<BackButton path={'/commands'} />);
+    appPage.setPageTitle("Command Details");
   }
   getContentWidth = () => {
     const {appPage} = this.props;

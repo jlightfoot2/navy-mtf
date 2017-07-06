@@ -2,19 +2,23 @@ import * as React from 'react';
 import {CommandInterface} from '../res/data/commands';
 import CommandListItem from './CommandListItem';
 import {List} from 'material-ui/List';
+import {AppPageInterface} from './AppTheme';
+import {whiteContainer} from './commonStyles';
 export interface Props {
-  hospitals: CommandInterface[];
+  hospitals:CommandInterface[];
+  removeFavorite(hospital: CommandInterface): void;
   itemClick(hospital: CommandInterface): void;
+  appPage: AppPageInterface;
 }
 
 export interface State {
-
+ 
 }
 
-export default class CommandHospitals extends React.Component<Props, State>{
+export default class ProductsCatalog extends React.Component<Props, State>{
 
-  constructor(props,context){
-    super(props);
+  componentWillMount(){
+    this.props.appPage.setPageTitle("Favorites");
   }
 
   handleItemClick = (hospital) => {
@@ -22,16 +26,15 @@ export default class CommandHospitals extends React.Component<Props, State>{
       itemClick(hospital);
 
   }
-
   render(){
     const {hospitals} = this.props;
-   
-    return <div>
+    return <div style={whiteContainer}>
               <List>
                 {hospitals.map(hospital => {
                   return <CommandListItem key={hospital.id} itemClick={this.handleItemClick} hospital={hospital} />
                 })}
               </List>
+
            </div>;
   }
 }

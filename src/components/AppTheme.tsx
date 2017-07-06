@@ -1,15 +1,18 @@
 
 import * as React from 'react';
 import AppBar from '../containers/AppBar';
-//import ProductsEdit from '../containers/ProductsEdit';
 import BackButton from './BackButton';
 import HomePage from './HomePage';
 import CommandsPage from './CommandsPage';
 import HotlinesPage from './HotlinesPage';
 import ResourcesPage from './ResourcesPage';
+import TwitterPage from './TwitterPage';
+import FacebookPage from './FacebookPage';
 import CommandDetailsPage from '../containers/CommandDetailsPage';
 import LeadershipPage from './LeadersPage';
 import LeadershipDetailsPage from '../containers/LeadershipDetailsPage';
+import HospitalFavoritesListPage from '../containers/HospitalFavoritesListPage';
+
 import LeftMenuIcon from './LeftMenuIcon';
 import { Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -141,8 +144,14 @@ class App extends React.Component<Props, State>{
                 <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/hotlines" render={this.renderRouteComponent(HotlinesPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/resources" render={this.renderRouteComponent(ResourcesPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/twitter" render={this.renderRouteComponent(TwitterPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/facebook" render={this.renderRouteComponent(FacebookPage,{leftIcon: <BackButton path="/" />})} />
+                
+                <Route exact path="/favorites" render={this.renderRouteComponent(HospitalFavoritesListPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/favorites/:id" render={this.renderRouteComponent(CommandDetailsPage,{leftIcon: <BackButton path="/favorites" />})} />
                 
                 <Route exact path="/commands/:id" render={this.renderRouteComponent(CommandDetailsPage,{leftIcon: <BackButton path="/commands" />})} />
+
                 <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{leftIcon: <BackButton path="/leadership" />})} />
               </div>

@@ -17,6 +17,11 @@ const resourcesImage = require("../res/images/ui/trimmed/button-resources.png");
 const relayHealthImage = require("../res/images/ui/trimmed/button-relay-health-big.png");
 const leaderShipImage = require("../res/images/ui/trimmed/button-leadership.png");
 
+const facebookImage = require("../res/images/ui/mtf-home-facebook-centered.png");
+const twitterImage = require("../res/images/ui/mtf-home-twitter-centered.png");
+const youTubeImage = require("../res/images/ui/mtf-home-youtube-centered.png");
+const favoriteImage = require("../res/images/ui/mtf-home-favorite-centered.png")
+
 const buttonRowSpacing = {
   margin: '20px auto 20px auto'
  // padding: '40px auto 40px auto'
@@ -26,6 +31,16 @@ let styles = {
   margin: '0px auto 0px auto',
   width: 500,
   paddingTop: 25
+}
+
+let socialImageContainerStyles = {
+  float: 'left',
+  position: 'relative' as 'relative'
+}
+
+let imageLast = {
+  position: 'absolute' as 'absolute',
+  right: 0
 }
 export interface Props {
   appPage: AppPageInterface;
@@ -41,10 +56,14 @@ export default class Home extends React.Component<Props, State>{
   getMainButtonWidth = () => {
     return this.getContentWidth();
   }
-  getContentWidth = () => {
+  getLimitedContentWidth = () => {
     const {appPage} = this.props;
     const maxWidth = Home.MAX_WIDTH;
-    return  (appPage.screen.width > maxWidth ? maxWidth : appPage.screen.width) * 0.90;
+    return  (appPage.screen.width > maxWidth ? maxWidth : appPage.screen.width);
+  }
+
+  getContentWidth = () => {
+    return  this.getLimitedContentWidth() * 0.90;
   }
 
   componentWillMount(){
@@ -58,7 +77,11 @@ export default class Home extends React.Component<Props, State>{
     const halfButtonStyles = {
       width: this.getContentWidth() / 2
     }
-
+    const width_dev_4 = this.getContentWidth() / 4;
+    const socialContainer = {...socialImageContainerStyles,width: width_dev_4};
+    const socialImage = {width: width_dev_4 * 0.8};
+    imageLast ={...imageLast,width: width_dev_4 * 0.8};
+    const imageMiddle = {...socialImage, margin: '0px auto 0px auto'};
     return <div style={styles}>
               <div>
                 <Link to={match.url + 'commands'}>
@@ -80,6 +103,34 @@ export default class Home extends React.Component<Props, State>{
                 <Link to={match.url + 'leadership'}>
                   <img style={halfButtonStyles} src={leaderShipImage} />
                 </Link>
+              </div>
+              <div>
+                  <div style={socialContainer}>
+                    <div style={socialImage}>
+                      <Link to={"/facebook"}>
+                        <img style={socialImage} src={facebookImage} />
+                      </Link>
+                    </div>
+                  </div>
+                  <div style={socialContainer}>
+                    <div style={imageMiddle}>
+                      <Link to={"/twitter"}>
+                        <img style={imageMiddle}  src={twitterImage} />
+                       </Link>
+                    </div>
+                  </div>
+                  <div style={socialContainer}>
+                    <div style={imageMiddle}>
+                      <img style={imageMiddle} onTouchTap={externalLink('https://www.youtube.com/user/USNavyMedicine')} src={youTubeImage} />
+                    </div>
+                  </div>
+                  <div style={socialContainer}>
+                    <div style={imageLast}>
+                      <Link to={"/favorites"}>
+                        <img style={imageLast} src={favoriteImage} />
+                      </Link>
+                    </div>
+                  </div>
               </div>
     </div>;
   }

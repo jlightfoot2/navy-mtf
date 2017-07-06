@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import FavoritesListComponent from '../components/HospitalFavoritesList';
+import FavoritesListComponent from '../components/HospitalFavoritesListPage';
 import {CommandInterface} from '../res/data/commands';
 import {removeHospitalFromFavorites} from '../actions';
 import {withRouter} from 'react-router-dom';
@@ -12,8 +12,11 @@ const stateToProps = (state,ownProps) => {
 
 const dispatchToProps = (dispatch,ownProps) => {
   return {
-    remove: (hospital: CommandInterface) => {
+    removeFavorite: (hospital: CommandInterface) => {
       dispatch(removeHospitalFromFavorites(hospital.id));
+    },
+    itemClick: (hospital: CommandInterface) => {
+       ownProps.history.push('/favorites/' + hospital.id);
     }
   }
 }

@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import CommandHospitalsComponent from '../components/CommandsList';
 import {CommandInterface} from '../res/data/commands';
-//import {addProductFavorites} from '../actions';
 import {withRouter} from 'react-router-dom';
 import {getDistanceFromLatLonInMiles} from './_helper';
 
@@ -35,9 +34,6 @@ const stateToProps = (state,ownProps) => {
 
 const dispatchToProps = (dispatch,ownProps) => {
   return {
-    addFavorite: (hospital: CommandInterface) => {
-     // dispatch(addProductFavorites(hospital.id));
-    },
     
     itemClick: (hospital: CommandInterface) => {
        ownProps.history.push('/commands/' + hospital.id);
