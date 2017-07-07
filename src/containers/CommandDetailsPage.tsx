@@ -3,7 +3,7 @@ import CommandDetailsComponent from '../components/CommandDetailsPage';
 import {withRouter} from 'react-router-dom';
 import {CommandInterface} from '../res/data/commands';
 import {isHospitalFavorite} from './_helper';
-import {addHospitalToFavorites,removeHospitalFromFavorites} from '../actions'
+import {addHospitalToFavorites,removeHospitalFromFavorites,sendMessage} from '../actions'
 const stateToProps = (state,ownProps) => {
   const hospital = state.hospitals[ownProps.match.params.id];
   return {
@@ -20,6 +20,10 @@ const dispatchToProps = (dispatch,ownProps) => {
       } else {
         dispatch(addHospitalToFavorites(hospital.id));
       }
+    },
+    sendMessage: (message: string) => {
+      console.log(message);
+      dispatch(sendMessage(message));
     }
   }
 }

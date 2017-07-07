@@ -21,6 +21,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {withRouter} from 'react-router-dom';
 import Page from '../Containers/Page';
+import SnackbarGlobal from '../containers/SnackbarGlobal';
 const muiTheme = getMuiTheme({
   palette: {
     
@@ -160,6 +161,7 @@ class App extends React.Component<Props, State>{
                 <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{leftIcon: <BackButton path="/leadership" />})} />
             
                 <Route exact path="/" render={(routeProps) => <HomeFooter appPage={this.getAppPageObject()} />} />
+                <SnackbarGlobal />
             </div>
           </MuiThemeProvider>;
  

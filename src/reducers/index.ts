@@ -1,13 +1,16 @@
 import {defaultCommands, defaultCommandIds} from '../res/data/commands';
 import {defaultLeaders, defaultLeaderIds} from '../res/data/leadership';
 import {defaultHotlines, defaultHotlineIds} from '../res/data/hotlines';
+
 import {
   WINDOW_RESIZE,
   SET_PAGE_TITLE,
   SORT_HOSPITALS,
   SET_USER_LOCATION,
   ADD_HOSPITAL_FAVORITES,
-  REMOVE_HOSPITAL_FAVORITES
+  REMOVE_HOSPITAL_FAVORITES,
+  T2_APP_MESSAGE_CLEAR,
+  T2_APP_MESSAGE_START
 } from '../actions';
 import {combineReducers} from 'redux';
 import {arrayPushUnique,arrayRemove} from './_helper';
@@ -30,6 +33,10 @@ const defaultView = {
   },
   page: {
     title: 'Navy Medicine'
+  },
+  flash: {
+    message: '',
+    open: false
   }
 }
 const filters = (state = defaultFilters, action) => {
@@ -81,6 +88,14 @@ const view = (state = defaultView, action) => {
       break;
     case SET_PAGE_TITLE:
       state = {...state,page: {...state.page, title: action.title}};
+      break;
+    case T2_APP_MESSAGE_START:
+      console.log(T2_APP_MESSAGE_START,action);
+
+      state = {...state,flash: {message: action.message, open: true}};
+      break;
+    case T2_APP_MESSAGE_CLEAR:
+      state = {...state,flash: {message: '', open: false}};
       break;
   }
   return state;

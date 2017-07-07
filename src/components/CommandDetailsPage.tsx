@@ -20,6 +20,7 @@ export interface Props {
   appPage: AppPageInterface;
   isFavorite: boolean;
   toggleFavorite: (hospital: CommandInterface,isFavorite:boolean) => void;
+  sendMessage(message:string): void;
 }
 
 export interface State {
@@ -40,8 +41,10 @@ export default class CommandDetails extends React.Component<Props, State>{
   }
 
   handleSetToggle = () => {
-    const {toggleFavorite,isFavorite,hospital} = this.props;
+    const {toggleFavorite,isFavorite,hospital,sendMessage} = this.props;
     return () => {
+      const favMessage = isFavorite ? "Removed from Favorites" : "Added to Favorites";
+      sendMessage(favMessage);
       toggleFavorite(hospital,isFavorite);
     }
   }
@@ -60,8 +63,9 @@ export default class CommandDetails extends React.Component<Props, State>{
                 </div>
               </div>
               <div style={{greyContainer}}>
-                <div style={titleStyles as any}>{hospital.title}</div>
                 <FavoriteCheckbox toggleFavorite={this.handleSetToggle()} checked={isFavorite} />
+                <div style={titleStyles as any}>{hospital.title}</div>
+                
                 <List>
                   <ListItem leftIcon={<NavigationIcon color={PrimaryColor} />} primaryText={hospital.address} />
                   <ListItem leftIcon={<PhoneCallIcon color={PrimaryColor} />} primaryText={hospital.phone} />
