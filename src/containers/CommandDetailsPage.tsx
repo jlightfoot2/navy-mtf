@@ -22,7 +22,7 @@ const dispatchToProps = (dispatch,ownProps) => {
       }
     },
     sendMessage: (message: string) => {
-      console.log(message);
+
       dispatch(sendMessage(message));
     }
   }

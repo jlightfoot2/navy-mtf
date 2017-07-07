@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin'),
     PathRewriterPlugin = require('webpack-path-rewriter')
 var CleanWebpackPlugin = require('clean-webpack-plugin');
-var OfflinePlugin = require('offline-plugin');  
+//var OfflinePlugin = require('offline-plugin');  
 const buildPath = path.resolve(__dirname, 'cordova/www'); 
 module.exports = {
     entry: [
@@ -73,7 +73,7 @@ module.exports = {
 
         new webpack.NamedModulesPlugin(),
         new webpack.optimize.UglifyJsPlugin(),
-        new PathRewriterPlugin(),
-        new OfflinePlugin()
+        new PathRewriterPlugin()
+        //new OfflinePlugin()
     ]
 };

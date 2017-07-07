@@ -43,7 +43,7 @@ export default class CommandDetails extends React.Component<Props, State>{
   handleSetToggle = () => {
     const {toggleFavorite,isFavorite,hospital,sendMessage} = this.props;
     return () => {
-      const favMessage = isFavorite ? "Removed from Favorites" : "Added to Favorites";
+      const favMessage = isFavorite ? "Removed Favorite" : "Added Favorite";
       sendMessage(favMessage);
       toggleFavorite(hospital,isFavorite);
     }

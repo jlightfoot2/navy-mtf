@@ -10,7 +10,7 @@ export let blueBackgroundPage = {
 
 }
 export let greyContainer = {
-    backgroundColor: 'grey',
+    backgroundColor: '#E0E0E0',
     padding: '10px 10px 10px 10px'
 }
 export let whiteContainer = {
