@@ -1,7 +1,5 @@
-import {ProductInterface} from '../res/data/products';
-import {nextId} from './_helper';
-export const UPDATE_PRODUCT = 'T2.UPDATE_PRODUCT';
-export const DELETE_PRODUCT = 'T2.DELETE_PRODUCT';
+//import {nextId} from './_helper';
+
 export const ADD_HOSPITAL_FAVORITES = 'T2.ADD_HOSPITAL_FAVORITES';
 export const REMOVE_HOSPITAL_FAVORITES = 'T2.REMOVE_HOSPITAL_FAVORITES';
 export const WINDOW_RESIZE = 'T2.WINDOW_RESIZE';
@@ -10,11 +8,26 @@ export const SORT_HOSPITALS = 'T2.SORT_HOSPITALS';
 export const SET_USER_LOCATION = 'T2.SET_USER_LOCATION';
 export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
 export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
+export const EULA_ACCEPTED = 'T2.EULA_ACCEPTED';
+export const EULA_REJECTED = 'T2.EULA_REJECTED';
 
-export const updateProduct = (product:ProductInterface) => {
+
+export const eulaAccepted = () => {
   return {
-    type: UPDATE_PRODUCT,
-    product
+    type: EULA_ACCEPTED
+  }
+}
+
+export const eulaRejected = () => {
+  const localAction = {
+    type: EULA_REJECTED
+  }
+
+  return (dispatch,getState,extraArgs) => {
+    dispatch(localAction);
+    if(extraArgs.platform.toLowerCase() === 'android'){
+      (window as any).navigator.app.exitApp();
+    }
   }
 }
 
@@ -38,22 +51,6 @@ export const setPageTitle = (title:string) => {
   return {
     type: SET_PAGE_TITLE,
     title: title
-  }
-}
-
-export const saveProduct = (product:ProductInterface) => {
-  return (dispatch,getState) => {
-    if(product.id === 0){
-      product.id = nextId(getState().productIds);
-    }
-    dispatch(updateProduct(product));
-  }
-}
-
-export const deleteProduct = (id:number) => {
-  return {
-    type: DELETE_PRODUCT,
-    id
   }
 }
 
@@ -96,8 +93,8 @@ export const messageClear = () => {
 var timeOutId = null
 export const sendMessage = (message) => {
   
-  return (dispatch,getState) => {
-
+  return (dispatch,getState,extraArgs) => {
+    console.log(extraArgs);
     dispatch(messageStart(message));
 
     if(timeOutId){

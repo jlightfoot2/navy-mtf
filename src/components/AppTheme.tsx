@@ -14,6 +14,7 @@ import HomeFooter from './HomeFooter';
 import LeadershipDetailsPage from '../containers/LeadershipDetailsPage';
 import HospitalFavoritesListPage from '../containers/HospitalFavoritesListPage';
 import HospitalTwitterPage from '../containers/HospitalTwitterPage';
+import EulaDialog from '../containers/Eula';
 
 import LeftMenuIcon from './LeftMenuIcon';
 import { Route } from 'react-router-dom';
@@ -162,6 +163,7 @@ class App extends React.Component<Props, State>{
             
                 <Route exact path="/" render={(routeProps) => <HomeFooter appPage={this.getAppPageObject()} />} />
                 <SnackbarGlobal />
+                <EulaDialog />
             </div>
           </MuiThemeProvider>;
  

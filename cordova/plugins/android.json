@@ -15,6 +15,9 @@
         },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "org.tee2.navy_mtf"
         }
     },
     "dependent_plugins": {

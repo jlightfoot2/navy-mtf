@@ -16,17 +16,45 @@ import {setUserLocation} from './actions';
 injectTapEventPlugin();
 require('./index.html'); //load and emit index.html
 
-const store = createStore(reducer,applyMiddleware(thunk));
 
-store.subscribe(() => {
-    console.log(store.getState()); // list entire state of app
-});
-
-window.navigator.geolocation.getCurrentPosition((position) => {
-  store.dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
-});
 
 const render = (Component: any) => {
+
+
+  //cordova plugins will be loaded by this point
+  const thunkArgs = {
+    isCordova: __IS_CORDOVA_BUILD__,
+    platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform : 'browser'
+  }
+  const store = createStore(reducer,applyMiddleware(thunk.withExtraArgument(thunkArgs)));
+
+  store.subscribe(() => {
+      console.log(store.getState()); // list entire state of app
+  });
+
+
+  let geoWatchID = window.navigator.geolocation.watchPosition((position) => {
+     store.dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
+  })
+
+  const cordovaPause = () => {
+     window.navigator.geolocation.clearWatch(geoWatchID);
+  }
+
+  const cordovaResume = () => {
+     geoWatchID = window.navigator.geolocation.watchPosition((position) => {
+     store.dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
+    })
+  }
+
+  if(__IS_CORDOVA_BUILD__){
+    document.addEventListener("pause", cordovaPause, false);
+    document.addEventListener("resume", cordovaResume, false);
+  }
+
+
+
+
     ReactDOM.render(
         <AppContainer>
           <Provider store={store}>
@@ -38,11 +66,19 @@ const render = (Component: any) => {
         document.getElementById("spaApp")
     );
 }
+if(__IS_CORDOVA_BUILD__){
+  document.addEventListener("deviceready", function(){
 
-render(App);
-// Hot Module Replacement API. Only used when running the dev server.
-if ((module as any).hot) {
-  (module as any).hot.accept('./containers/AppTheme', () => {
-    render(App);
-  });
+    // document.addEventListener("menubutton", onMenuKeyDown, false);
+
+       render(App);
+  })
+} else {
+  render(App);
+  // Hot Module Replacement API. Only used when running the dev server.
+  if ((module as any).hot) {
+    (module as any).hot.accept('./containers/AppTheme', () => {
+      render(App);
+    });
+  }
 }
