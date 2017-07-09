@@ -1,6 +1,10 @@
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import * as React from 'react';
-import {createStore,applyMiddleware} from 'redux';
+import {compose, createStore,applyMiddleware} from 'redux';
+import {persistStore, autoRehydrate} from 'redux-persist'
+import * as localForage from "localforage";
+
+
 import thunk from 'redux-thunk';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -26,7 +30,21 @@ const render = (Component: any) => {
     isCordova: __IS_CORDOVA_BUILD__,
     platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform : 'browser'
   }
-  const store = createStore(reducer,applyMiddleware(thunk.withExtraArgument(thunkArgs)));
+  const store = createStore(
+      reducer,
+      undefined,
+      compose(
+        applyMiddleware(thunk.withExtraArgument(thunkArgs)),
+        autoRehydrate()
+      )
+    );
+
+
+  persistStore(store,{
+    whitelist: ['settings','favoriteHospitalIds'],
+    storage: localForage,
+    keyPrefix: 'navyMtfV1:'
+  })
 
   store.subscribe(() => {
       console.log(store.getState()); // list entire state of app
