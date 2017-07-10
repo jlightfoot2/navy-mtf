@@ -37,5 +37,24 @@ export const isHospitalFavorite = (hospital:{id: number},ids:number[]) =>  {
    return ids.indexOf(hospital.id) > -1;
 }
 
+export const calcDistance = (hospital: {distance: number,latitude: number, longitude: number},refLatitue,refLongitude) => {
+  const dist = getDistanceFromLatLonInMiles(hospital.latitude,hospital.longitude,refLatitue,refLongitude);
+ 
+  hospital.distance = Math.round(dist*100)/100;
+  return hospital;
+}
+
+export const distanceCompare = (hospitalA: {distance: number}, hospitalB: {distance: number}) => {
+  
+  if(hospitalA.distance < hospitalB.distance){
+    return -1;
+  }
+
+  if(hospitalA.distance > hospitalB.distance){
+    return 1;
+  }
+  return 0;
+}
+
 
 

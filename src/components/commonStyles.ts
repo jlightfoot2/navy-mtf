@@ -17,6 +17,12 @@ export let whiteContainer = {
     backgroundColor: 'white',
     padding: '10px 10px 10px 10px'
 }
+export let blueContainer = {
+    backgroundColor: PrimaryColor,
+    padding: '10px 10px 10px 10px',
+    color: 'white',
+    textAlign: 'center'
+}
 export let titleStyles1 = {
   color: PrimaryColor,
   fontWeight: 900,

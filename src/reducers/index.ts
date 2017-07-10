@@ -6,6 +6,7 @@ import {
   WINDOW_RESIZE,
   SET_PAGE_TITLE,
   SORT_HOSPITALS,
+  FILTER_HOSPITALS,
   SET_USER_LOCATION,
   ADD_HOSPITAL_FAVORITES,
   REMOVE_HOSPITAL_FAVORITES,
@@ -19,8 +20,9 @@ import {arrayPushUnique,arrayRemove} from './_helper';
 
 const defaultFilters = {
   hospitals: {
-    sortBy: 'default',
-    sordDir: 'asc'
+    sortBy: "default",
+    sordDir: "asc",
+    filterText: ""
   }
 }
 
@@ -48,9 +50,16 @@ const defaultView = {
   }
 }
 const filters = (state = defaultFilters, action) => {
+  let lastHospitals = null;
   switch (action.type) {
     case SORT_HOSPITALS:
-      state = {...state,hospitals: {sortBy: action.sortBy,sordDir: action.sordDir}}
+      lastHospitals = {...state.hospitals,sortBy: action.sortBy,sordDir: action.sordDir};
+
+      state = {...state,hospitals: lastHospitals}
+      break;
+    case FILTER_HOSPITALS:
+      lastHospitals = {...state.hospitals,filterText: action.text};
+      state = {...state,hospitals: lastHospitals}
       break;
   }
   return state;

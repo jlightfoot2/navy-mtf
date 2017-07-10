@@ -5,6 +5,7 @@ export const REMOVE_HOSPITAL_FAVORITES = 'T2.REMOVE_HOSPITAL_FAVORITES';
 export const WINDOW_RESIZE = 'T2.WINDOW_RESIZE';
 export const SET_PAGE_TITLE = 'T2.SET_PAGE_TITLE';
 export const SORT_HOSPITALS = 'T2.SORT_HOSPITALS';
+export const FILTER_HOSPITALS = 'T2.FILTER_HOSPITALS';
 export const SET_USER_LOCATION = 'T2.SET_USER_LOCATION';
 export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
 export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
@@ -36,6 +37,13 @@ export const sortHospitals = (sortBy: string, sortDir = 'asc') => {
     type: SORT_HOSPITALS,
     sortBy,
     sortDir
+  }
+}
+
+export const searchHospitals = (text: string) => {
+  return {
+    type: FILTER_HOSPITALS,
+    text
   }
 }
 
