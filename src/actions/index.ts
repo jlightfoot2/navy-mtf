@@ -11,7 +11,9 @@ export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
 export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
 export const EULA_ACCEPTED = 'T2.EULA_ACCEPTED';
 export const EULA_REJECTED = 'T2.EULA_REJECTED';
-import {search_city,search_zipcodes} from '../sqlite';
+export const SET_GEO_SEARCH_RESULTS = 'T2.SET_GEO_SEARCH_RESULTS';
+
+import {search_city, search_zipcodes, get_results_array} from '../sqlite';
 
 
 export const eulaAccepted = () => {
@@ -20,17 +22,44 @@ export const eulaAccepted = () => {
   }
 }
 
+export const setGpsSearchResults = (results:{title: string, latitude: number, longitude: number}[]) => {
+  console.log(results);
+  return {
+    type: SET_GEO_SEARCH_RESULTS,
+    results
+  }
+}
+
 export const handleGeoSearch = () => {
 
 }
 
 export const getCityGeo = (searchStr: string) => {
+  console.log(searchStr);
   return (dispatch,getState,extraArgs) => {
+    console.log('search thunk');
+    console.log(extraArgs.db);
     if(extraArgs.db){ //TODO more checking
-      search_city(extraArgs.db,searchStr,(err,rs) => {
+      console.log('has db');
+      search_city(extraArgs.db,searchStr,15,(err,rs) => {
         //https://www.w3.org/TR/webdatabase/#database-query-results
+          console.log(err);
+          console.log(rs);
+          console.log(rs.rows);
           if(rs.rows.length){
-              //rs.rows.item(0)
+              const gpsResults = get_results_array(rs.rows,10)
+                  .map(city => { //transforming
+                    return {
+                            id: city.id,
+                            title: city.Name, 
+                            latitude: city.Latitude,
+                            longitude: city.Longitude
+                          }
+                  });
+              
+              dispatch(setGpsSearchResults(gpsResults));
+          } else {
+             dispatch(setGpsSearchResults([]));
           }
       });
     }

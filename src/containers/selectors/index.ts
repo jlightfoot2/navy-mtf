@@ -9,6 +9,8 @@ export const getHospitals = (state) => state.hospitalIds.map(hid => state.hospit
 
 export const getUser = (state) => state.user;
 
+export const getGeoSearchData = (state) => state.searches.geo;
+
 export const searchHospitals = createSelector( //just searching titles for now
   [getHospitals,getHospitalSearchText],
   (hospitals,searchText) => {

@@ -16,18 +16,28 @@ export const init = (db:any) => {
    })
 }
 
-export const search_city = (db:any,text: string,cb: (error: any, rs:any) => void) => {
+export const search_city = (db:any,text: string, limit: number, cb: (error: any, rs:any) => void) => {
 
    db.transaction((tx) => {
-      tx.executeSql("SELECT * FROM Zipcodes WHERE Name LIKE '%?%'",[text],
+      tx.executeSql("SELECT rowid as id, * FROM Cities WHERE Name LIKE ? LIMIT ?",['%' + text + '%',limit],
      (tx,rs) => {
-          cb(null,rs)
+          
+          cb(null,rs);
       },
      (tx,e) => {
-          cb(e,null)
+          cb(e,null);
       });
     });
 
+}
+
+export const get_results_array = (rows:any,maxResulst: number = 10) => {
+  const limit = rows.length < maxResulst ? rows.length : maxResulst;
+  const results = [];
+  for(let i = 0; i < limit; i++){
+    results.push(rows.item(i));
+  }
+  return results;
 }
 
 export const search_zipcodes = (db:any,text: string,cb: (error: any, rs:any) => void) => {

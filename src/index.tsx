@@ -61,6 +61,12 @@ const render = (Component: any) => {
   });
 
 
+  // setTimeout(
+  //   () => {
+  //     store.dispatch(getCityGeo('seat'));
+  //   }
+  //   ,4000);
+
   let geoWatchID = window.navigator.geolocation.watchPosition((position) => {
      store.dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
   })

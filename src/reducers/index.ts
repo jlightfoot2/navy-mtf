@@ -13,10 +13,11 @@ import {
   T2_APP_MESSAGE_CLEAR,
   T2_APP_MESSAGE_START,
   EULA_ACCEPTED,
-  EULA_REJECTED
+  EULA_REJECTED,
+  SET_GEO_SEARCH_RESULTS
 } from '../actions';
 import {combineReducers} from 'redux';
-import {arrayPushUnique,arrayRemove} from './_helper';
+import {arrayPushUnique,arrayRemove,copyArray} from './_helper';
 
 const defaultFilters = {
   hospitals: {
@@ -49,6 +50,12 @@ const defaultView = {
     open: false
   }
 }
+
+const defaultSearches = {
+  geo: [
+  ]
+};
+
 const filters = (state = defaultFilters, action) => {
   let lastHospitals = null;
   switch (action.type) {
@@ -60,6 +67,16 @@ const filters = (state = defaultFilters, action) => {
     case FILTER_HOSPITALS:
       lastHospitals = {...state.hospitals,filterText: action.text};
       state = {...state,hospitals: lastHospitals}
+      break;
+  }
+  return state;
+}
+
+const searches = (state = defaultSearches, action) => {
+  switch (action.type) {
+    case SET_GEO_SEARCH_RESULTS:
+
+      state = {...state,geo: copyArray(action.results)}
       break;
   }
   return state;
@@ -154,7 +171,8 @@ const reducer = combineReducers({
   favoriteHospitalIds,
   user,
   view,
-  settings
+  settings,
+  searches
 });
 
 export default reducer;

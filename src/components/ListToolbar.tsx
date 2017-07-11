@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/FlatButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import GeoSearchField from '../containers/GeoSearchField';
 
 
 const getSearchThingies = (searchHospitals,searchText) => {
@@ -114,10 +115,7 @@ export default class ListToolbar extends React.Component<Props, State>{
                             style={{ display: 'inline-block', width: '100px' }}
                           />
                         </RadioButtonGroup>
-                        {showTextField && <TextField
-                         
-                          hintText="Zipcode or City"
-                        />}
+                        {showTextField && <GeoSearchField  />}
                       </div>
                     }
 
