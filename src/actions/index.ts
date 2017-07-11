@@ -11,11 +11,39 @@ export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
 export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
 export const EULA_ACCEPTED = 'T2.EULA_ACCEPTED';
 export const EULA_REJECTED = 'T2.EULA_REJECTED';
+import {search_city,search_zipcodes} from '../sqlite';
 
 
 export const eulaAccepted = () => {
   return {
     type: EULA_ACCEPTED
+  }
+}
+
+export const handleGeoSearch = () => {
+
+}
+
+export const getCityGeo = (searchStr: string) => {
+  return (dispatch,getState,extraArgs) => {
+    if(extraArgs.db){ //TODO more checking
+      search_city(extraArgs.db,searchStr,(err,rs) => {
+        //https://www.w3.org/TR/webdatabase/#database-query-results
+          if(rs.rows.length){
+              //rs.rows.item(0)
+          }
+      });
+    }
+  }
+}
+
+export const getZipGeo = (searchStr: string) => {
+  return (dispatch,getState,extraArgs) => {
+    if(extraArgs.db){ //TODO more checking
+      search_zipcodes(extraArgs.db,searchStr,(err,rs) => {
+          
+      });
+    }
   }
 }
 

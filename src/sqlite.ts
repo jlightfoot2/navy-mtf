@@ -1,3 +1,5 @@
+//TODO consider renaming and moving
+
 export const init = (db:any) => {
    has_location_tables(db,(err,hasTables) => {
      if(!hasTables){
@@ -9,13 +11,41 @@ export const init = (db:any) => {
           }
        });
      } else {
-        search_city(db);
+        //search_city(db);
      }
    })
 }
 
+export const search_city = (db:any,text: string,cb: (error: any, rs:any) => void) => {
 
-export const search_city = (db) => {
+   db.transaction((tx) => {
+      tx.executeSql("SELECT * FROM Zipcodes WHERE Name LIKE '%?%'",[text],
+     (tx,rs) => {
+          cb(null,rs)
+      },
+     (tx,e) => {
+          cb(e,null)
+      });
+    });
+
+}
+
+export const search_zipcodes = (db:any,text: string,cb: (error: any, rs:any) => void) => {
+
+   db.transaction((tx) => {
+      tx.executeSql("SELECT * FROM Zipcodes WHERE Zipcode LIKE '%?%'",[text],
+     (tx,rs) => {
+          cb(null,rs)
+      },
+     (tx,e) => {
+          cb(e,null)
+      });
+    });
+
+}
+
+
+export const search_city_old = (db) => {
    db.transaction((tx) => {
       tx.executeSql(`SELECT count(*) AS mycount FROM Zipcodes`,[],
      (tx,rs) => {
@@ -37,9 +67,6 @@ export const search_city = (db) => {
       });
 
    });
-
-
-
 }
 
 
