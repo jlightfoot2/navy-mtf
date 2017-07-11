@@ -20,15 +20,25 @@ import {setUserLocation} from './actions';
 injectTapEventPlugin();
 require('./index.html'); //load and emit index.html
 
-
+import {init} from './sqlite';
 
 const render = (Component: any) => {
 
 
   //cordova plugins will be loaded by this point
+  let db = null;
+
+  if(__IS_CORDOVA_BUILD__){
+    db = (window as any).sqlitePlugin.openDatabase({name: 'navy.db', location: 'default'});
+    init(db);
+  }
+
+
+
   const thunkArgs = {
     isCordova: __IS_CORDOVA_BUILD__,
-    platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform : 'browser'
+    platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform : 'browser',
+    db: db
   }
   const store = createStore(
       reducer,
