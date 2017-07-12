@@ -23,14 +23,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {withRouter} from 'react-router-dom';
 import Page from '../Containers/Page';
 import SnackbarGlobal from '../containers/SnackbarGlobal';
+import {homeFooterDefault, homeFooterAbsolute} from './commonStyles';
+
 const muiTheme = getMuiTheme({
   palette: {
-    
     textColor: '#000000',
     primary1Color: '#000000',
     primary2Color: '#1b4583',
     primary3Color: '#1b4583'
-
   },
   appBar: {
     height: 50,
@@ -38,7 +38,7 @@ const muiTheme = getMuiTheme({
 });
 
 export interface AppPageInterface {
-  screen:{width: number, height: number};
+  screen:{width: number, height: number, orientation: string};
   setMainIcon(icon: JSX.Element): void;
   setPageTitle(title:string): void;
   history: any;
@@ -50,7 +50,7 @@ export interface Props {
 }
 
 export interface State {
-  screen:{width: number, height: number}
+  screen:{width: number, height: number,orientation: string}
   title: string;
   leftIcon: JSX.Element;
 }
@@ -85,9 +85,12 @@ class App extends React.Component<Props, State>{
   }
 
   getScreenDimensions = () => {
+    const orientation = window.innerWidth >= window.innerHeight ? 'landscape' : 'portrait';
+    console.log(window.innerHeight);
     return {
        width: window.innerWidth,
-       height: window.innerHeight
+       height: window.innerHeight,
+       orientation
     }
   }
 
@@ -130,6 +133,7 @@ class App extends React.Component<Props, State>{
 
   renderRouteComponent = (Component,extraProps:any = {}) => {
     return (routeProps) => {
+      console.log(routeProps);
       const defaultExtra = {
         leftIcon: <LeftMenuIcon />,
         appPage: this.getAppPageObject()
@@ -139,9 +143,34 @@ class App extends React.Component<Props, State>{
     }
   }
 
+  shouldDisplayFooter = () => {
+    const {screen} = this.state;
+    if(screen.orientation === 'landscape'){
+      return false;
+    }
+    if(screen.height < 550){
+      return false;
+    }
+    return true;
+  }
+
+  shouldFooterAbsolute = () => {
+    const {screen} = this.state;
+    if(screen.width >= 500){
+      return false;
+    }
+    return true;
+  }
+
   render(){
+    const {screen} = this.state;
+    const showFooter = this.shouldDisplayFooter();
+    const footerAbsolute = this.shouldFooterAbsolute();
+    const footerStyles = footerAbsolute ? homeFooterAbsolute : homeFooterDefault;
+    const mainStyles = footerAbsolute ? {position: 'relative' as 'relative', height: screen.height} : {position: 'relative' as 'relative'};
+
     return <MuiThemeProvider muiTheme={muiTheme}>
-            <div>
+            <div style={mainStyles}>
                 <AppBar leftIcon={this.state.leftIcon} /> 
                 
                 <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
@@ -160,8 +189,9 @@ class App extends React.Component<Props, State>{
 
                 <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{leftIcon: <BackButton path="/leadership" />})} />
-            
-                <Route exact path="/" render={(routeProps) => <HomeFooter appPage={this.getAppPageObject()} />} />
+                {showFooter && <div style={footerStyles}>
+                  <Route exact path="/" render={(routeProps) => <HomeFooter appPage={this.getAppPageObject()} />} />
+                </div>}
                 <SnackbarGlobal />
                 <EulaDialog />
             </div>

@@ -54,3 +54,11 @@ export const fullWidthDialagStyle = {
   width: '100%',
   maxWidth: '700px'
 };
+
+export let homeFooterDefault = {
+
+}
+export let homeFooterAbsolute = {
+  position: 'absolute' as 'absolute',
+  bottom: 0
+}
