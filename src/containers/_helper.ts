@@ -56,5 +56,38 @@ export const distanceCompare = (hospitalA: {distance: number}, hospitalB: {dista
   return 0;
 }
 
+export const distanceSort = (direction:string = 'asc') => {
+  return (hospitalA: {distance: number}, hospitalB: {distance: number}) => {
+  
+    if(hospitalA.distance < hospitalB.distance){
+      return direction === 'asc' ? -1 : 1;
+    }
+
+    if(hospitalA.distance > hospitalB.distance){
+      return direction === 'asc' ? 1 : -1;
+    }
+    return 0;
+  }
+}
+
+export const alphaSort = (propName: string, direction:string = 'asc') => {
+  return (itemA, itemB) => {
+  
+    if(itemA[propName] < itemB[propName]){
+      return direction === 'asc' ? -1 : 1;
+    }
+
+    if(itemA[propName] > itemB[propName]){
+      return direction === 'asc' ? 1 : -1;
+    }
+    return 0;
+  }
+}
+
+export const isNumeric = (n) => {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
 
 

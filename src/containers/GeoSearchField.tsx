@@ -1,11 +1,13 @@
 import {connect} from 'react-redux';
 import GeoSearchFieldComponent from '../components/GeoSearchField';
-import {setUserLocation,getCityGeo} from '../actions';
-//import {getGeoSearchData} from './selectors'
+import {setUserLocation,getCityGeo,setHospitalGeoSortText} from '../actions';
+import {isNumeric} from './_helper'
 
 const stateToProps = (state,ownProps) => {
+  console.log(state.filters.hospitals);
   return {
-    searchData: state.searches.geo
+    searchData: state.searches.geo,
+    sortText: state.filters.hospitals.sortText
   }
 }
 
@@ -15,10 +17,14 @@ const dispatchToProps = (dispatch,ownProps) => {
       dispatch(setUserLocation(latitude,longitude));
     },
     searchGeo: (searchStr: string) => {
+      dispatch(setHospitalGeoSortText(searchStr));
       if(searchStr.length > 2){
-        dispatch(getCityGeo(searchStr));
+        if(isNumeric(searchStr)){
+
+        }else{
+          dispatch(getCityGeo(searchStr));
+        }
       }
-      
     }
   }
 }

@@ -25,13 +25,13 @@ export default class ListTextSearch extends React.Component<Props, State>{
     }
     return <div>
               <TextField
-                            style={{width: 150}}
-                            value={searchText}
-                            hintText={'Search'} 
-                            onChange={(event,newValue) => {
-                              searchHospitals(newValue);
-                            }} 
-                          />
+                style={{width: 150}}
+                value={searchText}
+                hintText={'Search Hospitals'} 
+                onChange={(event,newValue) => {
+                  searchHospitals(newValue);
+                }} 
+              />
 
               <RaisedButton onTouchTap={handleToggleFilter} label={"Done"} />
               {searchText.length !== 0 && <RaisedButton onTouchTap={clearSearch} label={"Clear"} />}

@@ -13,6 +13,7 @@ export const EULA_ACCEPTED = 'T2.EULA_ACCEPTED';
 export const EULA_REJECTED = 'T2.EULA_REJECTED';
 export const SET_GEO_SEARCH_RESULTS = 'T2.SET_GEO_SEARCH_RESULTS';
 export const DISMISS_911_WARNING = 'T2.DISMISS_911_WARNING';
+export const SET_HOSPITAL_GEO_SORT_TEXT = 'T2.SET_HOSPITAL_GEO_SORT_TEXT';
 
 import {search_city, search_zipcodes, get_results_array} from '../sqlite';
 
@@ -20,6 +21,13 @@ import {search_city, search_zipcodes, get_results_array} from '../sqlite';
 export const eulaAccepted = () => {
   return {
     type: EULA_ACCEPTED
+  }
+}
+
+export const setHospitalGeoSortText = (text: string) => {
+  return {
+    type: SET_HOSPITAL_GEO_SORT_TEXT,
+    text
   }
 }
 
@@ -42,12 +50,9 @@ export const handleGeoSearch = () => {
 }
 
 export const getCityGeo = (searchStr: string) => {
-  console.log(searchStr);
   return (dispatch,getState,extraArgs) => {
-    console.log('search thunk');
-    console.log(extraArgs.db);
     if(extraArgs.db){ //TODO more checking
-      console.log('has db');
+ 
       search_city(extraArgs.db,searchStr,15,(err,rs) => {
         //https://www.w3.org/TR/webdatabase/#database-query-results
 
@@ -76,8 +81,27 @@ export const getCityGeo = (searchStr: string) => {
 export const getZipGeo = (searchStr: string) => {
   return (dispatch,getState,extraArgs) => {
     if(extraArgs.db){ //TODO more checking
-      search_zipcodes(extraArgs.db,searchStr,(err,rs) => {
-          
+ 
+      search_zipcodes(extraArgs.db,searchStr,15,(err,rs) => {
+        //https://www.w3.org/TR/webdatabase/#database-query-results
+
+          if(rs.rows.length){
+              const gpsResults = get_results_array(rs.rows,10)
+                  .map(zip => { //transforming
+                    return {
+                            id: zip.id,
+                            title: zip.Zipcode, 
+                            state_abbrev: '',
+                            description: zip.Zipcode,
+                            latitude: zip.Latitude,
+                            longitude: zip.Longitude
+                          }
+                  });
+              
+              dispatch(setGpsSearchResults(gpsResults));
+          } else {
+             dispatch(setGpsSearchResults([]));
+          }
       });
     }
   }

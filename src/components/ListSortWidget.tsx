@@ -13,8 +13,8 @@ export interface State {
 
 export default class ListTextSearch extends React.Component<Props, State>{
 
-  handleRadioSelect = (event: any, value: any) => {
-
+  handleRadioClick = (event: any) => {
+    //const {onSelect} = this.props;
   }
 
   render(){
@@ -23,13 +23,13 @@ export default class ListTextSearch extends React.Component<Props, State>{
 
     return <div style={greyContainer}>
               <div style={titleStylesLeft2}>Sort By: </div>
-                         <RadioButtonGroup name="sort" onChange={onSelect} valueSelected={selectedRadio}>
+                         <RadioButtonGroup  name="sort" onChange={onSelect} valueSelected={selectedRadio}>
                           <RadioButton 
                             label="Your Location"
                             value={"current_location"} 
                           />
                           <RadioButton 
-                            label="Zipcode"
+                            label="Zipcode or City"
                             value={"zip_city_location"} 
                           />
                           <RadioButton 

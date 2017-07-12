@@ -16,8 +16,8 @@ const dispatchToProps = (dispatch, ownProps) => {
      searchHospitals: (text: string) => {
        dispatch(searchHospitals(text));
      },
-     sortHospitals: (sort: string) => {
-       dispatch(sortHospitals(sort));
+     sortHospitals: (sort: string,direction: string) => {
+       dispatch(sortHospitals(sort,direction));
      }
   }
 }

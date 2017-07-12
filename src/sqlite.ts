@@ -4,14 +4,12 @@ export const init = (db:any) => {
    has_location_tables(db,(err,hasTables) => {
      if(!hasTables){
        create_location_tables(db,(err, isSuccess) => {
-          console.log('tables created');
-          console.log(isSuccess);
           if(isSuccess){
             add_locations_data(db);
           }
        });
      } else {
-        //search_city(db);
+        //TODO
      }
    })
 }
@@ -40,10 +38,10 @@ export const get_results_array = (rows:any,maxResulst: number = 10) => {
   return results;
 }
 
-export const search_zipcodes = (db:any,text: string,cb: (error: any, rs:any) => void) => {
+export const search_zipcodes = (db:any,text: string, limit: number,cb: (error: any, rs:any) => void) => {
 
    db.transaction((tx) => {
-      tx.executeSql("SELECT * FROM Zipcodes WHERE Zipcode LIKE '%?%'",[text],
+      tx.executeSql("SELECT rowid as id, * FROM Zipcodes WHERE Zipcode LIKE ? AND LIMIT ?",['%' + text + '%',limit],
      (tx,rs) => {
           cb(null,rs)
       },
@@ -55,29 +53,6 @@ export const search_zipcodes = (db:any,text: string,cb: (error: any, rs:any) => 
 }
 
 
-export const search_city_old = (db) => {
-   db.transaction((tx) => {
-      tx.executeSql(`SELECT count(*) AS mycount FROM Zipcodes`,[],
-     (tx,rs) => {
-          console.log("Zipcount...");
-          console.log(rs.rows.item(0).mycount);
-      },
-     (tx,e) => {
-          console.log("Zipcount Error...");
-          console.log(e);
-      });
-      tx.executeSql(`SELECT count(*) AS mycount FROM Cities`,[],
-     (tx,rs) => {
-          console.log("Cities...");
-          console.log(rs.rows.item(0).mycount);
-      },
-     (tx,e) => {
-          console.log("Cities Error...");
-          console.log(e);
-      });
-
-   });
-}
 
 
 export const add_locations_data = (db:any) => {

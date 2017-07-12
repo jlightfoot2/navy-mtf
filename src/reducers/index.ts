@@ -15,7 +15,8 @@ import {
   EULA_ACCEPTED,
   EULA_REJECTED,
   SET_GEO_SEARCH_RESULTS,
-  DISMISS_911_WARNING
+  DISMISS_911_WARNING,
+  SET_HOSPITAL_GEO_SORT_TEXT
 } from '../actions';
 import {combineReducers} from 'redux';
 import {arrayPushUnique,arrayRemove,copyArray} from './_helper';
@@ -23,8 +24,9 @@ import {arrayPushUnique,arrayRemove,copyArray} from './_helper';
 const defaultFilters = {
   hospitals: {
     sortBy: "default",
-    sordDir: "asc",
-    filterText: ""
+    sortDir: "asc",
+    filterText: "",
+    sortText: ""
   }
 }
 
@@ -53,21 +55,23 @@ const defaultView = {
 }
 
 const defaultSearches = {
-  geo: [
-  ]
+  geo: []
 };
 
 const filters = (state = defaultFilters, action) => {
-  let lastHospitals = null;
+  let newHospitals = null;
   switch (action.type) {
     case SORT_HOSPITALS:
-      lastHospitals = {...state.hospitals,sortBy: action.sortBy,sordDir: action.sordDir};
-
-      state = {...state,hospitals: lastHospitals}
+      newHospitals = {...state.hospitals,sortBy: action.sortBy,sortDir: action.sortDir};
+      state = {...state,hospitals: newHospitals};
       break;
     case FILTER_HOSPITALS:
-      lastHospitals = {...state.hospitals,filterText: action.text};
-      state = {...state,hospitals: lastHospitals}
+      newHospitals = {...state.hospitals,filterText: action.text};
+      state = {...state,hospitals: newHospitals};
+      break;
+    case SET_HOSPITAL_GEO_SORT_TEXT:
+      newHospitals = {...state.hospitals,sortText: action.text};
+      state = {...state,hospitals: newHospitals};
       break;
   }
   return state;

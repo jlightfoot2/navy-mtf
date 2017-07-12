@@ -11,7 +11,7 @@ export interface Props {
   showTextField?: boolean;
   searchHospitals(text: string): void;
   searchText: string;
-  sortHospitals(text: string): void;
+  sortHospitals(text: string,direction:string): void;
   sortConfig: {sortBy: string, sortDir: string}
 }
 
@@ -38,8 +38,12 @@ export default class ListToolbar extends React.Component<Props, State>{
     }
   }
   handleRadioSelect = (event: any, value: any) => {
-    const {sortHospitals} = this.props
-    sortHospitals(value);
+    const {sortHospitals,sortConfig} = this.props
+    let direction = 'asc'
+    if(value === sortConfig.sortBy){ //if last sort equals current then toggle direction
+      direction = sortConfig.sortDir === 'asc' ? 'desc' : 'asc';
+    }
+    sortHospitals(value,direction);
   }
 
   handleToggleSort = () => {

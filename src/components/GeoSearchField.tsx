@@ -4,6 +4,7 @@ export interface Props {
   searchData:{id: number,description: string, title:string,latitude:number, longitude:number}[];
   setUserLocation: (latitude:number, longitude:number) => void;
   searchGeo: (searchStr: string) => void;
+  sortText: string;
 }
 
 export interface State {
@@ -24,8 +25,9 @@ export default class GoeSearchFields extends React.Component<Props, State>{
   }
 
   render(){
-    const {searchData} = this.props;
+    const {searchData,sortText} = this.props;
     return <AutoComplete 
+        searchText={sortText}
         id="geo_search_auto"
         dataSource={searchData}
         dataSourceConfig={{text: 'description', value: 'id'}}

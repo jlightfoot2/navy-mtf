@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import {calcDistance,distanceCompare} from '../_helper';
+import {calcDistance,alphaSort} from '../_helper';
 
 
 //export const getHospitalSearchText = (state,props) => props.searchText;
@@ -11,6 +11,8 @@ export const getUser = (state) => state.user;
 
 export const getGeoSearchData = (state) => state.searches.geo;
 
+export const getHospitalSortFilter = (state) => state.filters.hospitals;
+
 export const searchHospitals = createSelector( //just searching titles for now
   [getHospitals,getHospitalSearchText],
   (hospitals,searchText) => {
@@ -21,9 +23,13 @@ export const searchHospitals = createSelector( //just searching titles for now
 );
 
 export const getHospitalsAdvanced = createSelector( //just searching titles for now
-  [searchHospitals,getUser],
-  (hospitals,user) => {
+  [searchHospitals,getUser,getHospitalSortFilter],
+  (hospitals,user,sortFilter) => {
     const {latitude,longitude} = user;
-    return hospitals.map(hospital => calcDistance(hospital,latitude,longitude)).sort(distanceCompare)
+    let sortCb = alphaSort('title',sortFilter.sortDir);
+    if(sortFilter.sortBy === 'current_location' || sortFilter.sortBy === 'zip_city_location'){
+      sortCb = alphaSort('distance',sortFilter.sortDir);
+    }
+    return hospitals.map(hospital => calcDistance(hospital,latitude,longitude)).sort(sortCb)
   }
 );
