@@ -12,6 +12,7 @@ export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
 export const EULA_ACCEPTED = 'T2.EULA_ACCEPTED';
 export const EULA_REJECTED = 'T2.EULA_REJECTED';
 export const SET_GEO_SEARCH_RESULTS = 'T2.SET_GEO_SEARCH_RESULTS';
+export const DISMISS_911_WARNING = 'T2.DISMISS_911_WARNING';
 
 import {search_city, search_zipcodes, get_results_array} from '../sqlite';
 
@@ -19,6 +20,12 @@ import {search_city, search_zipcodes, get_results_array} from '../sqlite';
 export const eulaAccepted = () => {
   return {
     type: EULA_ACCEPTED
+  }
+}
+
+export const dismiss911Warning = () => {
+  return {
+    type: DISMISS_911_WARNING
   }
 }
 
@@ -43,15 +50,15 @@ export const getCityGeo = (searchStr: string) => {
       console.log('has db');
       search_city(extraArgs.db,searchStr,15,(err,rs) => {
         //https://www.w3.org/TR/webdatabase/#database-query-results
-          console.log(err);
-          console.log(rs);
-          console.log(rs.rows);
+
           if(rs.rows.length){
               const gpsResults = get_results_array(rs.rows,10)
                   .map(city => { //transforming
                     return {
                             id: city.id,
                             title: city.Name, 
+                            state_abbrev: city.StateAbbrev,
+                            description: city.Name + ", " + city.StateAbbrev,
                             latitude: city.Latitude,
                             longitude: city.Longitude
                           }

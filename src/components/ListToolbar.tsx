@@ -1,34 +1,18 @@
 import * as React from 'react';
 //import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
-import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
-import RaisedButton from 'material-ui/FlatButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import ContentSort from 'material-ui/svg-icons/content/sort';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import GeoSearchField from '../containers/GeoSearchField';
+import ListTextSearch from './ListTextSearch';
+import ListSortWidget from './ListSortWidget';
 
-
-const getSearchThingies = (searchHospitals,searchText) => {
-  return <div>
-              <TextField
-                            style={{width: 150}}
-                            value={searchText}
-                            hintText={'Search'} 
-                            onChange={(event,newValue) => {
-                              searchHospitals(newValue);
-                            }} 
-                          />
-
-              <RaisedButton label={"Done"} />
-              <RaisedButton label={"Clear"} />
-          </div>;
-}
 export interface Props {
   showTextField?: boolean;
   searchHospitals(text: string): void;
   searchText: string;
+  sortHospitals(text: string): void;
+  sortConfig: {sortBy: string, sortDir: string}
 }
 
 export interface State {
@@ -54,11 +38,8 @@ export default class ListToolbar extends React.Component<Props, State>{
     }
   }
   handleRadioSelect = (event: any, value: any) => {
-    console.log(value);
-    this.setState({
-      selectedRadio: value,
-      showTextField: value === 'zip_city_location'
-    });
+    const {sortHospitals} = this.props
+    sortHospitals(value);
   }
 
   handleToggleSort = () => {
@@ -79,45 +60,29 @@ export default class ListToolbar extends React.Component<Props, State>{
 
 
   render(){
-    const {showTextField,showSort,showFilter} = this.state;
-    const {searchHospitals,searchText} = this.props;
+    const {showSort,showFilter} = this.state;
+    const {searchHospitals,searchText,sortConfig} = this.props;
+    const {sortBy} = sortConfig;
     return       <div>
                     <Toolbar>
                       <ToolbarGroup firstChild={true}>
-                        {showFilter && <div>
-                                    {getSearchThingies(searchHospitals,searchText)}
-                         </div>}
-                      </ToolbarGroup>
+                        {showFilter && <ListTextSearch 
+                                            handleToggleFilter={this.handleToggleFilter} 
+                                            searchHospitals={searchHospitals} 
+                                            searchText={searchText} 
+                                            />}
 
-                      <ToolbarGroup>
-                         <IconButton onTouchTap={this.handleToggleFilter}>
+                         {!(showFilter || showSort) && <IconButton onTouchTap={this.handleToggleFilter}>
                            <ActionSearch />
-                         </IconButton>
-                         <IconButton onTouchTap={this.handleToggleSort}>
+                         </IconButton>}
+                         {!showFilter && <IconButton onTouchTap={this.handleToggleSort}>
                            <ContentSort />
-                         </IconButton>
+                         </IconButton>}
                       </ToolbarGroup>
                     </Toolbar>
 
 
-
-                    {showSort && 
-                      <div>
-                         <RadioButtonGroup name="sort" onChange={this.handleRadioSelect} valueSelected={this.state.selectedRadio}>
-                          <RadioButton 
-                            label="Your Location"
-                            value={"current_location"} 
-                            style={{ display: 'inline-block', width: '160px' }}
-                          />
-                          <RadioButton 
-                            label="Zipcode"
-                            value={"zip_city_location"} 
-                            style={{ display: 'inline-block', width: '100px' }}
-                          />
-                        </RadioButtonGroup>
-                        {showTextField && <GeoSearchField  />}
-                      </div>
-                    }
+                    {showSort && <ListSortWidget onSelect={this.handleRadioSelect} selectedRadio={sortBy} />}
 
 
                  </div>

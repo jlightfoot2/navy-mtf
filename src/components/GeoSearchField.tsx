@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 export interface Props {
-  searchData:{id: number,title:string,latitude:number, longitude:number}[];
+  searchData:{id: number,description: string, title:string,latitude:number, longitude:number}[];
   setUserLocation: (latitude:number, longitude:number) => void;
   searchGeo: (searchStr: string) => void;
 }
@@ -28,9 +28,10 @@ export default class GoeSearchFields extends React.Component<Props, State>{
     return <AutoComplete 
         id="geo_search_auto"
         dataSource={searchData}
-        dataSourceConfig={{text: 'title', value: 'id'}}
+        dataSourceConfig={{text: 'description', value: 'id'}}
         onNewRequest={this.handleSelect}
         onUpdateInput={this.handleUpdateInput}
+        hintText="City or Zip"
         filter={(searchText, key) => {
           return true;
         }}

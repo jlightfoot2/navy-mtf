@@ -21,7 +21,9 @@ export let blueContainer = {
     backgroundColor: PrimaryColor,
     padding: '10px 10px 10px 10px',
     color: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    minHeight: 35,
+    position: 'relative' as 'relative'
 }
 export let titleStyles1 = {
   color: PrimaryColor,
@@ -32,10 +34,11 @@ export let titleStyles1 = {
 
 export let titleStyles2 = {
   color: PrimaryColor2,
-  fontWeight: 900,
+  fontWeight: 900 as any,
   fontSize: 18,
   textAlign: 'center'
 }
+export let titleStylesLeft2 = {...titleStyles2,textAlign: 'left'}
 
 export let contentContainer1 = {
   margin: '0px auto 0px auto',

@@ -14,7 +14,8 @@ import {
   T2_APP_MESSAGE_START,
   EULA_ACCEPTED,
   EULA_REJECTED,
-  SET_GEO_SEARCH_RESULTS
+  SET_GEO_SEARCH_RESULTS,
+  DISMISS_911_WARNING
 } from '../actions';
 import {combineReducers} from 'redux';
 import {arrayPushUnique,arrayRemove,copyArray} from './_helper';
@@ -30,7 +31,7 @@ const defaultFilters = {
 const defaultUser = {
   latitude: 0,
   longitude: 0,
-  eulaAccepted: false
+  show911Warning: true
 }
 
 const defaultSettings = {
@@ -87,6 +88,9 @@ const user = (state = defaultUser, action) => {
   switch(action.type){
     case SET_USER_LOCATION:
       state = {...state,latitude: action.latitude, longitude: action.longitude}
+      break;
+    case DISMISS_911_WARNING:
+      state = {...state,show911Warning: false}
       break;
   }
   return state;
