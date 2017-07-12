@@ -12,7 +12,7 @@ export interface State {
 }
 
 export default class GoeSearchFields extends React.Component<Props, State>{
-
+  public searchTimeout: number;
 
   handleSelect = (chosenRequest: any, index: number) => {
     const {setUserLocation} = this.props;
@@ -21,7 +21,15 @@ export default class GoeSearchFields extends React.Component<Props, State>{
 
   handleUpdateInput = (searchText: string) => {
     const {searchGeo} = this.props;
-    searchGeo(searchText);
+    
+    if(this.searchTimeout){
+      window.clearTimeout(this.searchTimeout);
+    }
+
+    this.searchTimeout = window.setTimeout(() => {
+        searchGeo(searchText);
+    },500);
+    
   }
 
   render(){

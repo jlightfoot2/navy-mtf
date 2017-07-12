@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import GeoSearchFieldComponent from '../components/GeoSearchField';
-import {setUserLocation,getCityGeo,setHospitalGeoSortText} from '../actions';
+import {setUserLocation,getCityGeo,setHospitalGeoSortText,getZipGeo} from '../actions';
 import {isNumeric} from './_helper'
 
 const stateToProps = (state,ownProps) => {
@@ -20,7 +20,7 @@ const dispatchToProps = (dispatch,ownProps) => {
       dispatch(setHospitalGeoSortText(searchStr));
       if(searchStr.length > 2){
         if(isNumeric(searchStr)){
-
+          dispatch(getZipGeo(searchStr));
         }else{
           dispatch(getCityGeo(searchStr));
         }

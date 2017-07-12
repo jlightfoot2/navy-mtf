@@ -43,9 +43,8 @@ export default class CommandHospitals extends React.Component<Props, State>{
               {show911Warning && <br />}
               {show911Warning && <div style={blueContainer}>
                 <div>
-                If you're experiencing a medical emergency,
-                <br />
-                please dial 911
+                If you're experiencing a medical<br /> 
+                emergency please dial 911
                 </div>
                 <IconButton style={styles911Button} onTouchTap={() => {dismiss911()}}>
                   <CloseIcon color={'white'} />

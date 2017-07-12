@@ -8,6 +8,7 @@ import {
   SORT_HOSPITALS,
   FILTER_HOSPITALS,
   SET_USER_LOCATION,
+  SET_USER_PLATFORM,
   ADD_HOSPITAL_FAVORITES,
   REMOVE_HOSPITAL_FAVORITES,
   T2_APP_MESSAGE_CLEAR,
@@ -33,7 +34,8 @@ const defaultFilters = {
 const defaultUser = {
   latitude: 0,
   longitude: 0,
-  show911Warning: true
+  show911Warning: true,
+  platform: 'unknown'
 }
 
 const defaultSettings = {
@@ -95,6 +97,9 @@ const user = (state = defaultUser, action) => {
       break;
     case DISMISS_911_WARNING:
       state = {...state,show911Warning: false}
+      break;
+    case SET_USER_PLATFORM:
+      state = {...state,platform: action.platform}
       break;
   }
   return state;

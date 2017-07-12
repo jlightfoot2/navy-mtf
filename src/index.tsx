@@ -3,7 +3,7 @@ import * as React from 'react';
 import {compose, createStore,applyMiddleware} from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist'
 import * as localForage from "localforage";
-
+import {getHospitalSortFilter} from './containers/selectors'
 
 import thunk from 'redux-thunk';
 import * as ReactDOM from 'react-dom';
@@ -15,7 +15,7 @@ import { Provider } from 'react-redux';
 import App from './containers/AppTheme';
 
 import reducer from './reducers';
-import {setUserLocation} from './actions';
+import {watchCurrentLocation,unWatchCurrentLocation,setUserPlatform} from './actions';
 
 injectTapEventPlugin();
 require('./index.html'); //load and emit index.html
@@ -37,7 +37,7 @@ const render = (Component: any) => {
 
   const thunkArgs = {
     isCordova: __IS_CORDOVA_BUILD__,
-    platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform : 'browser',
+    platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform.toLowerCase() : 'browser',
     db: db
   }
   const store = createStore(
@@ -59,26 +59,17 @@ const render = (Component: any) => {
   store.subscribe(() => {
       console.log(store.getState()); // list entire state of app
   });
-
-
-  // setTimeout(
-  //   () => {
-  //     store.dispatch(getCityGeo('seat'));
-  //   }
-  //   ,4000);
-
-  let geoWatchID = window.navigator.geolocation.watchPosition((position) => {
-     store.dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
-  })
-
+  store.dispatch(setUserPlatform(thunkArgs.platform));
   const cordovaPause = () => {
-     window.navigator.geolocation.clearWatch(geoWatchID);
+     store.dispatch(unWatchCurrentLocation());
   }
 
   const cordovaResume = () => {
-     geoWatchID = window.navigator.geolocation.watchPosition((position) => {
-     store.dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
-    })
+
+     const filterState = getHospitalSortFilter(store.getState());
+     if(filterState.sortBy === 'current_location'){
+       store.dispatch(watchCurrentLocation());
+     }
   }
 
   if(__IS_CORDOVA_BUILD__){

@@ -21,6 +21,8 @@ export interface Props {
   isFavorite: boolean;
   toggleFavorite: (hospital: CommandInterface,isFavorite:boolean) => void;
   sendMessage(message:string): void;
+  navLink: string;
+  phoneLink: string;
 }
 
 export interface State {
@@ -50,12 +52,13 @@ export default class CommandDetails extends React.Component<Props, State>{
   }
 
   render(){
-    const {hospital,isFavorite} = this.props;
+    const {hospital,isFavorite,navLink,phoneLink} = this.props;
     const styles = {...contentContainer1,width: this.getContentWidth()};
     const titleStyles = {...titleStyles1,width: this.getContentWidth()};
     const hasTwitter = hospital.twitter.length > 0;
     const hasFacebook = hospital.facebook.length > 0;
     const hasWebsite = hospital.website.length > 0;
+ 
     return <div style={whiteContainer}>
               <div style={styles}>
                 <div style={{width: '90%',margin: '0px auto 0px auto'}}>
@@ -67,8 +70,8 @@ export default class CommandDetails extends React.Component<Props, State>{
                 <div style={titleStyles as any}>{hospital.title}</div>
                 
                 <List>
-                  <ListItem leftIcon={<NavigationIcon color={PrimaryColor} />} primaryText={hospital.address} />
-                  <ListItem leftIcon={<PhoneCallIcon color={PrimaryColor} />} primaryText={hospital.phone} />
+                  <ListItem containerElement={<ExternalLink target="_system" absolutePath={navLink} />} leftIcon={<NavigationIcon color={PrimaryColor} />} primaryText={hospital.address} />
+                  <ListItem containerElement={<ExternalLink target="_system" absolutePath={phoneLink} />} leftIcon={<PhoneCallIcon color={PrimaryColor} />} primaryText={hospital.phone} />
                 </List>
                 <div>
 
