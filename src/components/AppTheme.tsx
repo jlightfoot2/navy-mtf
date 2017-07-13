@@ -8,6 +8,7 @@ import HotlinesPage from './HotlinesPage';
 import ResourcesPage from './ResourcesPage';
 import TwitterPage from './TwitterPage';
 import FacebookPage from './FacebookPage';
+import HomePageHeader from './HomePageHeader';
 import CommandDetailsPage from '../containers/CommandDetailsPage';
 import LeadershipPage from './LeadersPage';
 import HomeFooter from './HomeFooter';
@@ -57,7 +58,6 @@ export interface State {
 class App extends React.Component<Props, State>{
   constructor(props){
     super(props);
-    console.log(props);
     this.state = {
       screen: this.getScreenDimensions(),
       title: props.title,
@@ -86,7 +86,7 @@ class App extends React.Component<Props, State>{
 
   getScreenDimensions = () => {
     const orientation = window.innerWidth >= window.innerHeight ? 'landscape' : 'portrait';
-    console.log(window.innerHeight);
+ 
     return {
        width: window.innerWidth,
        height: window.innerHeight,
@@ -133,7 +133,6 @@ class App extends React.Component<Props, State>{
 
   renderRouteComponent = (Component,extraProps:any = {}) => {
     return (routeProps) => {
-      console.log(routeProps);
       const defaultExtra = {
         leftIcon: <LeftMenuIcon />,
         appPage: this.getAppPageObject()
@@ -145,10 +144,11 @@ class App extends React.Component<Props, State>{
 
   shouldDisplayFooter = () => {
     const {screen} = this.state;
-    if(screen.orientation === 'landscape'){
-      return false;
-    }
-    if(screen.height < 550){
+    console.log(screen);
+    const widthCompare = screen.width > 640 ? 640 : screen.width;
+    const hwRatio = screen.height/widthCompare;
+    console.log(hwRatio);
+    if(hwRatio < 1.7){
       return false;
     }
     return true;
@@ -156,7 +156,7 @@ class App extends React.Component<Props, State>{
 
   shouldFooterAbsolute = () => {
     const {screen} = this.state;
-    if(screen.width >= 500){
+    if(screen.width >= 640){
       return false;
     }
     return true;
@@ -164,15 +164,19 @@ class App extends React.Component<Props, State>{
 
   render(){
     const {screen} = this.state;
+    const {history} = this.props;
     const showFooter = this.shouldDisplayFooter();
+    console.log(showFooter);
     const footerAbsolute = this.shouldFooterAbsolute();
     const footerStyles = footerAbsolute ? homeFooterAbsolute : homeFooterDefault;
-    const mainStyles = footerAbsolute ? {position: 'relative' as 'relative', height: screen.height} : {position: 'relative' as 'relative'};
+    const mainStyles = {position: 'relative' as 'relative', height: screen.height}
+    
+    const isHomePage = history.location.pathname === '/';
 
     return <MuiThemeProvider muiTheme={muiTheme}>
             <div style={mainStyles}>
-                <AppBar leftIcon={this.state.leftIcon} /> 
-                
+                {!isHomePage && <AppBar leftIcon={this.state.leftIcon} />} 
+                <Route exact path="/" render={(routeProps) => <HomePageHeader appPage={this.getAppPageObject()} />} />
                 <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
                 <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/hotlines" render={this.renderRouteComponent(HotlinesPage,{leftIcon: <BackButton path="/" />})} />

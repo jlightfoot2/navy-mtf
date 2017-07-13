@@ -28,9 +28,10 @@ export default class HomeFooter extends React.Component<Props, State>{
     const contentWidth = this.getContentWidth();
     styles = {...styles, width: contentWidth};
 
-
-    return <div style={styles}>
-      <div style={{backgroundColor: 'black'}}>
+    //image height === 121
+    return <div>
+      <div style={styles}>
+      
             <img style={{width: '100%'}} onTouchTap={externalLink('http://www.med.navy.mil')} src={footerImage} />
       </div>
     </div>;

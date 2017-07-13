@@ -18,7 +18,7 @@ const stateToProps = (state,ownProps) => {
     hospital: hospital,
     isFavorite: isHospitalFavorite(hospital,state.favoriteHospitalIds),
     navLink: getNavLink(state.user.platform,hospital),
-    phoneLink: hospital.phone.replace(/\D/g,'')
+    phoneLink: 'tel: ' + hospital.phone.replace(/\D/g,'')
   }
 }
 
