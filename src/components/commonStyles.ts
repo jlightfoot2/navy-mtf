@@ -62,3 +62,14 @@ export let homeFooterAbsolute = {
   position: 'absolute' as 'absolute',
   bottom: 0
 }
+
+export let appBarTitleStyle = {
+  position: 'relative' as 'relative',
+  left: -40,
+  top: 1
+}
+
+export let appBarIconeStyle = {
+  position: 'relative' as 'relative',
+  left: -20
+}

@@ -42,6 +42,7 @@ export interface AppPageInterface {
   screen:{width: number, height: number, orientation: string};
   setMainIcon(icon: JSX.Element): void;
   setPageTitle(title:string): void;
+  setTitlePath(titlePath:string):void;
   history: any;
 }
 
@@ -54,6 +55,7 @@ export interface State {
   screen:{width: number, height: number,orientation: string}
   title: string;
   leftIcon: JSX.Element;
+  titlePath: string;
 }
 class App extends React.Component<Props, State>{
   constructor(props){
@@ -61,7 +63,8 @@ class App extends React.Component<Props, State>{
     this.state = {
       screen: this.getScreenDimensions(),
       title: props.title,
-      leftIcon: <LeftMenuIcon />
+      leftIcon: <LeftMenuIcon />,
+      titlePath: '/'
     }
   }
 
@@ -69,6 +72,15 @@ class App extends React.Component<Props, State>{
     this.setState({leftIcon})
   }
 
+  handleSetTitlePath = (titlePath: string) => {
+    this.setState({titlePath})
+  }
+
+  handleTitleClick = (event) => {
+    const {history} = this.props;
+    const {titlePath} = this.state;
+    history.push(titlePath);
+  }
 
   getAppPageObject = ():AppPageInterface => {
     const {setPageTitle,history} = this.props;
@@ -76,7 +88,8 @@ class App extends React.Component<Props, State>{
       screen: this.state.screen,
       setMainIcon: this.handleSetMainIcon,
       setPageTitle,
-      history
+      history,
+      setTitlePath: this.handleSetTitlePath
     }
   }
 
@@ -135,10 +148,11 @@ class App extends React.Component<Props, State>{
     return (routeProps) => {
       const defaultExtra = {
         leftIcon: <LeftMenuIcon />,
-        appPage: this.getAppPageObject()
+        appPage: this.getAppPageObject(),
+        titlePath: "/"
       };
       extraProps = {...defaultExtra,...extraProps};
-      return <Page leftIcon={extraProps.leftIcon} appPage={extraProps.appPage}><Component {...routeProps} {...extraProps} /></Page>;
+      return <Page titlePath={extraProps.titlePath} leftIcon={extraProps.leftIcon} appPage={extraProps.appPage}><Component {...routeProps} {...extraProps} /></Page>;
     }
   }
 
@@ -166,7 +180,6 @@ class App extends React.Component<Props, State>{
     const {screen} = this.state;
     const {history} = this.props;
     const showFooter = this.shouldDisplayFooter();
-    console.log(showFooter);
     const footerAbsolute = this.shouldFooterAbsolute();
     const footerStyles = footerAbsolute ? homeFooterAbsolute : homeFooterDefault;
     const mainStyles = {position: 'relative' as 'relative', height: screen.height}
@@ -175,7 +188,7 @@ class App extends React.Component<Props, State>{
 
     return <MuiThemeProvider muiTheme={muiTheme}>
             <div style={mainStyles}>
-                {!isHomePage && <AppBar leftIcon={this.state.leftIcon} />} 
+                {!isHomePage && <AppBar  leftIcon={this.state.leftIcon} onTitleClick={this.handleTitleClick} />} 
                 <Route exact path="/" render={(routeProps) => <HomePageHeader appPage={this.getAppPageObject()} />} />
                 <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
                 <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage,{leftIcon: <BackButton path="/" />})} />
@@ -185,13 +198,13 @@ class App extends React.Component<Props, State>{
                 <Route exact path="/facebook" render={this.renderRouteComponent(FacebookPage,{leftIcon: <BackButton path="/" />})} />
                 
                 <Route exact path="/favorites" render={this.renderRouteComponent(HospitalFavoritesListPage,{leftIcon: <BackButton path="/" />})} />
-                <Route exact path="/favorites/:id" render={this.renderRouteComponent(CommandDetailsPage,{leftIcon: <BackButton path="/favorites" />})} />
+                <Route exact path="/favorites/:id" render={this.renderRouteComponent(CommandDetailsPage,{titlePath: "/favorites", leftIcon: <BackButton path="/favorites" />})} />
                 
-                <Route exact path="/commands/:id" render={this.renderRouteComponent(CommandDetailsPage,{leftIcon: <BackButton path="/commands" />})} />
+                <Route exact path="/commands/:id" render={this.renderRouteComponent(CommandDetailsPage,{titlePath: "/commands", leftIcon: <BackButton path="/commands" />})} />
 
                 <Route exact path="/commands/:id/twitter" render={this.renderRouteComponent(HospitalTwitterPage)} />
 
-                <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{titlePath: "/", leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{leftIcon: <BackButton path="/leadership" />})} />
                 {showFooter && <div style={footerStyles}>
                   <Route exact path="/" render={(routeProps) => <HomeFooter appPage={this.getAppPageObject()} />} />
