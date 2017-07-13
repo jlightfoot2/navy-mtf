@@ -15,8 +15,9 @@ export interface State {
 
 const getTitleIcon = (title) => {
   return <div>
-           <div style={{position: 'relative',top: 4}} ><img style={{width: 40}}src={appIcon} />
-             {title}
+           <div style={{position: 'relative',top: 4}} >
+             <img style={{width: 40, display: 'block', float: 'left'}} src={appIcon} />
+             <div style={{position: 'relative', top: -5, left: 5}}>{title}</div>
            </div>
          </div>;
 }
