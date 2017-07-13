@@ -15,6 +15,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="res/icon/icon-180.png" />
     <platform name="android">
         <allow-intent href="market:*" />
         <splash density="port-hdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
