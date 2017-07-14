@@ -1,4 +1,3 @@
-import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import * as React from 'react';
 import {compose, createStore,applyMiddleware} from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist'
@@ -9,7 +8,6 @@ import thunk from 'redux-thunk';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
-OfflinePluginRuntime.install();
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './containers/AppTheme';
