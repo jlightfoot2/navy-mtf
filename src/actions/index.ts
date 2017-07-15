@@ -16,9 +16,39 @@ export const SET_GEO_SEARCH_RESULTS = 'T2.SET_GEO_SEARCH_RESULTS';
 export const DISMISS_911_WARNING = 'T2.DISMISS_911_WARNING';
 export const SET_HOSPITAL_GEO_SORT_TEXT = 'T2.SET_HOSPITAL_GEO_SORT_TEXT';
 export const UNWATCH_CURRENT_LOCATION = 'T2.UNWATCH_CURRENT_LOCATION';
+export const SET_HOSPITALS_PAGE = 'T2.SET_HOSPITALS_PAGE';
 
 import {search_city, search_zipcodes, get_results_array} from '../sqlite';
-import {getHospitalSortFilter} from '../containers/selectors'
+import {getHospitalSortFilter,getHospitalPage,getHospitalsPageMax} from '../containers/selectors'
+
+
+export const hospitalNextPage = () => {
+  return (dispatch,getState,extraArgs) => {
+    const currState = getState();
+    const page = getHospitalPage(currState);
+    if(page < getHospitalsPageMax(currState)){
+      dispatch(setHospitalPage(page + 1));
+    }
+  }
+}
+
+export const hospitalPrevPage = () => {
+  return (dispatch,getState,extraArgs) => {
+    const currState = getState();
+    const page = getHospitalPage(currState);
+    if(page > 0){
+      dispatch(setHospitalPage(page - 1));
+    }
+  }
+}
+
+export const setHospitalPage = (page: number) => {
+  return {
+    type: SET_HOSPITALS_PAGE,
+    page
+  }
+}
+
 
 export const eulaAccepted = () => {
   return {
@@ -154,6 +184,15 @@ export const sortHospitals = (sortBy: string, sortDir = 'asc') => {
 }
 
 export const searchHospitals = (text: string) => {
+  return (dispatch,getState,extraArgs) => {
+      //search change pagination so must reset page on
+      // any action which filters results
+      dispatch(setHospitalPage(0)); 
+      dispatch(searchHospitalText(text));
+  }
+}
+
+export const searchHospitalText= (text: string) => {
   return {
     type: FILTER_HOSPITALS,
     text

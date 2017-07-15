@@ -6,7 +6,7 @@ import {getHospitalSearchText} from './selectors'
 
 const stateToProps = (state, ownProps) => {
   return {
-    searchText: getHospitalSearchText(state, ownProps),
+    searchText: getHospitalSearchText(state),
     sortConfig: state.filters.hospitals
   }
 }

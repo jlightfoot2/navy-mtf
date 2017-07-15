@@ -5,12 +5,18 @@ import {List} from 'material-ui/List';
 import {blueContainer} from './commonStyles';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import CommandsPagination from './CommandsPagination';
 
 export interface Props {
   hospitals: CommandInterface[];
-  itemClick(hospital: CommandInterface): void;
   show911Warning: boolean;
   dismiss911: () => void;
+  addFavorite(hospital: CommandInterface): void;
+  itemClick(hospital: CommandInterface): void;
+  history:{push: any}
+  setPage: (pageIdx: number) => void;
+  page: number;
+  lastPage: number;
 }
 
 export interface State {
@@ -36,8 +42,8 @@ export default class CommandHospitals extends React.Component<Props, State>{
   }
 
   render(){
-    const {hospitals,show911Warning,dismiss911} = this.props;
-   
+    const {hospitals,show911Warning,dismiss911,page,lastPage,setPage} = this.props;
+     console.log(this.props);
     return <div>
 
               {show911Warning && <br />}
@@ -52,9 +58,11 @@ export default class CommandHospitals extends React.Component<Props, State>{
               </div>}
 
               <List>
+                <CommandsPagination page={page} lastPage={lastPage} setPage={setPage} />
                 {hospitals.map(hospital => {
                   return <CommandListItem key={hospital.id} itemClick={this.handleItemClick} hospital={hospital} />
                 })}
+                <CommandsPagination page={page} lastPage={lastPage} setPage={setPage} />
               </List>
               
            </div>;

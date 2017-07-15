@@ -17,7 +17,8 @@ import {
   EULA_REJECTED,
   SET_GEO_SEARCH_RESULTS,
   DISMISS_911_WARNING,
-  SET_HOSPITAL_GEO_SORT_TEXT
+  SET_HOSPITAL_GEO_SORT_TEXT,
+  SET_HOSPITALS_PAGE
 } from '../actions';
 import {combineReducers} from 'redux';
 import {arrayPushUnique,arrayRemove,copyArray} from './_helper';
@@ -27,7 +28,9 @@ const defaultFilters = {
     sortBy: "default",
     sortDir: "asc",
     filterText: "",
-    sortText: ""
+    sortText: "",
+    resultsMax: 10,
+    currentPage: 0
   }
 }
 
@@ -73,6 +76,9 @@ const filters = (state = defaultFilters, action) => {
       break;
     case SET_HOSPITAL_GEO_SORT_TEXT:
       newHospitals = {...state.hospitals,sortText: action.text};
+      state = {...state,hospitals: newHospitals};
+    case SET_HOSPITALS_PAGE:
+      newHospitals = {...state.hospitals,currentPage: action.page};
       state = {...state,hospitals: newHospitals};
       break;
   }
