@@ -16,6 +16,7 @@ export const getHospitalSortFilter = (state) => state.filters.hospitals;
 export const getHospitalPage = (state) => getHospitalSortFilter(state).currentPage;
 export const getHospitalsResultMax = (state) => getHospitalSortFilter(state).resultsMax;
 
+export const getPermissions = (state) => state.settings.permissions;
 
 export const searchHospitals = createSelector( //just searching titles for now
   [getHospitals,getHospitalSearchText],
@@ -33,6 +34,9 @@ export const getHospitalsAdvanced = createSelector( //just searching titles for 
     let sortCb = alphaSort('title',sortFilter.sortDir);
     if(sortFilter.sortBy === 'current_location' || sortFilter.sortBy === 'zip_city_location'){
       sortCb = alphaSort('distance',sortFilter.sortDir);
+    }
+    if(longitude === null || latitude === null){
+      return hospitals.sort(sortCb);
     }
     return hospitals.map(hospital => calcDistance(hospital,latitude,longitude))
                       .sort(sortCb);

@@ -12,7 +12,8 @@ export interface Props {
   searchHospitals(text: string): void;
   searchText: string;
   sortHospitals(text: string,direction:string): void;
-  sortConfig: {sortBy: string, sortDir: string}
+  sortConfig: {sortBy: string, sortDir: string};
+  locationPermission: boolean;
 }
 
 export interface State {
@@ -65,7 +66,7 @@ export default class ListToolbar extends React.Component<Props, State>{
 
   render(){
     const {showSort,showFilter} = this.state;
-    const {searchHospitals,searchText,sortConfig} = this.props;
+    const {searchHospitals,searchText,sortConfig,locationPermission} = this.props;
     const {sortBy} = sortConfig;
     return       <div>
                     <Toolbar>
@@ -86,7 +87,7 @@ export default class ListToolbar extends React.Component<Props, State>{
                     </Toolbar>
 
 
-                    {showSort && <ListSortWidget onSelect={this.handleRadioSelect} selectedRadio={sortBy} />}
+                    {showSort && <ListSortWidget locationPermission={locationPermission} onSelect={this.handleRadioSelect} selectedRadio={sortBy} />}
 
 
                  </div>

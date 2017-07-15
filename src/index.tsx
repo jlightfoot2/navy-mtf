@@ -36,6 +36,7 @@ const render = (Component: any) => {
   const thunkArgs = {
     isCordova: __IS_CORDOVA_BUILD__,
     platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform.toLowerCase() : 'browser',
+    nativeSettings: __IS_CORDOVA_BUILD__  ? (window as any).cordova.plugins.settings : null,
     db: db
   }
   const store = createStore(

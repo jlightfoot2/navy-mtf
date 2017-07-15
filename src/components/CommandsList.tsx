@@ -43,7 +43,7 @@ export default class CommandHospitals extends React.Component<Props, State>{
 
   render(){
     const {hospitals,show911Warning,dismiss911,page,lastPage,setPage} = this.props;
-     console.log(this.props);
+
     return <div>
 
               {show911Warning && <br />}

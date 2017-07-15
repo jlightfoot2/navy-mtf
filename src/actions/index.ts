@@ -7,6 +7,7 @@ export const SET_PAGE_TITLE = 'T2.SET_PAGE_TITLE';
 export const SORT_HOSPITALS = 'T2.SORT_HOSPITALS';
 export const FILTER_HOSPITALS = 'T2.FILTER_HOSPITALS';
 export const SET_USER_LOCATION = 'T2.SET_USER_LOCATION';
+export const SET_USER_PERMISSION_LOCATION = 'T2.SET_USER_PERMISSION_LOCATION';
 export const SET_USER_PLATFORM = 'T2.SET_USER_PLATFORM';
 export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
 export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
@@ -19,7 +20,7 @@ export const UNWATCH_CURRENT_LOCATION = 'T2.UNWATCH_CURRENT_LOCATION';
 export const SET_HOSPITALS_PAGE = 'T2.SET_HOSPITALS_PAGE';
 
 import {search_city, search_zipcodes, get_results_array} from '../sqlite';
-import {getHospitalSortFilter,getHospitalPage,getHospitalsPageMax} from '../containers/selectors'
+import {getHospitalSortFilter,getHospitalPage,getHospitalsPageMax,getPermissions} from '../containers/selectors'
 
 
 export const hospitalNextPage = () => {
@@ -29,6 +30,13 @@ export const hospitalNextPage = () => {
     if(page < getHospitalsPageMax(currState)){
       dispatch(setHospitalPage(page + 1));
     }
+  }
+}
+
+export const setPermissionUserLocation = (permissionGranted: boolean) => {
+  return {
+    type: SET_USER_PERMISSION_LOCATION,
+    granted: permissionGranted
   }
 }
 
@@ -80,7 +88,6 @@ export const setGpsSearchResults = (results:{title: string, latitude: number, lo
 let geoWatchID;
 
 export const watchCurrentLocation = () => {
-  console.log('watchCurrentLocation');
   return (dispatch,getState,extraArgs) => {
     if(geoWatchID){
       window.navigator.geolocation.clearWatch(geoWatchID);
@@ -92,9 +99,39 @@ export const watchCurrentLocation = () => {
          dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
        }
        
+    },(PositionError) => {
+        if(PositionError.code === PositionError.PERMISSION_DENIED){
+          const locationPermission = getPermissions(getState()).location;
+          if(locationPermission){ //user has given permission
+            dispatch(openLocationSettings());
+          }
+        }
+        if(PositionError.code === PositionError.POSITION_UNAVAILABLE){
+          alert('POSITION_UNAVAILABLE');
+        }
+        if(PositionError.code === PositionError.TIMEOUT){
+          alert('TIMEOUT');
+        }
     })
   }
 }
+
+export const openLocationSettings = () => {
+  return (dispatch,getState,extraArgs) => {
+    if (extraArgs.isCordova && extraArgs.nativeSettings) {
+          extraArgs.nativeSettings.open("location", function() {
+                  console.log('opened settings');
+            },
+            function () {
+                console.log('failed to open settings');
+            }
+          );
+    } else {
+        console.log('openNativeSettingsTest is not active!');
+    }
+  }
+}
+
 export const unWatchCurrentLocation = () => {
   if(geoWatchID){
     window.navigator.geolocation.clearWatch(geoWatchID);

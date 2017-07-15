@@ -18,7 +18,8 @@ import {
   SET_GEO_SEARCH_RESULTS,
   DISMISS_911_WARNING,
   SET_HOSPITAL_GEO_SORT_TEXT,
-  SET_HOSPITALS_PAGE
+  SET_HOSPITALS_PAGE,
+  SET_USER_PERMISSION_LOCATION
 } from '../actions';
 import {combineReducers} from 'redux';
 import {arrayPushUnique,arrayRemove,copyArray} from './_helper';
@@ -35,14 +36,17 @@ const defaultFilters = {
 }
 
 const defaultUser = {
-  latitude: 0,
-  longitude: 0,
+  latitude: null,
+  longitude: null,
   show911Warning: true,
   platform: 'unknown'
 }
 
 const defaultSettings = {
-  eulaAccepted: false
+  eulaAccepted: false,
+  permissions: {
+    location: false
+  }
 }
 
 const defaultView = {
@@ -95,7 +99,7 @@ const searches = (state = defaultSearches, action) => {
   return state;
 }
 
-//Do no save
+//Do not save
 const user = (state = defaultUser, action) => {
   switch(action.type){
     case SET_USER_LOCATION:
@@ -111,6 +115,15 @@ const user = (state = defaultUser, action) => {
   return state;
 }
 
+const permissions = (state,action) => {
+  switch(action.type){
+    case SET_USER_PERMISSION_LOCATION:
+      state = {...state,location: action.granted}
+      break;
+  }
+  return state;
+}
+
 //for this specific app well will save setting in this reducer
 //Do not store PII  here
 const settings = (state = defaultSettings,action) => {
@@ -120,6 +133,9 @@ const settings = (state = defaultSettings,action) => {
       break;
     case EULA_REJECTED:
       state = {...state, eulaAccepted: false};
+      break;
+    case SET_USER_PERMISSION_LOCATION:
+      state = {...state,permissions: permissions(state.permissions,action)}
       break;
   }
   return state;

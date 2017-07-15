@@ -158,10 +158,8 @@ class App extends React.Component<Props, State>{
 
   shouldDisplayFooter = () => {
     const {screen} = this.state;
-    console.log(screen);
     const widthCompare = screen.width > 640 ? 640 : screen.width;
     const hwRatio = screen.height/widthCompare;
-    console.log(hwRatio);
     if(hwRatio < 1.7){
       return false;
     }
