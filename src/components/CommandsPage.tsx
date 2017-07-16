@@ -36,7 +36,7 @@ export default class CommandsPage extends React.Component<Props, State>{
 
   render(){
     return <div style={whiteContainer}>
-              <ListToolBar />
+              <ListToolBar screen={this.props.appPage.screen} />
               <CommandHospitalsContainer />
     </div>;
   }

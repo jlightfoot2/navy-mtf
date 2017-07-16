@@ -1,11 +1,10 @@
 import * as React from 'react';
-//import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 import ListTextSearch from './ListTextSearch';
 import ListSortWidget from './ListSortWidget';
+import {greyContainer,toolBarContentLeft,toolBarContentRight} from './commonStyles'
 
 export interface Props {
   showTextField?: boolean;
@@ -14,6 +13,7 @@ export interface Props {
   sortHospitals(text: string,direction:string): void;
   sortConfig: {sortBy: string, sortDir: string};
   locationPermission: boolean;
+  screen: {width: number, height: number, orientation: string}
 }
 
 export interface State {
@@ -65,26 +65,29 @@ export default class ListToolbar extends React.Component<Props, State>{
 
 
   render(){
-    const {showSort,showFilter} = this.state;
-    const {searchHospitals,searchText,sortConfig,locationPermission} = this.props;
+    const {showSort} = this.state;
+    const {searchHospitals,searchText,sortConfig,locationPermission,screen} = this.props;
+    console.log(screen);
     const {sortBy} = sortConfig;
+    const iconsWidth = 100;
     return       <div>
-                    <Toolbar>
-                      <ToolbarGroup firstChild={true}>
-                        {showFilter && <ListTextSearch 
-                                            handleToggleFilter={this.handleToggleFilter} 
-                                            searchHospitals={searchHospitals} 
-                                            searchText={searchText} 
-                                            />}
-
-                         {!(showFilter || showSort) && <IconButton onTouchTap={this.handleToggleFilter}>
-                           <ActionSearch />
-                         </IconButton>}
-                         {!showFilter && <IconButton onTouchTap={this.handleToggleSort}>
-                           <ContentSort />
-                         </IconButton>}
-                      </ToolbarGroup>
-                    </Toolbar>
+                    <div style={{...greyContainer,height: 50, padding: 0, position: 'relative'}}>
+                        <div style={{...toolBarContentLeft,right: iconsWidth, width: 200}}>
+                          <ListTextSearch 
+                                  handleToggleFilter={this.handleToggleFilter} 
+                                  searchHospitals={searchHospitals} 
+                                  searchText={searchText} 
+                                  />
+                         </div>
+                         <div style={{...toolBarContentRight, width: iconsWidth}}>
+                           <IconButton onTouchTap={this.handleToggleFilter}>
+                             <ActionSearch />
+                           </IconButton>
+                           <IconButton onTouchTap={this.handleToggleSort}>
+                             <ContentSort />
+                           </IconButton>
+                         </div>
+                    </div>
 
 
                     {showSort && <ListSortWidget locationPermission={locationPermission} onSelect={this.handleRadioSelect} selectedRadio={sortBy} />}

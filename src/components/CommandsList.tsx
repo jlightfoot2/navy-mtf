@@ -43,18 +43,23 @@ export default class CommandHospitals extends React.Component<Props, State>{
 
   render(){
     const {hospitals,show911Warning,dismiss911,page,lastPage,setPage} = this.props;
-
+    if(!hospitals.length){
+      return <h3>No Results</h3>;
+    }
     return <div>
 
               {show911Warning && <br />}
               {show911Warning && <div style={blueContainer}>
+
                 <div>
-                If you're experiencing a medical<br /> 
-                emergency please dial 911
+                  If you're experiencing a medical<br /> 
+                  emergency please dial 911
                 </div>
+
                 <IconButton style={styles911Button} onTouchTap={() => {dismiss911()}}>
                   <CloseIcon color={'white'} />
                 </IconButton>
+
               </div>}
 
               <List>

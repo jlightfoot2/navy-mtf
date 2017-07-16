@@ -8,7 +8,8 @@ const stateToProps = (state, ownProps) => {
   return {
     searchText: getHospitalSearchText(state),
     sortConfig: state.filters.hospitals,
-    locationPermission: getPermissions(state).location
+    locationPermission: getPermissions(state).location,
+    screen: ownProps.screen
   }
 }
 

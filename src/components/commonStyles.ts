@@ -73,3 +73,15 @@ export let appBarIconeStyle = {
   position: 'relative' as 'relative',
   left: -20
 }
+
+export let toolBarContentLeft = {
+  position: 'absolute' as 'absolute',
+  top: 0, 
+  width: 200
+}
+
+export let toolBarContentRight = {
+  position: 'absolute' as 'absolute',
+  right: 0, 
+  top: 0
+}
