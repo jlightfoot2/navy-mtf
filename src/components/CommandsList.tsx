@@ -17,6 +17,7 @@ export interface Props {
   setPage: (pageIdx: number) => void;
   page: number;
   lastPage: number;
+  searchText: string;
 }
 
 export interface State {
@@ -42,9 +43,13 @@ export default class CommandHospitals extends React.Component<Props, State>{
   }
 
   render(){
-    const {hospitals,show911Warning,dismiss911,page,lastPage,setPage} = this.props;
+    const {hospitals,show911Warning,dismiss911,page,lastPage,setPage,searchText} = this.props;
     if(!hospitals.length){
-      return <h3>No Results</h3>;
+      let noResultsText = "No Results";
+      if(searchText.length > 0){
+        noResultsText += ` for "${searchText}"`
+      }
+      return <h3>{noResultsText}</h3>;
     }
     return <div>
 

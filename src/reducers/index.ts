@@ -81,6 +81,7 @@ const filters = (state = defaultFilters, action) => {
     case SET_HOSPITAL_GEO_SORT_TEXT:
       newHospitals = {...state.hospitals,sortText: action.text};
       state = {...state,hospitals: newHospitals};
+      break;
     case SET_HOSPITALS_PAGE:
       newHospitals = {...state.hospitals,currentPage: action.page};
       state = {...state,hospitals: newHospitals};

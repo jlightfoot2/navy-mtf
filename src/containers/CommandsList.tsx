@@ -23,7 +23,7 @@ const dispatchToProps = (dispatch,ownProps) => {
     dismiss911: () => {
       dispatch(dismiss911Warning());
     },
-    setPage: (pageIdx: 0) => {
+    setPage: (pageIdx: number) => {
       dispatch(setHospitalPage(pageIdx));
     }
   }

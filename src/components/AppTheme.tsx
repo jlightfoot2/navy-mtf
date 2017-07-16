@@ -203,7 +203,7 @@ class App extends React.Component<Props, State>{
                 <Route exact path="/commands/:id/twitter" render={this.renderRouteComponent(HospitalTwitterPage)} />
 
                 <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{titlePath: "/", leftIcon: <BackButton path="/" />})} />
-                <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{leftIcon: <BackButton path="/leadership" />})} />
+                <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{titlePath: "/leadership",leftIcon: <BackButton path="/leadership" />})} />
                 {showFooter && <div style={footerStyles}>
                   <Route exact path="/" render={(routeProps) => <HomeFooter appPage={this.getAppPageObject()} />} />
                 </div>}

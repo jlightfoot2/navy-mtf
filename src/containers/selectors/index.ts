@@ -8,7 +8,10 @@ export const getHospitalSearchText = (state) => state.filters.hospitals.filterTe
 export const getHospitals = (state) => state.hospitalIds.map(hid => state.hospitals[hid]);
 
 export const getUser = (state) => state.user;
-
+export const userHasLatLon = (state) => {
+    const {latitude,longitude} = getUser(state);
+    return latitude !== null && longitude !== null;
+}
 export const getGeoSearchData = (state) => state.searches.geo;
 
 export const getHospitalSortFilter = (state) => state.filters.hospitals;
@@ -28,24 +31,32 @@ export const searchHospitals = createSelector( //just searching titles for now
 );
 
 export const getHospitalsAdvanced = createSelector( //just searching titles for now
-  [searchHospitals,getUser,getHospitalSortFilter],
-  (hospitals,user,sortFilter) => {
+  [searchHospitals,getUser,getHospitalSortFilter,userHasLatLon],
+  (hospitals,user,sortFilter,hasLatLon) => {
     const {latitude,longitude} = user;
     let sortCb = alphaSort('title',sortFilter.sortDir);
-    if(sortFilter.sortBy === 'current_location' || sortFilter.sortBy === 'zip_city_location'){
+    if(userHasLatLon && sortFilter.sortBy === 'current_location' || sortFilter.sortBy === 'zip_city_location'){
       sortCb = alphaSort('distance',sortFilter.sortDir);
     }
-    if(longitude === null || latitude === null){
-      return hospitals.sort(sortCb);
+
+    if(userHasLatLon){
+      console.log('hospitals advanced yes lat lon');
+      console.log(hospitals);
+      return hospitals.map(hospital => calcDistance(hospital,latitude,longitude))
+                        .sort(sortCb);
     }
-    return hospitals.map(hospital => calcDistance(hospital,latitude,longitude))
-                      .sort(sortCb);
+    console.log('hospitals advanced no lat lon');
+    console.log(hospitals);
+    return hospitals.sort(sortCb);
   }
 );
 
 export const getHospitalsAdvancedPaged = createSelector( //just searching titles for now
   [getHospitalsAdvanced,getHospitalSortFilter],
   (hospitals,sortFilter) => {
+    console.log('hospitals paged');
+    console.log(hospitals);
+    console.log(sortFilter);
     const startIndx = sortFilter.currentPage * sortFilter.resultsMax;
     const resultsLength = startIndx + sortFilter.resultsMax;
     return hospitals.slice(startIndx,resultsLength)
