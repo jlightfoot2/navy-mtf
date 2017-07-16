@@ -21,13 +21,13 @@ export default class ListTextSearch extends React.Component<Props, State>{
   public searchInputField; 
 
 
-  componentDidUpdate(/*prevProps, prevState*/){
-    const {isFocus} = this.props;
+  componentDidUpdate(prevProps/*, prevState*/){
+    const {isFocus,searchText} = this.props;
     
     if(this.searchInputField){
       if(isFocus){
         this.searchInputField.focus();
-      } else {
+      } else if(searchText === prevProps.searchText) {
         this.searchInputField.blur();
       }
     }
