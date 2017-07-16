@@ -19,8 +19,9 @@ export default class LocationToggle extends React.Component<Props, State>{
 
   render(){
     const {isToggled} = this.props;
+    const label =  isToggled ? "Location Enabled" : "Location Disabled";
     return     <Toggle
-                  label="Location"
+                  label={label}
                   toggled={isToggled}
                   onToggle={this.handleOnToggle}
                 />;

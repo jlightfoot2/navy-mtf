@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import GeoSearchField from '../containers/GeoSearchField';
 import {greyContainer,titleStylesLeft2} from './commonStyles';
 import LocationToggle from '../containers/LocationToggle';
 export interface Props {
@@ -21,8 +20,6 @@ export default class ListTextSearch extends React.Component<Props, State>{
 
   render(){
     const {selectedRadio,onSelect,locationPermission} = this.props;
-    const showGeoField = selectedRadio === 'zip_city_location';
-    console.log(locationPermission);
 
     return <div style={greyContainer}>
               <div style={titleStylesLeft2}>Sort By: </div>
@@ -41,7 +38,6 @@ export default class ListTextSearch extends React.Component<Props, State>{
                             value={"default"} 
                           />
                         </RadioButtonGroup>
-                        {showGeoField && <GeoSearchField  />}
                 <div> 
                   <LocationToggle />
                 </div>

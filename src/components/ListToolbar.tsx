@@ -1,9 +1,11 @@
 import * as React from 'react';
 import IconButton from 'material-ui/IconButton';
-import ActionSearch from 'material-ui/svg-icons/action/search';
 import ContentSort from 'material-ui/svg-icons/content/sort';
+import LocationEnabledIcon from 'material-ui/svg-icons/device/location-searching';
+import LocationDisabledIcon from 'material-ui/svg-icons/device/location-disabled';
 import ListTextSearch from './ListTextSearch';
 import ListSortWidget from './ListSortWidget';
+import LocationWidget from './LocationWidget';
 import {greyContainer,toolBarContentLeft,toolBarContentRight} from './commonStyles'
 
 export interface Props {
@@ -21,6 +23,7 @@ export interface State {
   selectedRadio: string;
   showSort: boolean;
   focusTextSearch: boolean;
+  showLocation: boolean;
 }
 
 export default class ListToolbar extends React.Component<Props, State>{
@@ -35,7 +38,8 @@ export default class ListToolbar extends React.Component<Props, State>{
       showTextField: props.showTextField,
       selectedRadio: 'current_location',
       showSort: false,
-      focusTextSearch: false
+      focusTextSearch: false,
+      showLocation: false
     }
   }
   handleRadioSelect = (event: any, value: any) => {
@@ -55,10 +59,8 @@ export default class ListToolbar extends React.Component<Props, State>{
   }
 
   handleToggleFilter = () => {
-    const {focusTextSearch} = this.state;
     this.setState({
-      showSort: false,
-      focusTextSearch: !focusTextSearch
+      showSort: false
     });
   }
 
@@ -66,36 +68,46 @@ export default class ListToolbar extends React.Component<Props, State>{
 
   }
 
+  handleToggleLocationWidget = () => {
+    const {showLocation} = this.state;
+    this.setState({
+      showLocation: !showLocation,
+      showSort: false
+    });
+  }
+
 
   render(){
-    const {showSort,focusTextSearch} = this.state;
-    const {searchHospitals,searchText,sortConfig,locationPermission,screen} = this.props;
-    console.log(screen);
+    const {showSort, showLocation} = this.state;
+    const {searchHospitals,searchText,sortConfig,locationPermission} = this.props;
     const {sortBy} = sortConfig;
     const iconsWidth = 100;
+    const locationIcon = locationPermission ? <LocationEnabledIcon /> : <LocationDisabledIcon />;
     return       <div>
                     <div style={{...greyContainer,height: 50, padding: 0, position: 'relative'}}>
-                        <div style={{...toolBarContentLeft,right: iconsWidth, width: 200}}>
+                        <div style={{...toolBarContentLeft,right: (iconsWidth - 10), width: 170}}>
                           <ListTextSearch
-                                  isFocus={focusTextSearch}
+
                                   handleToggleFilter={this.handleToggleFilter} 
                                   searchHospitals={searchHospitals} 
                                   searchText={searchText} 
                                   />
                          </div>
                          <div style={{...toolBarContentRight, width: iconsWidth}}>
-                           <IconButton onTouchTap={this.handleToggleFilter}>
-                             <ActionSearch />
-                           </IconButton>
                            <IconButton onTouchTap={this.handleToggleSort}>
                              <ContentSort />
+                           </IconButton>
+                           <IconButton onTouchTap={this.handleToggleLocationWidget}>
+                             {locationIcon}
                            </IconButton>
                          </div>
                     </div>
 
-
+                    {showSort && <br />}
                     {showSort && <ListSortWidget locationPermission={locationPermission} onSelect={this.handleRadioSelect} selectedRadio={sortBy} />}
-
+                    
+                    {showLocation && <br />}
+                    {showLocation && <LocationWidget />}
 
                  </div>
   }
