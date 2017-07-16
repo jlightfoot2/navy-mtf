@@ -55,12 +55,14 @@ export default class ListToolbar extends React.Component<Props, State>{
     const {showSort} = this.state;
     this.setState({
       showSort: !showSort,
+      showLocation: false
     });
   }
 
   handleToggleFilter = () => {
     this.setState({
-      showSort: false
+      showSort: false,
+      showLocation: false
     });
   }
 
@@ -85,7 +87,7 @@ export default class ListToolbar extends React.Component<Props, State>{
     const locationIcon = locationPermission ? <LocationEnabledIcon /> : <LocationDisabledIcon />;
     return       <div>
                     <div style={{...greyContainer,height: 50, padding: 0, position: 'relative'}}>
-                        <div style={{...toolBarContentLeft,right: (iconsWidth - 10), width: 170}}>
+                        <div style={{...toolBarContentLeft,right: iconsWidth, width: 170}}>
                           <ListTextSearch
 
                                   handleToggleFilter={this.handleToggleFilter} 

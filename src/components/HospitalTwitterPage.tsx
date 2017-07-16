@@ -18,10 +18,13 @@ export default class HospitalTwitterPage extends React.Component<Props, State>{
 
 
 
-  componentWillMount(){
+
+  componentDidMount(){
     const {appPage,hospital} = this.props;
     appPage.setPageTitle("Twitter");
-    appPage.setMainIcon(<BackButton path={"/commands/" + hospital.id} />);
+    const backPath = "/commands/" + hospital.id;
+    appPage.setTitlePath(backPath);
+    appPage.setMainIcon(<BackButton path={backPath} />);
   }
 
   render(){

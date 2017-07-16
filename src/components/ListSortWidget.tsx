@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import {greyContainer,titleStylesLeft2} from './commonStyles';
-import LocationToggle from '../containers/LocationToggle';
+
 export interface Props {
   selectedRadio: string;
   onSelect: (event: any, value: any) => void;
@@ -38,9 +38,6 @@ export default class ListTextSearch extends React.Component<Props, State>{
                             value={"default"} 
                           />
                         </RadioButtonGroup>
-                <div> 
-                  <LocationToggle />
-                </div>
              </div>;
   }
 
