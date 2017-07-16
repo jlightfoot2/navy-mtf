@@ -20,7 +20,7 @@ export interface State {
   showTextField: boolean;
   selectedRadio: string;
   showSort: boolean;
-  showFilter: boolean;
+  focusTextSearch: boolean;
 }
 
 export default class ListToolbar extends React.Component<Props, State>{
@@ -35,7 +35,7 @@ export default class ListToolbar extends React.Component<Props, State>{
       showTextField: props.showTextField,
       selectedRadio: 'current_location',
       showSort: false,
-      showFilter: false
+      focusTextSearch: false
     }
   }
   handleRadioSelect = (event: any, value: any) => {
@@ -51,21 +51,24 @@ export default class ListToolbar extends React.Component<Props, State>{
     const {showSort} = this.state;
     this.setState({
       showSort: !showSort,
-      showFilter: false
     });
   }
 
   handleToggleFilter = () => {
-    const {showFilter} = this.state;
+    const {focusTextSearch} = this.state;
     this.setState({
-      showFilter: !showFilter,
-      showSort: false
+      showSort: false,
+      focusTextSearch: !focusTextSearch
     });
+  }
+
+  handleSearchTextElement = (element) => {
+
   }
 
 
   render(){
-    const {showSort} = this.state;
+    const {showSort,focusTextSearch} = this.state;
     const {searchHospitals,searchText,sortConfig,locationPermission,screen} = this.props;
     console.log(screen);
     const {sortBy} = sortConfig;
@@ -73,7 +76,8 @@ export default class ListToolbar extends React.Component<Props, State>{
     return       <div>
                     <div style={{...greyContainer,height: 50, padding: 0, position: 'relative'}}>
                         <div style={{...toolBarContentLeft,right: iconsWidth, width: 200}}>
-                          <ListTextSearch 
+                          <ListTextSearch
+                                  isFocus={focusTextSearch}
                                   handleToggleFilter={this.handleToggleFilter} 
                                   searchHospitals={searchHospitals} 
                                   searchText={searchText} 

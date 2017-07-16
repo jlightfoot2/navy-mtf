@@ -40,13 +40,10 @@ export const getHospitalsAdvanced = createSelector( //just searching titles for 
     }
 
     if(userHasLatLon){
-      console.log('hospitals advanced yes lat lon');
-      console.log(hospitals);
       return hospitals.map(hospital => calcDistance(hospital,latitude,longitude))
                         .sort(sortCb);
     }
-    console.log('hospitals advanced no lat lon');
-    console.log(hospitals);
+
     return hospitals.sort(sortCb);
   }
 );
@@ -54,9 +51,6 @@ export const getHospitalsAdvanced = createSelector( //just searching titles for 
 export const getHospitalsAdvancedPaged = createSelector( //just searching titles for now
   [getHospitalsAdvanced,getHospitalSortFilter],
   (hospitals,sortFilter) => {
-    console.log('hospitals paged');
-    console.log(hospitals);
-    console.log(sortFilter);
     const startIndx = sortFilter.currentPage * sortFilter.resultsMax;
     const resultsLength = startIndx + sortFilter.resultsMax;
     return hospitals.slice(startIndx,resultsLength)

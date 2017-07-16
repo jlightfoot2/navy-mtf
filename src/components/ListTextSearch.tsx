@@ -10,6 +10,7 @@ export interface Props {
   searchHospitals(text: string): void;
   searchText: string;
   handleToggleFilter: () => void;
+  isFocus: boolean;
 }
 
 export interface State {
@@ -17,13 +18,26 @@ export interface State {
 }
 
 export default class ListTextSearch extends React.Component<Props, State>{
+  public searchInputField; 
+
+
+  componentDidUpdate(/*prevProps, prevState*/){
+    const {isFocus} = this.props;
+    
+    if(this.searchInputField){
+      if(isFocus){
+        this.searchInputField.focus();
+      } else {
+        this.searchInputField.blur();
+      }
+    }
+  }
 
   render(){
     const {searchHospitals ,searchText/*,handleToggleFilter */} = this.props;
     const clearSearch = (event) => {
         searchHospitals("");
     }
-    //<RaisedButton onTouchTap={handleToggleFilter} label={"Done"} />
 
     return <div>
              <div style={{width: '25%', float: 'left'}}>
@@ -34,6 +48,7 @@ export default class ListTextSearch extends React.Component<Props, State>{
                 style={{width: 150}}
                 value={searchText}
                 hintText={'Search Hospitals'} 
+                ref={(input) => { this.searchInputField = input; }} 
                 onChange={(event,newValue) => {
                   searchHospitals(newValue);
                 }} 
