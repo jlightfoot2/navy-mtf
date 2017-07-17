@@ -64,7 +64,7 @@ const render = (Component: any) => {
        if(getPermissions(store.getState()).location){
          store.dispatch(watchCurrentLocation());
        }
-     },1000);
+     },5000);
 
   const cordovaPause = () => {
      store.dispatch(unWatchCurrentLocation());
