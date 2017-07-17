@@ -10,7 +10,6 @@ export interface Props {
   searchHospitals(text: string): void;
   searchText: string;
   handleToggleFilter: () => void;
-  // onFocus: () => void;
 }
 
 export interface State {

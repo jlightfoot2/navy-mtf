@@ -8,12 +8,11 @@ export interface Props {
 }
 const HotlineItem: React.SFC<Props> = ({hotline}) => {
 
-   return <ListItem 
+   return <ExternalLink target="_system" absolutePath={"tel:" + hotline.numberDial}><ListItem 
             rightIcon={<PhoneIcon color={'green'} />}
             primaryText={hotline.title}
             secondaryText={hotline.numberDisplay}
-            containerElement={<ExternalLink target="_system" absolutePath={"tel:" + hotline.numberDial} />}
-          />
+          /></ExternalLink>
 }
 
 export default HotlineItem;

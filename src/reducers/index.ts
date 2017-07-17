@@ -8,6 +8,7 @@ import {
   SORT_HOSPITALS,
   FILTER_HOSPITALS,
   SET_USER_LOCATION,
+  CLEAR_USER_LOCATION,
   SET_USER_PLATFORM,
   ADD_HOSPITAL_FAVORITES,
   REMOVE_HOSPITAL_FAVORITES,
@@ -105,6 +106,9 @@ const user = (state = defaultUser, action) => {
   switch(action.type){
     case SET_USER_LOCATION:
       state = {...state,latitude: action.latitude, longitude: action.longitude}
+      break;
+    case CLEAR_USER_LOCATION:
+      state = {...state,latitude: null, longitude: null}
       break;
     case DISMISS_911_WARNING:
       state = {...state,show911Warning: false}

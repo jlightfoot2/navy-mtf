@@ -1,6 +1,6 @@
 import ListToolbar from '../components/ListToolbar';
 import {connect} from 'react-redux';
-import {searchHospitals,sortHospitals,watchCurrentLocation,unWatchCurrentLocation} from '../actions';
+import {searchHospitals,sortHospitals} from '../actions';
 import {getHospitalSearchText, getPermissions} from './selectors'
 //TODO do i need this
 
@@ -20,11 +20,6 @@ const dispatchToProps = (dispatch, ownProps) => {
      },
      sortHospitals: (sort: string,direction: string) => {
        dispatch(sortHospitals(sort,direction));
-       if(sort === 'current_location'){
-         dispatch(watchCurrentLocation());
-       } else {
-         dispatch(unWatchCurrentLocation());
-       }
      }
   }
 }

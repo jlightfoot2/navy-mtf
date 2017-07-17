@@ -2,8 +2,14 @@ import {schema, normalize} from 'normalizr';
 import commandsDataRaw from './command-hospitals-data';
 
 const commandsDataWithImages = commandsDataRaw.map(item => { //run images through webpack
-  item.img = require('../images/commands/' + item.img);
-  item.icon = require('../images/commands/icons/' + item.icon);
+  if(item.img){
+    item.img = require('../images/commands/' + item.img);
+  }
+  if(item.icon){
+    item.icon = require('../images/commands/icons/' + item.icon);
+  }
+  
+  
   item['distance'] = -1;
   return item;
 });

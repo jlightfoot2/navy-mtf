@@ -7,6 +7,7 @@ export const SET_PAGE_TITLE = 'T2.SET_PAGE_TITLE';
 export const SORT_HOSPITALS = 'T2.SORT_HOSPITALS';
 export const FILTER_HOSPITALS = 'T2.FILTER_HOSPITALS';
 export const SET_USER_LOCATION = 'T2.SET_USER_LOCATION';
+export const CLEAR_USER_LOCATION = 'T2.CLEAR_USER_LOCATION';
 export const SET_USER_PERMISSION_LOCATION = 'T2.SET_USER_PERMISSION_LOCATION';
 export const SET_USER_PLATFORM = 'T2.SET_USER_PLATFORM';
 export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
@@ -20,7 +21,7 @@ export const UNWATCH_CURRENT_LOCATION = 'T2.UNWATCH_CURRENT_LOCATION';
 export const SET_HOSPITALS_PAGE = 'T2.SET_HOSPITALS_PAGE';
 
 import {search_city, search_zipcodes, get_results_array} from '../sqlite';
-import {getHospitalSortFilter,getHospitalPage,getHospitalsPageMax,getPermissions} from '../containers/selectors'
+import {getHospitalPage,getHospitalsPageMax,getPermissions} from '../containers/selectors'
 
 
 export const hospitalNextPage = () => {
@@ -93,12 +94,10 @@ export const watchCurrentLocation = () => {
       window.navigator.geolocation.clearWatch(geoWatchID);
     }
     geoWatchID = window.navigator.geolocation.watchPosition((position) => {
-       const filterState = getHospitalSortFilter(getState());
-       console.log(filterState);
-       if(filterState.sortBy === 'current_location'){
+       const locationPermission = getPermissions(getState()).location;
+       if(locationPermission){
          dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
        }
-       
     },(PositionError) => {
         if(PositionError.code === PositionError.PERMISSION_DENIED){
           const locationPermission = getPermissions(getState()).location;
@@ -241,6 +240,12 @@ export const setUserLocation = (latitude: number, longitude: number) => {
     type: SET_USER_LOCATION,
     latitude,
     longitude
+  }
+}
+
+export const clearUserLocation = () => {
+  return {
+    type: CLEAR_USER_LOCATION
   }
 }
 

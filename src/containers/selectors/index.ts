@@ -39,12 +39,15 @@ export const getHospitalsAdvanced = createSelector( //just searching titles for 
       sortCb = alphaSort('distance',sortFilter.sortDir);
     }
 
-    if(userHasLatLon){
+    if(hasLatLon){
       return hospitals.map(hospital => calcDistance(hospital,latitude,longitude))
                         .sort(sortCb);
     }
 
-    return hospitals.sort(sortCb);
+    return hospitals.map(hospital => {
+        hospital.distance = -1;
+        return hospital;
+    }).sort(sortCb);
   }
 );
 

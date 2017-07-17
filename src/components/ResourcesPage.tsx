@@ -41,8 +41,8 @@ export default class ResourcesPage extends React.Component<Props, State>{
               {makeLinkItem("Military OneSource","http://www.militaryonesource.mil/service/navy")}
               {makeLinkItem("Veteran's Health Library","http://www.veteranshealthlibrary.org")}
               {/* TODO get correct links below */}
-              {makeLinkItem("Navy and Marine Corps Public Health Center","https://google.com")}
-              {makeLinkItem("TRICARE","https://google.com")}
+              {makeLinkItem("Navy and Marine Corps Public Health Center","http://www.med.navy.mil/sites/nmcphc/Pages/Home.aspx")}
+              {makeLinkItem("TRICARE","https://www.tricare.mil/")}
 
 
             </List>
