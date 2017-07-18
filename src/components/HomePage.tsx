@@ -136,8 +136,11 @@ export default class Home extends React.Component<Props, State>{
                         </Link>
                     </div>
                 </div>
-                <div style={{margin: 10}}>
+                <div style={{margin: '10px 10px -1px 10px'}}>
                     <img style={{borderRadius: 10, width: '100%',}} onTouchTap={externalLink('http://www.med.navy.mil')} src={footerImage} />
+                </div>
+                <div style={{textAlign: 'right',color: 'white',fontSize: '10px',paddingRight: '20px'}}>
+                  Version: 1.0.0
                 </div>
           </div>;
   }
