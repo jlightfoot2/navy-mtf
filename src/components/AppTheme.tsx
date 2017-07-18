@@ -11,7 +11,7 @@ import FacebookPage from './FacebookPage';
 import HomePageHeader from './HomePageHeader';
 import CommandDetailsPage from '../containers/CommandDetailsPage';
 import LeadershipPage from './LeadersPage';
-import HomeFooter from './HomeFooter';
+//import HomeFooter from './HomeFooter';
 import LeadershipDetailsPage from '../containers/LeadershipDetailsPage';
 import HospitalFavoritesListPage from '../containers/HospitalFavoritesListPage';
 import HospitalTwitterPage from '../containers/HospitalTwitterPage';
@@ -25,7 +25,7 @@ import {withRouter} from 'react-router-dom';
 import Page from '../Containers/Page';
 import SnackbarGlobal from '../containers/SnackbarGlobal';
 import LinearProgress from 'material-ui/LinearProgress';
-import {homeFooterDefault, homeFooterAbsolute} from './commonStyles';
+//import {homeFooterDefault, homeFooterAbsolute} from './commonStyles';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -218,9 +218,9 @@ class App extends React.Component<Props, State>{
   render(){
     const {screen,showProgressIndicator} = this.state;
     const {history} = this.props;
-    const showFooter = this.shouldDisplayFooter();
-    const footerAbsolute = this.shouldFooterAbsolute();
-    const footerStyles = footerAbsolute ? homeFooterAbsolute : homeFooterDefault;
+   // const showFooter = this.shouldDisplayFooter();
+   // const footerAbsolute = this.shouldFooterAbsolute();
+    //const footerStyles = footerAbsolute ? homeFooterAbsolute : homeFooterDefault;
     const mainStyles = {position: 'relative' as 'relative', height: screen.height}
     
     const isHomePage = history.location.pathname === '/';
@@ -246,9 +246,7 @@ class App extends React.Component<Props, State>{
 
                 <Route exact path="/leadership" render={this.renderRouteComponent(LeadershipPage,{titlePath: "/", leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/leadership/:id" render={this.renderRouteComponent(LeadershipDetailsPage,{titlePath: "/leadership",leftIcon: <BackButton path="/leadership" />})} />
-                {showFooter && <div style={footerStyles}>
-                  <Route exact path="/" render={(routeProps) => <HomeFooter appPage={this.getAppPageObject()} />} />
-                </div>}
+
                 <SnackbarGlobal />
                 <EulaDialog />
             </div>

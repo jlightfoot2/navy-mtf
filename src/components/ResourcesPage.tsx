@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {AppPageInterface} from './AppTheme'
 import {List, ListItem} from 'material-ui/List';
-import {externalLink} from '../containers/_helper';
 import PhoneIcon from 'material-ui/svg-icons/action/open-in-browser';
+import ExternalLink from './ExternalLink';
 declare module 'react' { //See https://github.com/zilverline/react-tap-event-plugin/issues/58
     interface HTMLProps<T> {
         onTouchTap?: React.EventHandler<React.TouchEvent<T>>;
@@ -18,7 +18,7 @@ export interface State {
 }
 
 const makeLinkItem = (text,absoluteUrl) => {
-  return <ListItem onTouchTap={externalLink(absoluteUrl)} primaryText={text} rightIcon={<PhoneIcon />} />
+  return <ExternalLink absolutePath={absoluteUrl} ><ListItem primaryText={text} rightIcon={<PhoneIcon />} /></ExternalLink>;
 }
 
 
