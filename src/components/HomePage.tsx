@@ -78,7 +78,7 @@ export default class Home extends React.Component<Props, State>{
   }
 
   render(){
-    const {match} = this.props;
+    const {match,appPage} = this.props;
     const contentWidth = this.getContentWidth();
     const limitedWidth = this.getLimitedContentWidth();
     styles = {...styles, width: this.getContentWidth()};
@@ -93,9 +93,9 @@ export default class Home extends React.Component<Props, State>{
     footerStyles = {...footerStyles,width: limitedWidth};
     return <div style={styles}>
                     <div>
-                      <Link to={match.url + 'commands'}>
-                        <img style={{width: this.getMainButtonWidth()}} src={locationsImage} />
-                      </Link>
+
+                        <img onTouchTap={() => appPage.navigateProgress(match.url + 'commands',5000)} style={{width: this.getMainButtonWidth()}} src={locationsImage} />
+          
                     </div>
                     <div style={buttonRowSpacing}>
                       <Link to={match.url + 'hotlines'}>

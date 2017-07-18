@@ -28,6 +28,13 @@ export default class CommandsPage extends React.Component<Props, State>{
     this.props.appPage.setPageTitle("Commands");
   }
 
+  componentDidMount(){
+    const {appPage} = this.props;
+    if(appPage.progressVisible){
+      appPage.hideProgress();
+    }
+  }
+
   handleSearchHospitals = (text: string) => {
     this.setState({
       searchText: text

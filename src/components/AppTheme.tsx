@@ -24,6 +24,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {withRouter} from 'react-router-dom';
 import Page from '../Containers/Page';
 import SnackbarGlobal from '../containers/SnackbarGlobal';
+import LinearProgress from 'material-ui/LinearProgress';
 import {homeFooterDefault, homeFooterAbsolute} from './commonStyles';
 
 const muiTheme = getMuiTheme({
@@ -44,6 +45,10 @@ export interface AppPageInterface {
   setPageTitle(title:string): void;
   setTitlePath(titlePath:string):void;
   history: any;
+  showProgress: (to_ms?: number) => void;
+  hideProgress: () => void;
+  navigateProgress: (path: string,to_ms?: number) => void;
+  progressVisible: boolean;
 }
 
 export interface Props {
@@ -56,6 +61,7 @@ export interface State {
   title: string;
   leftIcon: JSX.Element;
   titlePath: string;
+  showProgressIndicator: boolean;
 }
 class App extends React.Component<Props, State>{
   constructor(props){
@@ -64,7 +70,8 @@ class App extends React.Component<Props, State>{
       screen: this.getScreenDimensions(),
       title: props.title,
       leftIcon: <LeftMenuIcon />,
-      titlePath: '/'
+      titlePath: '/',
+      showProgressIndicator: false
     }
   }
 
@@ -77,10 +84,40 @@ class App extends React.Component<Props, State>{
   }
 
   handleTitleClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     const {history} = this.props;
     const {titlePath} = this.state;
     history.push(titlePath);
   }
+
+  handleNavigationProgress = (path,to_ms = 2000) => {
+    this.handleShowProgress(to_ms);
+    event.preventDefault();
+    event.stopPropagation();
+    const {history} = this.props;
+
+    history.push(path);
+    
+  }
+
+  handleShowProgress = (to_ms = 2000) => {
+    this.setState({
+      showProgressIndicator: true,
+    });
+    const progTo = setTimeout(
+      () => {
+        clearTimeout(progTo );
+        this.handleHideProgress();
+      },to_ms);
+  }
+
+  handleHideProgress = () => {
+    this.setState({
+      showProgressIndicator: false,
+    })
+  }
+
 
   getAppPageObject = ():AppPageInterface => {
     const {setPageTitle,history} = this.props;
@@ -89,7 +126,11 @@ class App extends React.Component<Props, State>{
       setMainIcon: this.handleSetMainIcon,
       setPageTitle,
       history,
-      setTitlePath: this.handleSetTitlePath
+      setTitlePath: this.handleSetTitlePath,
+      showProgress: this.handleShowProgress,
+      hideProgress: this.handleHideProgress,
+      navigateProgress: this.handleNavigationProgress,
+      progressVisible: this.state.showProgressIndicator
     }
   }
 
@@ -175,7 +216,7 @@ class App extends React.Component<Props, State>{
   }
 
   render(){
-    const {screen} = this.state;
+    const {screen,showProgressIndicator} = this.state;
     const {history} = this.props;
     const showFooter = this.shouldDisplayFooter();
     const footerAbsolute = this.shouldFooterAbsolute();
@@ -188,6 +229,7 @@ class App extends React.Component<Props, State>{
             <div style={mainStyles}>
                 {!isHomePage && <AppBar  leftIcon={this.state.leftIcon} onTitleClick={this.handleTitleClick} />} 
                 <Route exact path="/" render={(routeProps) => <HomePageHeader appPage={this.getAppPageObject()} />} />
+                {showProgressIndicator && <LinearProgress color={"rgb(0, 188, 212)"} mode="indeterminate" />}
                 <Route exact path="/" render={this.renderRouteComponent(HomePage)} />
                 <Route exact path="/commands" render={this.renderRouteComponent(CommandsPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/hotlines" render={this.renderRouteComponent(HotlinesPage,{leftIcon: <BackButton path="/" />})} />

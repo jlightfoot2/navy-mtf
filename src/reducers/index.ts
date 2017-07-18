@@ -20,7 +20,8 @@ import {
   DISMISS_911_WARNING,
   SET_HOSPITAL_GEO_SORT_TEXT,
   SET_HOSPITALS_PAGE,
-  SET_USER_PERMISSION_LOCATION
+  SET_USER_PERMISSION_LOCATION,
+  SORT_DEFAULT
 } from '../actions';
 import {combineReducers} from 'redux';
 import {arrayPushUnique,arrayRemove,copyArray} from './_helper';
@@ -85,6 +86,9 @@ const filters = (state = defaultFilters, action) => {
       break;
     case SET_HOSPITALS_PAGE:
       newHospitals = {...state.hospitals,currentPage: action.page};
+      state = {...state,hospitals: newHospitals};
+    case CLEAR_USER_LOCATION:
+      newHospitals = {...state.hospitals,sortBy: SORT_DEFAULT};
       state = {...state,hospitals: newHospitals};
       break;
   }

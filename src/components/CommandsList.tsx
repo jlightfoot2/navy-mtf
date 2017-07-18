@@ -42,8 +42,15 @@ export default class CommandHospitals extends React.Component<Props, State>{
 
   }
 
+  handle911Dismiss = (event) => {
+    const {dismiss911} = this.props;
+    event.preventDefault();
+    event.stopPropagation();
+    dismiss911();
+  }
+
   render(){
-    const {hospitals,show911Warning,dismiss911,page,lastPage,setPage,searchText} = this.props;
+    const {hospitals,show911Warning,page,lastPage,setPage,searchText} = this.props;
     if(!hospitals.length){
       let noResultsText = "No Results";
       if(searchText.length > 0){
@@ -61,7 +68,7 @@ export default class CommandHospitals extends React.Component<Props, State>{
                   emergency please dial 911
                 </div>
 
-                <IconButton style={styles911Button} onTouchTap={() => {dismiss911()}}>
+                <IconButton style={styles911Button} onTouchTap={this.handle911Dismiss}>
                   <CloseIcon color={'white'} />
                 </IconButton>
 

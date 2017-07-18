@@ -20,6 +20,13 @@ export const SET_HOSPITAL_GEO_SORT_TEXT = 'T2.SET_HOSPITAL_GEO_SORT_TEXT';
 export const UNWATCH_CURRENT_LOCATION = 'T2.UNWATCH_CURRENT_LOCATION';
 export const SET_HOSPITALS_PAGE = 'T2.SET_HOSPITALS_PAGE';
 
+
+export const SORT_ALPHABETICAL = 'default';
+export const SORT_DEFAULT = 'default';
+export const SORT_LOCATION = 'current_location';
+export const SORT_CITY_ZIP = 'zip_city_location';
+
+
 import {search_city, search_zipcodes, get_results_array} from '../sqlite';
 import {getHospitalPage,getHospitalsPageMax,getPermissions} from '../containers/selectors'
 

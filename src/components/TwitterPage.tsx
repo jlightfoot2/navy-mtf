@@ -17,6 +17,7 @@ export default class TwitterPage extends React.Component<Props, State>{
 
   componentWillMount(){
     this.props.appPage.setPageTitle("Twitter");
+    this.props.appPage.showProgress(3000);
   }
 
   render(){
