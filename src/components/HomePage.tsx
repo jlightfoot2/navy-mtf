@@ -21,12 +21,12 @@ const facebookImage = require("../res/images/ui/mtf-home-facebook-centered.png")
 const twitterImage = require("../res/images/ui/mtf-home-twitter-centered.png");
 const youTubeImage = require("../res/images/ui/mtf-home-youtube-centered.png");
 const favoriteImage = require("../res/images/ui/mtf-home-favorite-centered.png")
+const footerImage = require("../res/images/ui/mtf-home-footer.png");
 
 
-const buttonRowSpacing = {
-  margin: '20px auto 20px auto'
- // padding: '40px auto 40px auto'
-}
+// const buttonRowSpacing = {
+//   margin: '20px auto 20px auto'
+// }
 let styles = {
   backgroundColor: '#1b4583',
   margin: '0px auto 0px auto',
@@ -40,10 +40,10 @@ let footerStyles = {
   bottom: 0
 }
 
-let socialImageContainerStyles = {
-  float: 'left',
-  position: 'relative' as 'relative'
-}
+// let socialImageContainerStyles = {
+//   float: 'left',
+//   position: 'relative' as 'relative'
+// }
 
 let imageLast = {
   position: 'absolute' as 'absolute',
@@ -59,7 +59,7 @@ export interface State {
 }
 
 export default class Home extends React.Component<Props, State>{
-  static MAX_WIDTH:number = 640;
+  static MAX_WIDTH:number = 532;
   getMainButtonWidth = () => {
     return this.getContentWidth();
   }
@@ -82,66 +82,62 @@ export default class Home extends React.Component<Props, State>{
     const contentWidth = this.getContentWidth();
     const limitedWidth = this.getLimitedContentWidth();
     styles = {...styles, width: this.getContentWidth()};
-    const halfButtonStyles = {
-      width: contentWidth / 2
-    }
+    // const halfButtonStyles = {
+    //   width: contentWidth / 2
+    // }
     const width_dev_4 = contentWidth / 4;
-    const socialContainer = {...socialImageContainerStyles,width: width_dev_4};
-    const socialImage = {width: width_dev_4 * 0.8};
+    // const socialContainer = {...socialImageContainerStyles,width: width_dev_4};
+    // const socialImage = {width: width_dev_4 * 0.8};
     imageLast ={...imageLast,width: width_dev_4 * 0.8};
-    const imageMiddle = {...socialImage, margin: '0px auto 0px auto'};
+    //const imageMiddle = {...socialImage, margin: '0px auto 0px auto'};
     footerStyles = {...footerStyles,width: limitedWidth};
-    return <div style={styles}>
-                    <div>
+    return <div style={{width: limitedWidth, margin: 'auto auto auto auto'}}>
+                <div>
 
-                        <img onTouchTap={() => appPage.navigateProgress(match.url + 'commands',5000)} style={{width: this.getMainButtonWidth()}} src={locationsImage} />
-          
+                    <img style={{width: '100%'}} onTouchTap={() => appPage.navigateProgress(match.url + 'commands',5000)} src={locationsImage} />
+      
+                </div>
+                <div>
+                  <Link to={match.url + 'hotlines'}>
+                    <img style={{width: '50%'}} src={hotlinesImage} />
+                  </Link>  
+                  <span onTouchTap={externalLink("https://app.mil.relayhealth.com/")}>
+                    <img style={{width: '50%'}} src={relayHealthImage} />
+                  </span>
+                </div>
+                <div>
+                  <Link to={match.url + 'resources'}>
+                    <img style={{width: '50%'}} src={resourcesImage} />
+                  </Link>
+                  <Link to={match.url + 'leadership'}>
+                    <img style={{width: '50%'}} src={leaderShipImage} />
+                  </Link>
+                </div>
+                <div style={{height: 100}}>
+                    <div style={{float: 'left',width: '25%'}}>
+                        <Link to={"/facebook"}>
+                          <img src={facebookImage} />
+                        </Link>
                     </div>
-                    <div style={buttonRowSpacing}>
-                      <Link to={match.url + 'hotlines'}>
-                        <img style={halfButtonStyles} src={hotlinesImage} />
-                      </Link>  
-                      <span onTouchTap={externalLink("https://app.mil.relayhealth.com/")}>
-                        <img style={halfButtonStyles} src={relayHealthImage} />
-                      </span>
+                    <div style={{float: 'left',width: '25%'}}>
+                        <Link to={"/twitter"}>
+                          <img  src={twitterImage} />
+                         </Link>
                     </div>
-                    <div style={buttonRowSpacing}>
-                      <Link to={match.url + 'resources'}>
-                        <img style={halfButtonStyles} src={resourcesImage} />
-                      </Link>
-                      <Link to={match.url + 'leadership'}>
-                        <img style={halfButtonStyles} src={leaderShipImage} />
-                      </Link>
+                    <div style={{float: 'left',width: '25%'}}>
+                      <div>
+                        <img onTouchTap={externalLink('https://www.youtube.com/user/USNavyMedicine')} src={youTubeImage} />
+                      </div>
                     </div>
-                    <div>
-                        <div style={socialContainer}>
-                          <div style={socialImage}>
-                            <Link to={"/facebook"}>
-                              <img style={socialImage} src={facebookImage} />
-                            </Link>
-                          </div>
-                        </div>
-                        <div style={socialContainer}>
-                          <div style={imageMiddle}>
-                            <Link to={"/twitter"}>
-                              <img style={imageMiddle}  src={twitterImage} />
-                             </Link>
-                          </div>
-                        </div>
-                        <div style={socialContainer}>
-                          <div style={imageMiddle}>
-                            <img style={imageMiddle} onTouchTap={externalLink('https://www.youtube.com/user/USNavyMedicine')} src={youTubeImage} />
-                          </div>
-                        </div>
-                        <div style={socialContainer}>
-                          <div style={imageLast}>
-                            <Link to={"/favorites"}>
-                              <img style={imageLast} src={favoriteImage} />
-                            </Link>
-                          </div>
-                        </div>
+                    <div style={{float: 'left',width: '25%'}}>
+                        <Link to={"/favorites"}>
+                          <img src={favoriteImage} />
+                        </Link>
                     </div>
-
+                </div>
+                <div>
+                    <img style={{width: '100%'}} onTouchTap={externalLink('http://www.med.navy.mil')} src={footerImage} />
+                </div>
           </div>;
   }
 }
