@@ -87,6 +87,7 @@ const filters = (state = defaultFilters, action) => {
     case SET_HOSPITALS_PAGE:
       newHospitals = {...state.hospitals,currentPage: action.page};
       state = {...state,hospitals: newHospitals};
+      break;
     case CLEAR_USER_LOCATION:
       newHospitals = {...state.hospitals,sortBy: SORT_DEFAULT};
       state = {...state,hospitals: newHospitals};
