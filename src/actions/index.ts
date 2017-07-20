@@ -28,18 +28,9 @@ export const SORT_CITY_ZIP = 'zip_city_location';
 
 
 import {search_city, search_zipcodes, get_results_array} from '../sqlite';
-import {getHospitalPage,getHospitalsPageMax,getPermissions} from '../containers/selectors'
+import {getPermissions} from '../containers/selectors'
 
 
-export const hospitalNextPage = () => {
-  return (dispatch,getState,extraArgs) => {
-    const currState = getState();
-    const page = getHospitalPage(currState);
-    if(page < getHospitalsPageMax(currState)){
-      dispatch(setHospitalPage(page + 1));
-    }
-  }
-}
 
 export const setPermissionUserLocation = (permissionGranted: boolean) => {
   return {
@@ -48,15 +39,6 @@ export const setPermissionUserLocation = (permissionGranted: boolean) => {
   }
 }
 
-export const hospitalPrevPage = () => {
-  return (dispatch,getState,extraArgs) => {
-    const currState = getState();
-    const page = getHospitalPage(currState);
-    if(page > 0){
-      dispatch(setHospitalPage(page - 1));
-    }
-  }
-}
 
 export const setHospitalPage = (page: number) => {
   return {

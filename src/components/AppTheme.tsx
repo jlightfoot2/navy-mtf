@@ -93,8 +93,6 @@ class App extends React.Component<Props, State>{
 
   handleNavigationProgress = (path,to_ms = 2000) => {
     this.handleShowProgress(to_ms);
-    event.preventDefault();
-    event.stopPropagation();
     const {history} = this.props;
 
     history.push(path);

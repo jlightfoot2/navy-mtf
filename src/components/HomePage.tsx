@@ -77,6 +77,16 @@ export default class Home extends React.Component<Props, State>{
     this.props.appPage.setPageTitle("Home");
   }
 
+  handleProgressClick = (path:string,ms:number) => {
+    return (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const {appPage} = this.props;
+      appPage.navigateProgress(path,ms);
+    }
+
+  }
+
   render(){
     const {match,appPage} = this.props;
     const contentWidth = this.getContentWidth();
@@ -93,10 +103,10 @@ export default class Home extends React.Component<Props, State>{
     footerStyles = {...footerStyles,width: limitedWidth};
     const socImgStyles = {display: 'block', margin: '0px auto 0px auto', width: 80};
     return <div style={{width: limitedWidth, height: appPage.screen.height, margin: 'auto auto auto auto'}}>
-                <div style={{margin: 15}}>
-
-                    <img style={{width: '100%'}} onTouchTap={() => appPage.navigateProgress(match.url + 'commands',5000)} src={locationsImage} />
-      
+                <div style={{margin: 15}} onTouchTap={this.handleProgressClick(match.url + 'commands',5000)}>
+         
+                    <img style={{width: '100%'}}  src={locationsImage} />
+                 
                 </div>
                 <div style={{margin: 15}}>
                   <Link to={match.url + 'hotlines'}>
