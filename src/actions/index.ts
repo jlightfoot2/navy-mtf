@@ -68,7 +68,7 @@ export const dismiss911Warning = () => {
 }
 
 export const setGpsSearchResults = (results:{title: string, latitude: number, longitude: number}[]) => {
-  console.log(results);
+ 
   return {
     type: SET_GEO_SEARCH_RESULTS,
     results
@@ -85,7 +85,7 @@ export const watchCurrentLocation = () => {
     geoWatchID = window.navigator.geolocation.watchPosition((position) => {
        const locationPermission = getPermissions(getState()).location;
        if(locationPermission){
-         dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
+         return dispatch(setUserLocation(position.coords.latitude,position.coords.longitude));
        }
     },(PositionError) => {
         if(PositionError.code === PositionError.PERMISSION_DENIED){
