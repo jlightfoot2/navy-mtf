@@ -2,7 +2,7 @@
 <widget id="org.tee2.navymedicine" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Navy Medicine</name>
     <description>
-        Navy Medicine
+        Military Health System
     </description>
     <author email="dave.coleman@tee2.org" href="http://tee2.org">
         T2
