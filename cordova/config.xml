@@ -25,10 +25,10 @@
     <icon src="res/icon/icon-72-2x.png" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <splash density="port-hdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
-        <splash density="port-ldpi" src="res/screen/android/screen-xhdpi-portrait.png" />
-        <splash density="port-mdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
-        <splash density="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
+        <splash density="port-hdpi" src="res/screen/android/screen-xhdpi-portrait-wide.png" />
+        <splash density="port-ldpi" src="res/screen/android/screen-xhdpi-portrait-wide.png" />
+        <splash density="port-mdpi" src="res/screen/android/screen-xhdpi-portrait-wide.png" />
+        <splash density="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait-wide.png" />
     </platform>
     <platform name="ios">
         <splash src="res/screen/ios/Default@2x~universal~anyany.png" />
