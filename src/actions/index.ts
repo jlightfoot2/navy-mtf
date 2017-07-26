@@ -111,7 +111,7 @@ export const openLocationSettings = () => {
     if(locationPermission){
       dispatch(setPermissionUserLocation(false));
       dispatch(clearUserLocation());
-      dispatch(sendMessage("Please Enable Location Settings."));
+      dispatch(sendMessage("Please Enable Location Setting"));
     }
 
     if (extraArgs.isCordova && extraArgs.nativeSettings) {
