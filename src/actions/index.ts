@@ -95,10 +95,10 @@ export const watchCurrentLocation = () => {
           }
         }
         if(PositionError.code === PositionError.POSITION_UNAVAILABLE){
-          alert('POSITION_UNAVAILABLE');
+          //alert('POSITION_UNAVAILABLE');
         }
         if(PositionError.code === PositionError.TIMEOUT){
-          alert('TIMEOUT');
+          //alert('TIMEOUT');
         }
     })
   }
@@ -106,16 +106,21 @@ export const watchCurrentLocation = () => {
 
 export const openLocationSettings = () => {
   return (dispatch,getState,extraArgs) => {
+
+    const locationPermission = getPermissions(getState()).location;
+    if(locationPermission){
+      dispatch(setPermissionUserLocation(false));
+      dispatch(sendMessage("Please Enable Location Settings."));
+    }
+
     if (extraArgs.isCordova && extraArgs.nativeSettings) {
-          extraArgs.nativeSettings.open("location", function() {
-                  console.log('opened settings');
-            },
-            function () {
-                console.log('failed to open settings');
-            }
-          );
-    } else {
-        console.log('openNativeSettingsTest is not active!');
+          // extraArgs.nativeSettings.open("location", function() {
+          //         console.log('opened settings');
+          //   },
+          //   function () {
+          //       console.log('failed to open settings');
+          //   }
+          // );
     }
   }
 }
