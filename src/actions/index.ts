@@ -110,6 +110,7 @@ export const openLocationSettings = () => {
     const locationPermission = getPermissions(getState()).location;
     if(locationPermission){
       dispatch(setPermissionUserLocation(false));
+      dispatch(clearUserLocation());
       dispatch(sendMessage("Please Enable Location Settings."));
     }
 
@@ -166,7 +167,7 @@ export const getCityGeo = (searchStr: string) => {
 export const getZipGeo = (searchStr: string) => {
   return (dispatch,getState,extraArgs) => {
     if(extraArgs.db){ //TODO more checking
-       console.log("getZipGeo");
+   
       search_zipcodes(extraArgs.db,searchStr,15,(err,rs) => {
         //https://www.w3.org/TR/webdatabase/#database-query-results
 
