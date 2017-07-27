@@ -150,7 +150,7 @@ export default class Home extends React.Component<Props, State>{
                     <img style={{borderRadius: 10, width: '100%',}} onTouchTap={externalLink('http://www.med.navy.mil')} src={footerImage} />
                 </div>
                 <div style={{textAlign: 'right',color: 'white',fontSize: '10px',paddingRight: '20px'}}>
-                  Version: 1.0.1
+                  Version: 1.0.2
                 </div>
           </div>;
   }
