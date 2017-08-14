@@ -1,6 +1,7 @@
 node_modules
 cordova/platforms/
 cordova/plugins/
+cordova/www/stats.json
 dist
 .DS_Store
 build/
