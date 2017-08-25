@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {AppPageInterface} from './AppTheme'
 import {List, ListItem} from 'material-ui/List';
-import PhoneIcon from 'material-ui/svg-icons/action/open-in-browser';
+import BrowserIcon from 'material-ui/svg-icons/action/open-in-browser';
 import ExternalLink from './ExternalLink';
 declare module 'react' { //See https://github.com/zilverline/react-tap-event-plugin/issues/58
     interface HTMLProps<T> {
@@ -18,7 +18,7 @@ export interface State {
 }
 
 const makeLinkItem = (text,absoluteUrl) => {
-  return <ExternalLink absolutePath={absoluteUrl} ><ListItem primaryText={text} rightIcon={<PhoneIcon />} /></ExternalLink>;
+  return <ExternalLink absolutePath={absoluteUrl} ><ListItem primaryText={text} rightIcon={<BrowserIcon />} /></ExternalLink>;
 }
 
 
@@ -42,8 +42,8 @@ export default class ResourcesPage extends React.Component<Props, State>{
               {makeLinkItem("Veteran's Health Library","http://www.veteranshealthlibrary.org")}
               {/* TODO get correct links below */}
               {makeLinkItem("Navy and Marine Corps Public Health Center","http://www.med.navy.mil/sites/nmcphc/Pages/Home.aspx")}
-              {makeLinkItem("TRICARE","https://www.tricare.mil/")}
-
+              {makeLinkItem("TRICARE Online","https://www.tricareonline.com")}
+              {makeLinkItem("Suicide Prevention","https://health.mil/suicideprevention")}
 
             </List>
   

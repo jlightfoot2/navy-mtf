@@ -9,6 +9,7 @@ import ResourcesPage from './ResourcesPage';
 import TwitterPage from './TwitterPage';
 import FacebookPage from './FacebookPage';
 import HomePageHeader from './HomePageHeader';
+import PatienPortal from './PatientPortal';
 import CommandDetailsPage from '../containers/CommandDetailsPage';
 import LeadershipPage from './LeadersPage';
 //import HomeFooter from './HomeFooter';
@@ -234,6 +235,7 @@ class App extends React.Component<Props, State>{
                 <Route exact path="/resources" render={this.renderRouteComponent(ResourcesPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/twitter" render={this.renderRouteComponent(TwitterPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/facebook" render={this.renderRouteComponent(FacebookPage,{leftIcon: <BackButton path="/" />})} />
+                <Route exact path="/portal" render={this.renderRouteComponent(PatienPortal,{leftIcon: <BackButton path="/" />})} />
                 
                 <Route exact path="/favorites" render={this.renderRouteComponent(HospitalFavoritesListPage,{leftIcon: <BackButton path="/" />})} />
                 <Route exact path="/favorites/:id" render={this.renderRouteComponent(CommandDetailsPage,{titlePath: "/favorites", leftIcon: <BackButton path="/favorites" />})} />

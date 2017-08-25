@@ -112,9 +112,11 @@ export default class Home extends React.Component<Props, State>{
                   <Link to={match.url + 'hotlines'}>
                     <img style={{width: '50%'}} src={hotlinesImage} />
                   </Link>  
-                  <span onTouchTap={externalLink("https://app.mil.relayhealth.com/")}>
+                  
+                  <Link to={match.url + 'portal'}>
                     <img style={{width: '50%'}} src={relayHealthImage} />
-                  </span>
+                  </Link>
+
                 </div>
                 <div style={{margin: 15}}>
                   <Link to={match.url + 'resources'}>

@@ -14,6 +14,7 @@ import {titleStyles1,contentContainer1,PrimaryColor,greyContainer,whiteContainer
 const facebookImage = require('../res/images/ui/mtf-hospital-facebook.png');
 const twitterImage = require('../res/images/ui/mtf-hospital-twitter.png');
 const websiteImage = require('../res/images/ui/mtf-hospital-website.png');
+const iceImage = require('../res/images/ui/mtf-hospital-ice.png');
 
 export interface Props {
   hospital: CommandInterface;
@@ -58,7 +59,7 @@ export default class CommandDetails extends React.Component<Props, State>{
     const hasTwitter = hospital.twitter.length > 0;
     const hasFacebook = hospital.facebook.length > 0;
     const hasWebsite = hospital.website.length > 0;
- 
+    const hasIce = hospital.ice.length > 0;
     return <div style={whiteContainer}>
               {hospital.img && <div style={styles}>
                 <div style={{width: '90%',margin: '0px auto 0px auto'}}>
@@ -92,6 +93,11 @@ export default class CommandDetails extends React.Component<Props, State>{
                   {hasWebsite && <ExternalLink absolutePath={hospital.website}>
                     <img style={socialIcons} src={websiteImage} />
                   </ExternalLink>}
+
+                  {hasIce && <ExternalLink absolutePath={hospital.ice}>
+                    <img style={socialIcons} src={iceImage} />
+                  </ExternalLink>}
+
                 </div>
               </div>
     </div>
