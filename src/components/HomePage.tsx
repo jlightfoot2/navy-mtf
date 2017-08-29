@@ -14,7 +14,7 @@ declare module 'react' { //See https://github.com/zilverline/react-tap-event-plu
 const locationsImage = require("../res/images/ui/trimmed/button-locations.png");
 const hotlinesImage = require("../res/images/ui/trimmed/button-dod-hotline-big.png");
 const resourcesImage = require("../res/images/ui/trimmed/button-resources.png");
-const relayHealthImage = require("../res/images/ui/trimmed/button-relay-health-big.png");
+const patPortalImage = require("../res/images/ui/patient_portal_button.png");
 const leaderShipImage = require("../res/images/ui/trimmed/button-leadership.png");
 
 const facebookImage = require("../res/images/ui/mtf-home-facebook-centered.png");
@@ -114,7 +114,7 @@ export default class Home extends React.Component<Props, State>{
                   </Link>  
                   
                   <Link to={match.url + 'portal'}>
-                    <img style={{width: '50%'}} src={relayHealthImage} />
+                    <img style={{width: '48.5%',marginLeft: 5, marginBottom: 4}} src={patPortalImage} />
                   </Link>
 
                 </div>

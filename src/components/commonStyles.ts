@@ -71,6 +71,11 @@ export let socialIcons = {
   marginRight: 10
 }
 
+export let socialIcons2 = {
+  width: 52,
+  marginRight: 10
+}
+
 export const fullWidthDialagStyle = {
   width: '100%',
   maxWidth: '700px'

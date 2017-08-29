@@ -6,7 +6,7 @@ import NavigationIcon from 'material-ui/svg-icons/maps/navigation';
 import PhoneCallIcon from 'material-ui/svg-icons/communication/call';
 import FavoriteCheckbox from './FavoriteCheckBox';
 import { Link } from 'react-router-dom';
-import {socialIcons} from './commonStyles';
+import {socialIcons,socialIcons2} from './commonStyles';
 import ExternalLink from './ExternalLink';
 
 import {titleStyles1,contentContainer1,PrimaryColor,greyContainer,whiteContainer} from './commonStyles';
@@ -95,7 +95,7 @@ export default class CommandDetails extends React.Component<Props, State>{
                   </ExternalLink>}
 
                   {hasIce && <ExternalLink absolutePath={hospital.ice}>
-                    <img style={socialIcons} src={iceImage} />
+                    <img style={socialIcons2} src={iceImage} />
                   </ExternalLink>}
 
                 </div>
