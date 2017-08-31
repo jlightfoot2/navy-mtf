@@ -11,11 +11,11 @@ declare module 'react' { //See https://github.com/zilverline/react-tap-event-plu
 
 
 
-const locationsImage = require("../res/images/ui/trimmed/button-locations.png");
-const hotlinesImage = require("../res/images/ui/trimmed/button-dod-hotline-big.png");
-const resourcesImage = require("../res/images/ui/trimmed/button-resources.png");
-const patPortalImage = require("../res/images/ui/patient_portal_button.png");
-const leaderShipImage = require("../res/images/ui/trimmed/button-leadership.png");
+const locationsImage = require("../res/images/ui/button-locations.png");
+const hotlinesImage = require("../res/images/ui/button-dod-hotline-big.png");
+const resourcesImage = require("../res/images/ui/button-resources.png");
+const patPortalImage = require("../res/images/ui/button-patient-portal.png");
+const leaderShipImage = require("../res/images/ui/button-leadership.png");
 
 const facebookImage = require("../res/images/ui/mtf-home-facebook-centered.png");
 const twitterImage = require("../res/images/ui/mtf-home-twitter-centered.png");
@@ -108,22 +108,22 @@ export default class Home extends React.Component<Props, State>{
                     <img style={{width: '100%'}}  src={locationsImage} />
                  
                 </div>
-                <div style={{margin: 15}}>
+                <div style={{margin: 15, position: 'relative'}}>
+                
                   <Link to={match.url + 'hotlines'}>
-                    <img style={{width: '50%'}} src={hotlinesImage} />
+                    <img style={{width: '48%'}} src={hotlinesImage} />
                   </Link>  
-                  
                   <Link to={match.url + 'portal'}>
-                    <img style={{width: '48.5%',marginLeft: 5, marginBottom: 4}} src={patPortalImage} />
+                    <img style={{width: '48%',position: 'relative', left: '4%'}} src={patPortalImage} />
                   </Link>
 
                 </div>
                 <div style={{margin: 15}}>
                   <Link to={match.url + 'resources'}>
-                    <img style={{width: '50%'}} src={resourcesImage} />
+                    <img style={{width: '48%'}} src={resourcesImage} />
                   </Link>
                   <Link to={match.url + 'leadership'}>
-                    <img style={{width: '50%'}} src={leaderShipImage} />
+                    <img style={{width: '48%',position: 'relative', left: '4%'}} src={leaderShipImage} />
                   </Link>
                 </div>
                 <div style={{height: 100,margin: 15,paddingTop: 10}}>
@@ -152,7 +152,7 @@ export default class Home extends React.Component<Props, State>{
                     <img style={{borderRadius: 10, width: '100%',}} onTouchTap={externalLink('http://www.med.navy.mil')} src={footerImage} />
                 </div>
                 <div style={{textAlign: 'right',color: 'white',fontSize: '10px',paddingRight: '20px'}}>
-                  Version: 1.0.3
+                  Version: 1.0.4
                 </div>
           </div>;
   }
