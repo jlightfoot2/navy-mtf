@@ -8,15 +8,17 @@ export interface HotlineInterface {
   title: string;
   numberDisplay: string;
   numberDial: string;
+  image: string;
 }
 
 
-export const makeHotline = (id:number, title: string, numberDisplay: string, numberDial: string = ''):HotlineInterface  => {
+export const makeHotline = (id:number, title: string, numberDisplay: string, numberDial: string = '', image: string = ''):HotlineInterface  => {
   return {
     id,
     title,
     numberDisplay,
-    numberDial
+    numberDial,
+    image
   }
 }
 //TODO double check phone #s

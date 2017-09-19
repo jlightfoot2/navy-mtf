@@ -1,8 +1,12 @@
 import * as React from 'react';
-import ExternalLink from './ExternalLink';
 import {AppPageInterface} from './AppTheme';
-import {List, ListItem} from 'material-ui/List';
-import BrowserIcon from 'material-ui/svg-icons/action/open-in-browser';
+import {List} from 'material-ui/List';
+import ListItemExternal from './ListItemExternal';
+
+const  TricareOnlineImage = require('../res/images/ui/link-icons/Navy_Icon_TriCarePortal_2.png');
+const  RelayHealthImage = require('../res/images/ui/link-icons/Navy_Icon_RelayHealth.png');
+
+
 export interface Props {
   appPage: AppPageInterface;
 }
@@ -10,9 +14,7 @@ export interface Props {
 export interface State {
   
 }
-const makeLinkItem = (text,absoluteUrl) => {
-  return <ExternalLink absolutePath={absoluteUrl} ><ListItem primaryText={text} rightIcon={<BrowserIcon />} /></ExternalLink>;
-}
+
 export default class PatientPortalPage extends React.Component<Props, State>{
   componentWillMount(){
 
@@ -25,8 +27,8 @@ export default class PatientPortalPage extends React.Component<Props, State>{
     // const {appPage} = this.props;
     return <div style={{backgroundColor: 'white'}}>
       <List>
-        {makeLinkItem("TRICARE Online","https://www.tricareonline.com")}
-        {makeLinkItem("RelayHealth","https://app.mil.relayhealth.com/")}
+        <ListItemExternal text="TRICARE Online" absoluteUrl={"https://www.tricareonline.com"} imageSrc={TricareOnlineImage} />
+        <ListItemExternal text="RelayHealth" absoluteUrl={"https://app.mil.relayhealth.com/"} imageSrc={RelayHealthImage} />
       </List>
     </div>;
   }
