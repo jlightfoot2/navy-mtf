@@ -5,3 +5,4 @@ declare module "*.json" {
 
 
 declare const __IS_CORDOVA_BUILD__: boolean;
+declare const __DEVTOOLS__: boolean;

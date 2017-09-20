@@ -116,10 +116,10 @@ export const openLocationSettings = () => {
 
     if (extraArgs.isCordova && extraArgs.nativeSettings) {
           // extraArgs.nativeSettings.open("location", function() {
-          //         console.log('opened settings');
+          //        //something here
           //   },
           //   function () {
-          //       console.log('failed to open settings');
+          //       //something here
           //   }
           // );
     }
@@ -183,7 +183,7 @@ export const getZipGeo = (searchStr: string) => {
                             longitude: zip.Longitude
                           }
                   });
-                console.log(gpsResults );
+                
               dispatch(setGpsSearchResults(gpsResults));
           } else {
              dispatch(setGpsSearchResults([]));
@@ -298,7 +298,7 @@ var timeOutId = null
 export const sendMessage = (message) => {
   
   return (dispatch,getState,extraArgs) => {
-    console.log(extraArgs);
+    
     dispatch(messageStart(message));
 
     if(timeOutId){

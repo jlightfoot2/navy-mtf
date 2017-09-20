@@ -54,10 +54,12 @@ const render = (Component: any) => {
     storage: localForage,
     keyPrefix: 'navyMtfV1:'
   })
+  if(__DEVTOOLS__){
+    store.subscribe(() => {
+        console.log(store.getState()); // list entire state of app
+    });
+  }
 
-  store.subscribe(() => {
-      console.log(store.getState()); // list entire state of app
-  });
   store.dispatch(setUserPlatform(thunkArgs.platform));
 
   setTimeout(() => {

@@ -43650,8 +43650,7 @@ export const add_locations_data = (db:any) => {
 
     },
     (tx,e) => {
-      console.log("ERROR: Zipcodes insert" + e);
-      console.log(e);
+      //Error callback
     });
 
     tx.executeSql(`INSERT INTO Cities (Name,StateAbbrev,Latitude,Longitude) VALUES ('Adak','AK',51.88,-176.65806),
@@ -71269,8 +71268,7 @@ export const add_locations_data = (db:any) => {
 
     },
     (tx, e) => {
-      console.log("ERROR: Cities insert" + e);
-      console.log(e);
+      //error callback
     })
   });
 }
@@ -71282,18 +71280,16 @@ export const has_location_tables = (db:any,cb: (error: any, hasTables:boolean) =
       "SELECT count(*) AS tablecount FROM sqlite_master WHERE type='table' AND (name=? OR name=?)",
       ["Cities","Zipcodes"],
       (tx, rs) => {
-          console.log("SELECT count(*) AS tablecount...");
-          console.log(rs.rows.item(0).tablecount);
+          
           cb(null,rs.rows.item(0).tablecount === 2);
       },
       (tx, e) => {
-          console.log("ERROR: tablecount 1" + e.message)
+   
           cb(e,false);
       }
     );
   }, 
   (e) => {
-          console.log("ERROR: tablecount 2" + e.message)
           cb(e,false);
   });
 }
@@ -71308,7 +71304,6 @@ export const create_location_tables = (db:any,cb: (error: any, result:boolean) =
     tx.executeSql('CREATE TABLE Cities(Name TEXT, StateAbbrev TEXT, Latitude NUMERIC, Longitude NUMERIC)');
   }, 
   (e) => {
-          console.log("ERROR: create location tables" + e.message)
           cb(e,false);
   },
   () => {

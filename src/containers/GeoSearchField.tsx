@@ -4,7 +4,6 @@ import {setUserLocation,getCityGeo,setHospitalGeoSortText,getZipGeo} from '../ac
 import {isNumeric} from './_helper'
 
 const stateToProps = (state,ownProps) => {
-  console.log(state.filters.hospitals);
   return {
     searchData: state.searches.geo,
     sortText: state.filters.hospitals.sortText

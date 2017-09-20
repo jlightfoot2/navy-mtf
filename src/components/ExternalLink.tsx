@@ -27,7 +27,6 @@ export default class ExternalLink extends React.Component<Props, State>{
      event.stopPropagation();
 
      const {absolutePath,target} = this.props;
-     console.log(absolutePath);
       if(typeof (window as any).cordova === 'undefined' || typeof (window as any).cordova.InAppBrowser === 'undefined'){
         return window.open(absolutePath,target);
       }
